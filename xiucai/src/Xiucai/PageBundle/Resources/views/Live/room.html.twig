@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="秀财网" />
+    <meta name="description" content="秀财网" />
+    <title>{{ courseData.title }}</title>
+    <link rel="shortcut icon" href="{{ asset('assets/img/favicon.ico') }}" />
+    <meta itemprop="image" content="{{ asset('assets/img/favicon.ico') }}">
+    <script type="text/javascript" src="{{ asset('assets/js/jquery-1.7.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/swfobject.js') }}"></script>
+    <style type="text/css">
+        h1{font-size: 22px;color: #595959;font-family: 'Microsoft Yahei';font-weight: normal;}
+        .error{margin: 0 auto; width: 1200px; text-align: center; padding-top: 100px; display: none;}
+        .error .error_bg{background-image: url({{ asset('assets/img/error/flash_bg.png') }}); background-repeat: no-repeat; width: 820px; height:488px ; margin: 0 auto; }
+        .error .error_bg .title{color:#333333; font-family: 'Microsoft Yahei';font-size: 16px; padding-top: 250px;text-align: left; padding-left: 120px; }
+    </style>
+    <script type="text/javascript" language="JavaScript">
+        $(document).ready(function()
+        {
+            var version = deconcept.SWFObjectUtil.getPlayerVersion();
+            //alert(version['major'] +"."+ version['minor'] +"."+ version['rev']);
+            if (document.getElementById && version["major"] > 0) {
+                if(version['major']>13){
+                    $("#live_iframe_div").show();
+                }else{
+                    $("#error").show();
+                    //document.getElementById("live_iframe").src="1";
+                    //$("#live_iframe").remove();
+                    //$("#live_iframe").attr("src","");
+                    //$("#live_iframe").removeAttr("src");
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+{#内容#}
+<div id="live_iframe_div" style="display: none;">
+<div id="aaa" style="height: 63px;line-height: 63px;width: 910px;margin: 0 auto;">
+    <h1>{{ courseData.title }}</h1>
+</div>
+{#中间内容框架#}
+
+<iframe id="live_iframe"  class="live_iframe" frameborder='0' style="width:100%; z-index: 999; min-height: 625px;" src="{{ roomUrl }}"></iframe>
+
+{#中间内容框架 结束#}
+</div>
+<div id="error" class="error">
+    <div class="error_bg">
+        <div class="title">很抱歉，我们发现您的flash版本过低，为了您更流畅的听课体验，我们建议您更换：
+        <br><br><br>
+        1 更换更稳定的浏览器 :&nbsp;&nbsp;<img src="{{ asset('assets/img/error/ie.png') }}">&nbsp;&nbsp;<img src="{{ asset('assets/img/error/google.png') }}">
+        <br><br>
+        2 如果您已经使用以上浏览器，请升级<a href="http://get.adobe.com/flashplayer/" style="color:#3761e8; font-family: 'Microsoft Yahei';font-size: 16px; text-decoration: underline;">flash player版本</a></div>
+    </div>
+</div>
+{#内容 结束#}
+</body>
+</html>

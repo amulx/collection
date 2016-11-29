@@ -1,0 +1,27 @@
+<table>
+	<tr>
+		<td>序号</td>
+		<td>name</td>
+	</tr>
+
+	{foreach from=$data item='value'}
+		<tr>
+			<td>序号</td>
+			<td>name</td>
+		</tr>
+	{/foreach}
+
+	<tr>
+
+		<td colspan='3'>
+			共条数据
+			共页
+			每页
+			每页条
+			首页
+			上一页
+			下一页
+			尾页
+		</td>
+	</tr>
+</table>

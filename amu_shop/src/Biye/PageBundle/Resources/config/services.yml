@@ -1,0 +1,4 @@
+services:
+#    biye_page.example:
+#        class: Biye\PageBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

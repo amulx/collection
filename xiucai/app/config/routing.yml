@@ -1,0 +1,16 @@
+store:
+    resource: "@StoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
+admin:
+    resource: "@AdminBundle/Resources/config/routing.yml"
+    prefix:   /
+
+service:
+    resource: "@ServiceBundle/Resources/config/routing.yml"
+    prefix:   /
+
+page:
+    resource: "@PageBundle/Resources/config/routing.yml"
+    prefix:   /
+

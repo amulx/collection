@@ -1,0 +1,69 @@
+#加入购物车
+PageBundle_billing_ajaxcart:
+    path:     /ajaxcart
+    defaults: { _controller: PageBundle:Billing:ajaxCart }
+
+#购物车列表
+PageBundle_billing_cart:
+    path:     /cart
+    defaults: { _controller: PageBundle:Billing:cart }
+
+#我的订单
+PageBundle_billing_myorder:
+    path:     /myorder
+    defaults: { _controller: PageBundle:Billing:myorder }
+
+#确认订单
+PageBundle_billing_confirmorder:
+    path:     /confirmorder
+    defaults: { _controller: PageBundle:Billing:confirmorder }
+
+#支付选择页面
+PageBundle_billing_pay:
+    path:     /pay
+    defaults: { _controller: PageBundle:Billing:pay }
+
+#付款
+PageBundle_billing_checkout:
+    path:     /checkout
+    defaults: { _controller: PageBundle:Billing:alipay }
+
+#支付成功
+PageBundle_billing_pay_success:
+    path:     /paysuccess
+    defaults: { _controller: PageBundle:Billing:paysuccess }
+
+#付款notify
+PageBundle_billing_notify:
+    path:     /notify
+    defaults: { _controller: PageBundle:Billing:notify }
+
+#付款return
+PageBundle_billing_return:
+    path:     /return
+    defaults: { _controller: PageBundle:Billing:return }
+
+#取消订单
+PageBundle_billing_order_cancel:
+    path:     /cancel
+    defaults: { _controller: PageBundle:Billing:cancel }
+
+#我的账户
+PageBundle_billing_account:
+    path:     /account
+    defaults: { _controller: PageBundle:Billing:account }
+
+#索要发票
+PageBundle_Billing_requestinvoice:
+    path:     /requestinvoice
+    defaults: { _controller: PageBundle:Billing:requestinvoice }
+
+#insert索要发票
+PageBundle_billing_addinvoice:
+    path:     /addinvoice
+    defaults: { _controller: PageBundle:Billing:addinvoice }
+
+#测试邮件
+PageBundle_billing_testemail:
+    path:     /testemail
+    defaults: { _controller: PageBundle:Billing:testemail }

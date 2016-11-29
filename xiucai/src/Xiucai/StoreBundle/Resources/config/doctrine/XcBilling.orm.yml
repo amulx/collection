@@ -1,0 +1,86 @@
+Xiucai\StoreBundle\Entity\XcBilling:
+    type: entity
+    table: xc_billing
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        memberId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: '用户ID（对应*_member的ID）'
+            column: member_id
+        createTime:
+            type: datetime
+            nullable: true
+            comment: 创建时间
+            column: create_time
+        currentBalance:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: 当前账户余额，保留字段
+            column: current_balance
+        totalAmount:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: 总消费金额
+            column: total_amount
+        virtualAmount:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: 原价消费总额（按购买产品原价计算）
+            column: virtual_amount
+        totalInvoice:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: 已开发票总额
+            column: total_invoice
+        address:
+            type: string
+            nullable: true
+            length: 512
+            fixed: false
+            comment: 账户邮寄地址
+        postcode:
+            type: string
+            nullable: true
+            length: 8
+            fixed: false
+            comment: 邮编
+        contactNumber:
+            type: string
+            nullable: true
+            length: 16
+            fixed: false
+            comment: 联系号码
+            column: contact_number
+        contactName:
+            type: string
+            nullable: true
+            length: 128
+            fixed: false
+            comment: 联系人
+            column: contact_name
+        companyName:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 账户的公司（对应Invoice的发票抬头）
+            column: company_name
+    lifecycleCallbacks: {  }

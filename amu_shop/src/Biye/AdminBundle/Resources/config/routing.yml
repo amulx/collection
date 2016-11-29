@@ -1,0 +1,32 @@
+#biye_admin_homepage:
+#    path:     /hello/{name}
+#    defaults: { _controller: BiyeAdminBundle:Default:index }
+
+
+biye_admin_admin:
+    resource: "@BiyeAdminBundle/Resources/config/admin.yml"
+    prefix:
+
+biye_admin_cate:
+    resource: "@BiyeAdminBundle/Resources/config/cate.yml"
+    prefix: /cate
+
+biye_admin_product:
+    resource: "@BiyeAdminBundle/Resources/config/product.yml"
+    prefix: /product
+
+biye_admin_systemuser:
+    resource: "@BiyeAdminBundle/Resources/config/systemuser.yml"
+    prefix: /admin
+
+biye_admin_imagemanage:
+    resource: "@BiyeAdminBundle/Resources/config/imagemanage.yml"
+    prefix: /imagemanage
+
+biye_admin_users:
+    resource: "@BiyeAdminBundle/Resources/config/users.yml"
+    prefix: /users
+
+biye_admin_orderfrom:
+    resource: "@BiyeAdminBundle/Resources/config/orderfrom.yml"
+    prefix: /orderfrom

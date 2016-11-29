@@ -1,0 +1,18 @@
+.myorder {width:1200px; margin:0 auto; padding-top:30px;}
+.myorder .div_1 {width:339px}
+.myorder .div_1 .title {padding-bottom:16px;}
+.myorder .div_1 .line {background:url(../img/myorder_line_l.jpg); background-repeat:repeat-x; height:2px; width:280px;}
+.myorder .div_1 .div_list {padding-top:55px;}
+.myorder ul li {height:50px;}
+.myorder ul li.active {color:#f29644;}
+.myorder .div_2 { width:850px;}
+.myorder .div_2 ul.process li{ width:96px;float: left; border-bottom:2px solid #f29644; height:30px; font-weight:bold; color:#f29644; font-size:16px; text-align:center;}
+.myorder .div_2 ul.process li.gray1{ border-bottom:2px solid #dedede; color:#dedede;}
+.myorder .div_2 ul.process li.gray2{ width:658px;float: left; border-bottom:2px solid #dedede;}
+.myorder .div_2 .list{ padding-top:40px;}
+.myorder .div_2 .remark_content{ padding-top:10px;}
+.myorder .div_2 .div_button{ padding-top:10px;}
+.myorder table tr th{ text-align:left; height:50px;}
+.myorder table tr td{ height:50px;}
+.myorder table tr.hover:hover{background-color:#eeeeee;}
+.myorder table tr td .active{color:#f29644;}

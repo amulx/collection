@@ -1,0 +1,46 @@
+Xiucai\StoreBundle\Entity\XcActivate:
+    type: entity
+    table: xc_activate
+    id:
+        id:
+            type: bigint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        memberId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: '用户ID（对应*_member的ID）'
+            column: member_id
+        email:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 用户使用激活的邮箱
+        cellphone:
+            type: string
+            nullable: true
+            length: 16
+            fixed: false
+            comment: 用户使用激活的手机号
+        activateCode:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 激活码
+            column: activate_code
+        expiredDate:
+            type: string
+            nullable: true
+            length: 32
+            fixed: false
+            comment: 激活码失效时间
+            column: expired_date
+    lifecycleCallbacks: {  }

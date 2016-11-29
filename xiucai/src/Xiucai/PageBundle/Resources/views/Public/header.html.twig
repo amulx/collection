@@ -1,0 +1,43 @@
+<div id="moquu_wshare" class="moquu_wshare"><a href="javascript:void(0);"></a></div>
+<div id="moquu_wmaps"><a href="{{ path('PageBundle_page_feedback') }}" target="_blank" class='moquu_wmaps'></a></div>
+<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2355916266&site=qq&menu=yes"><div id="moquu_top"></div></a>
+<div class="top_div">
+    <div class="top_div_1">
+        <div class="fl logo"><a href="{{ path('PageBundle_page_index') }}"><img border="0" src="{{ asset('assets/img/logo.png') }}"></a></div>
+        <div class="fl list">
+            <ul>
+                <li><a href="{% if memberId is not empty %}{{ path('PageBundle_user_index') }}{% else %}{{ path('PageBundle_page_index') }}{% endif %}">首页</a></li>
+                <li><a href="{{ path('PageBundle_course_live') }}">直播课</a></li>
+                <li class="last"><a href="{{ path('PageBundle_course_video') }}">精品课</a></li>
+            </ul>
+        </div>
+        {% if memberId is not empty %}
+            <div onmouseout="javascript:$('#myprofile').hide();" onmouseover="javascript:$('#myprofile').show();" class="sign_right" style="z-index: 1000;">
+                {{ username }}
+                <img style="padding-top:5px; padding-left:2px;" src="{{ asset('assets/img/top_arrow.png') }}">
+                {#<em id="header_cart_count" class="cart_count">{{ cartCount }}</em>#}
+                <div id="myprofile" class="sign_box" style="display: none;z-index: 1000;">
+                    <div class="sign_box_top"></div>
+                    <div class="sign_box_m">
+                        <div class="div1">
+                            <ul>
+                                <li><a href="{{ path('PageBundle_user_index') }}">我的主页</a></li>
+                                {#<li><a href="{{ path('PageBundle_billing_cart') }}">选课单</a></li>
+                                <li><a href="{{ path('PageBundle_billing_myorder') }}">我的订单</a></li>#}
+                                <li><a href="{{ path('PageBundle_user_editor', {'id': memberId}) }}">个人信息</a></li>
+                                <li><a href="{{ path('PageBundle_user_setPass') }}">修改密码</a></li>
+                                <li><a href="{{ path('PageBundle_user_login', {'log_out': 'log_out'}) }}">退出</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sign_box_foot"></div>
+                </div>
+            </div>
+        {% else %}
+            <div class="fr sign">
+                <a  id="login_a" class="login" href="javascript:;">登录</a>
+                <a id="reg_a" class="reg" href="javascript:;">注册</a> |
+            </div>
+        {% endif %}
+    </div>
+</div>

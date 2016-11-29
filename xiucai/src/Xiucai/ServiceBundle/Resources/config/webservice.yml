@@ -1,0 +1,18 @@
+
+#测试页
+webservice_test:
+    path:     /services/test
+    defaults: { _controller: ServiceBundle:Service:test}
+#事件通知
+webservice_event:
+    pattern:  /services/Event/{data}
+    defaults: { _controller: ServiceBundle:Service:event}
+#跳转服务
+webservice_goto:
+    pattern:  /services/Goto/{data}
+    defaults: { _controller: ServiceBundle:Service:goto}
+#获取房间信息服务
+webservice_getroominfo:
+    pattern:  /services/GetRoominfo/{data}
+    defaults: { _controller: ServiceBundle:Service:getRoomInfo}
+

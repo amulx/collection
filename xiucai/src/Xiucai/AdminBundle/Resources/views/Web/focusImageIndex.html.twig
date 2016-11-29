@@ -1,0 +1,170 @@
+    <!--datepicker start-->
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl/green/gui.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl/styles.css') }}" />
+    <script src="{{ asset('assets/js/wzl/jquery-1.7.2.min.js') }}"></script>
+    <!--弹窗-->
+    <!--时间-->
+    <script type="text/javascript" src="{{ asset('assets/My97DatePicker/WdatePicker.js') }}"></script>
+    <style>
+        .cancel_bt{background-color:#CCCCCC; border:0px; color:#FFFFFF; font-size:14px; font-weight:bold;border-radius: 3px; cursor:pointer;}
+        .cancel_bt:hover{background-color:#333333;}
+        .w_bt_size{width:80px;height:28px;line-height: 28px;}
+    </style>
+    <script type="text/javascript">
+        function searchAll(){
+            var myForm = document.getElementById('searchForm');
+            myForm.action = '{{ path('AdminBundle_Web_focusImage') }}';
+            myForm.submit();
+        }
+        function ordEdit(order,flag,_this){
+            var _this     = $(_this);
+            var focusType = $('#focusSelect').val();
+            $.post('{{ path('AdminBundle_Web_focusUpDown') }}',{'order':order, 'flag':flag, 'focusType':focusType},function(data){
+                if(data == 'up'){
+                        alert('已经是最顶上！');
+                        return false;
+                }else if(data == 'down'){
+                    alert('已经是最底下！');
+                    return false;
+                }else if(data == 'no'){
+                    alert('操作失败！');
+                    return false;
+                }else{
+                        var arr=data.split(',');//注split可以用字符或字符串分割
+                        var small = arr[0];
+                        var big   = arr[1];
+                        if(flag == 1){
+                            _this.attr('onclick','ordEdit('+small+',1,this)');
+                            _this.next().attr('onclick','ordEdit('+small+',2,this)');
+                            _this.parent().parent().prev().find('.oup').attr('onclick','ordEdit('+big+',1,this)');
+                            _this.parent().parent().prev().find('.odown').attr('onclick','ordEdit('+big+',2,this)');
+                            var $tr = _this.parent().parent();
+                                    //parents("tr");
+                            $tr.prev().before($tr);
+                        }else{
+                            _this.attr('onclick','ordEdit('+big+',2,this)');
+                            _this.prev().attr('onclick','ordEdit('+big+',1,this)');
+                            _this.parent().parent().next().find('.oup').attr('onclick','ordEdit('+small+',1,this)');
+                            _this.parent().parent().next().find('.odown').attr('onclick','ordEdit('+small+',2,this)');
+                            var $tr = _this.parent().parent();
+                                    //parents("tr");
+                            $tr.next().after($tr);
+                        }
+                }
+            });
+        }
+        function focusOffline(id,flag,_this){
+            var _this = $(_this);
+            $.post('{{ path('AdminBundle_Web_focusOffline') }}',{'id':id, 'flag':flag},function(data){
+                if( data != 'ok'){
+                    alert('操作失败！');
+                    return false;
+                }else{
+                    if(flag == 1){
+                        _this.text('下线');
+                        _this.attr('onclick','focusOffline('+id+',0,this)');
+                    }else{
+                        _this.text('激活');
+                        _this.attr('onclick','focusOffline('+id+',1,this)');
+                    }
+                }
+            });
+        }
+        function focusDelete(id){
+            if (confirm("真的要删除吗？")){
+                $.post('{{ path('AdminBundle_Web_focusDelete') }}',{'id':id},function(data){
+                    if( data != 'ok'){
+                        alert('删除失败！');
+                        return false;
+                    }else{
+                        alert('删除成功！');
+                        window.location.reload();
+                    }
+                });
+            }else{
+                return false;
+            }
+        }
+        function focus_Add(){
+            var areaid = $('#focusSelect').val();
+            window.location.href = "{{ path('AdminBundle_Web_focusAddPage') }}?areaid="+areaid;
+        }
+        function focus_Edit(id){
+            window.location.href =  "{{ path('AdminBundle_Web_focusUpdatePage') }}?id="+id;
+        }
+        function focus_select(){
+            searchAll();
+        }
+
+    </script>
+    <div id="main_body">
+        <ul class="main_top">
+            <li class="main_top_left left">
+                <strong>网站管理—轮播图管理</strong>
+            </li>
+            <li class="main_top_right right">
+            </li>
+        </ul>
+        <div class="main_content_rightbg">
+            <div class="main_content_leftbg">
+                <form id="searchForm" action="" method="get" name="searchForm" onsubmit="return checkForm();">
+                    <table  width="98%" border="0" align=center cellpadding="2" cellspacing="1" bgcolor="#FFFFFF" class="border">
+                        <tr>
+                            <td align=center style="background-color: #cccccc;border: 1px solid #000000;">
+                                <div style="text-align: left;width: 100%;height:70px;line-height: 70px;margin-left: 2%">
+                                    <span>选择轮播区域：</span>
+                                    <select id="focusSelect" name="focusSelect" style="width: 180px;" onchange="focus_select()">
+                                        <option value="1" {% if(parameter.focusSelect == '1') %}selected=selected{% endif %}>点播列表页轮播图</option>
+                                        <option value="2" {% if(parameter.focusSelect == '2') %}selected=selected{% endif %}>直播列表页轮播图</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <input type="button" onclick="focus_Add()" value="添加" style="margin-right: 230px;">
+
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <table width="98%" border="0" align=center cellpadding="2" cellspacing="1" bgcolor="#FFFFFF" class="border table_content">
+                    <thead>
+                    <th align="center">描述</th>
+                    <th align="center">图片</th>
+                    <th align="center">顺序</th>
+                    <th align="center">操作</th>
+                    </thead>
+                    {% if(fdata) %}
+                        {% for f in fdata %}
+                            <tr>
+                                <td align="center">
+                                    {{ f.name}}
+                                </td>
+                                <td align="center">
+                                    <a href="{{ asset(f.url) }}" target="_blank"><img src="{{ asset(f.url) }}" class="images" style="width: 600px;"></a>
+                                </td>
+                                <td align="center">
+                                    <a class="oup" href="javascript:void(0)" onclick="ordEdit({{ f.order }},1,this)">向上</a>|
+                                    <a class="odown" href="javascript:void(0)" onclick="ordEdit({{ f.order }},2,this)">向下</a>
+                                </td>
+                                <td align="center">
+                                    <a href="javascript:;" onclick="focus_Edit({{ f.id }})">编辑</a>|
+                                    <a href="javascript:;" onclick="focusDelete({{ f.id }})">删除</a>
+                                    {% if(f.is_active ==1) %}
+                                        <div style="text-align: center" class="cancel_bt w_bt_size" onclick="focusOffline({{ f.id }},0,this)">下线</div>
+                                    {% else %}
+                                        <div style="text-align: center" class="cancel_bt w_bt_size" onclick="focusOffline({{ f.id }},1,this)">激活</div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+        <ul class="main_end">
+            <li class="main_end_left left"></li>
+            <li class="main_end_right right"></li>
+        </ul>
+    </div>

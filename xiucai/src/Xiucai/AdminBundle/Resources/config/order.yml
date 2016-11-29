@@ -1,0 +1,11 @@
+AdminBundle_Order_list:
+    path: /admin/order/list
+    defaults: { _controller: AdminBundle:Order:list}
+
+AdminBundle_Order_detail:
+    path: /admin/order/detail
+    defaults: { _controller: AdminBundle:Order:detail}
+
+AdminBundle_Order_cancel:
+    path: /admin/order/cancel
+    defaults: { _controller: AdminBundle:Order:cancel}

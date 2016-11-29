@@ -1,0 +1,83 @@
+#秀财网管理后台登录
+AdminBundle_Course_index:
+    path: /index
+    defaults: { _controller: AdminBundle:Course:index}
+AdminBundle_Course_categoryDelete:
+    path: /categoryDelete
+    defaults: { _controller: AdminBundle:Course:categoryDelete}
+AdminBundle_Course_categoryAddPage:
+    path: /categoryAddPage
+    defaults: { _controller: AdminBundle:Course:categoryAddPage}
+AdminBundle_Course_categoryAdd:
+    path: /categoryAdd
+    defaults: { _controller: AdminBundle:Course:categoryAdd}
+AdminBundle_Course_categoryUpdatePage:
+    path: /categoryUpdatePage
+    defaults: { _controller: AdminBundle:Course:categoryUpdatePage}
+AdminBundle_Course_categoryUpdate:
+    path: /categoryUpdate
+    defaults: { _controller: AdminBundle:Course:categoryUpdate}
+AdminBundle_Course_categoryRemove:
+    path: /categoryRemove
+    defaults: { _controller: AdminBundle:Course:categoryRemove}
+AdminBundle_Course_categoryTwo:
+    path: /categoryTwo
+    defaults: { _controller: AdminBundle:Course:categoryTwo}
+AdminBundle_Course_categoryThree:
+    path: /categoryThree
+    defaults: { _controller: AdminBundle:Course:categoryThree}
+AdminBundle_Course_categoryFour:
+    path: /categoryFour
+    defaults: { _controller: AdminBundle:Course:categoryFour}
+AdminBundle_Course_categoryRedo:
+    path: /categoryRedo
+    defaults: { _controller: AdminBundle:Course:categoryRedo}
+
+AdminBundle_Course_vod:
+    path: /vod
+    defaults: { _controller: AdminBundle:Course:vod }
+AdminBundle_Course_categoryTwoVod:
+    path: /categoryTwoVod
+    defaults: { _controller: AdminBundle:Course:categoryTwoVod }
+AdminBundle_Course_updateVodStatus:
+    path: /updateVodStatus
+    defaults: { _controller: AdminBundle:Course:updateVodStatus }
+AdminBundle_Course_vodDelete:
+    path: /vodDelete
+    defaults: { _controller: AdminBundle:Course:vodDelete }
+AdminBundle_Course_vodRemove:
+    path: /vodRemove
+    defaults: { _controller: AdminBundle:Course:vodRemove }
+
+AdminBundle_Course_live:
+    path: /live
+    defaults: { _controller: AdminBundle:Course:live }
+AdminBundle_Course_updateLiveStatus:
+    path: /updateLiveStatus
+    defaults: { _controller: AdminBundle:Course:updateLiveStatus }
+AdminBundle_Course_liveDelete:
+    path: /liveDelete
+    defaults: { _controller: AdminBundle:Course:liveDelete }
+AdminBundle_Course_liveRemove:
+    path: /liveRemove
+    defaults: { _controller: AdminBundle:Course:liveRemove }
+
+#添加或发布点播课程
+AdminBundle_Course_add:
+    path: /add
+    defaults: { _controller: AdminBundle:Course:addCourse }
+
+#ajax获取课程二级类别
+AdminBundle_Course_ajax_category:
+    path: /ajax_category
+    defaults: { _controller: AdminBundle:Course:ajaxGetCategory }
+
+#ajax获取添加或编辑课程视频
+AdminBundle_Course_ajax_video:
+    path: /ajax_video
+    defaults: { _controller: AdminBundle:Course:ajaxCourseVideo }
+
+#ajax排序课程视频
+AdminBundle_Course_ajax_sortVideo:
+    path: /ajax_sort
+    defaults: { _controller: AdminBundle:Course:ajaxSortVideo }

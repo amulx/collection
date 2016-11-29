@@ -1,0 +1,80 @@
+Xiucai\StoreBundle\Entity\XcPost:
+    type: entity
+    table: xc_post
+    id:
+        id:
+            type: bigint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        contentId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: 所属对象的ID(先根据content_type查找到相应的表，再根据content_id对应表里的ID)
+            column: content_id
+        contentType:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '所属对象类型（对应*_content_type的ID）'
+            column: content_type
+        memberId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: 'owner的用户ID（对应*_member的ID）'
+            column: member_id
+        memberName:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 'owner的用户名（对应*_member的nickname）'
+            column: member_name
+        memberLogo:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 'owner的用户头像（对应*_member的avatar）'
+            column: member_logo
+        memberIp:
+            type: string
+            nullable: true
+            length: 30
+            fixed: false
+            comment: owner的IP
+            column: member_ip
+        createTime:
+            type: datetime
+            nullable: true
+            comment: 创建时间
+            column: create_time
+        modifyTime:
+            type: datetime
+            nullable: true
+            comment: 修改时间
+            column: modify_time
+        content:
+            type: string
+            nullable: true
+            length: 512
+            fixed: false
+            comment: 讨论内容
+        commentNum:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: 相关联的的评论数
+            column: comment_num
+        status:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '内容状态（参考*_content_status表）'
+    lifecycleCallbacks: {  }

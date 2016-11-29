@@ -1,0 +1,169 @@
+Xiucai\StoreBundle\Entity\XcMember:
+    type: entity
+    table: xc_member
+    uniqueConstraints:
+        user_id:
+            columns:
+                - third_user_id
+    id:
+        id:
+            type: bigint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        thirdUserId:
+            type: string
+            nullable: true
+            length: 36
+            fixed: false
+            comment: 第三方用户ID（用于社交账号登陆用户）
+            column: third_user_id
+        nickname:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 用户昵称
+        sourceId:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '用户来源（用于第三方用户，与*_thirdparty表的ID关联）'
+            column: source_id
+        screenName:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 第三方用户的昵称
+            column: screen_name
+        password:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 登陆密码
+        email:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 用户邮件，此字段唯一
+        cellphone:
+            type: string
+            nullable: true
+            length: 16
+            fixed: false
+            comment: 用户手机号
+        gender:
+            type: string
+            nullable: true
+            length: 1
+            fixed: false
+            comment: '用户性别（1 - 男，0 - 女）'
+        avatar:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: '用户头像，尺寸（50*50）'
+        brief:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 一句话描述，用户自我简介
+        createTime:
+            type: datetime
+            nullable: true
+            comment: 创建时间
+            column: create_time
+        modifyTime:
+            type: datetime
+            nullable: true
+            comment: 修改时间
+            column: modify_time
+        avatarLarge:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: '用户大头像，尺寸（100*100）'
+            column: avatar_large
+        isActivate:
+            type: smallint
+            nullable: true
+            unsigned: false
+            comment: 账号是否激活（注册后需要激活账号）
+            column: is_activate
+        fullname:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 用户全名
+        province:
+            type: string
+            nullable: true
+            length: 32
+            fixed: false
+            comment: 省份
+        city:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 城市
+        workField:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 所在工作行业
+            column: work_field
+        position:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 工作职位
+        company:
+            type: string
+            nullable: true
+            length: 128
+            fixed: false
+            comment: 工作单位名称
+        isRegisted:
+            type: smallint
+            nullable: true
+            unsigned: false
+            comment: 是否已注册，用于第三方登陆用户
+            column: is_registed
+        tracks:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 网站访问记录，保留字段
+        lastLogin:
+            type: datetime
+            nullable: true
+            comment: 最后登陆时间
+            column: last_login
+        status:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '用户状态（参考*_member_status表）'
+        registerIp:
+            type: string
+            nullable: true
+            length: 32
+            fixed: false
+            comment: 注册时的IP
+            column: register_ip
+    lifecycleCallbacks: {  }

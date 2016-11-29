@@ -1,0 +1,555 @@
+﻿/*-----------MainFrame.aspx---------------*/
+* {
+	margin:0px;
+	padding:0px;
+}
+#html1, #body1 {
+	height:100%;
+	overflow:hidden;
+}
+#html1>#body1 {
+	width: auto;
+	height: auto;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+}
+#body1 {
+	background-color: #ffffff;
+}
+#mainDiv {
+	width: 100%;
+	height: 100%;
+	_padding-top:90px;
+}
+#headDiv {
+	height:90px;
+	width:100%;
+	background:url(top/header_bg.gif) repeat-x;
+	overflow:hidden;
+	position:absolute;
+	top:0px;
+}
+#top_left
+{
+    float:left;
+    background:url(top/nei_01.png) no-repeat left;
+    height:70px;
+    width:194px;
+    overflow:hidden;
+    }
+#top_right
+{
+    color:#fff;
+    text-align:right;
+    font-size:12px;
+    float:right;
+    height:90px;
+    width:190px;
+    overflow:hidden;
+    }
+#top_right a
+{
+    color:#fff;
+    font-weight:bold;
+   }
+#top_right ul
+{
+    margin:10px 10px 0 0;
+    }
+#top_right li
+{
+    list-style-type:none;
+	margin-right:1px;
+    float:right;}
+.bodyDiv {
+	width:100%;
+	height: 100%;
+	position:absolute;
+	right:0px;
+	_padding-right:200px;
+	_padding-left:0px;
+}
+.bodyDiv_right {
+	width:100%;
+	height: 100%;
+	_padding-right:0px;
+	_padding-left:200px;
+	position:absolute;
+}
+.bodyDiv_bi
+{
+    width: 100%;
+	height: 100%;
+	_padding-left:0px;
+	_padding-right:0px;
+	position:absolute;
+    }
+#mainDiv>#bod {
+	height:auto;
+	top:90px;
+	bottom:0px;
+}
+.leftDiv {
+	width:200px;
+	height:100%;
+	background:#00B6FF url(left/nei_16.gif) no-repeat 0% 96%;
+	_background:#00B6FF url(left/nei_16.gif) no-repeat 0% 80%;
+	overflow:hidden;
+	_overflow:auto;
+	position:absolute;
+	top:-25px;
+	_top:-26px;
+	right:0px;
+}
+.left_left {
+	width:200px;
+	height:102%;
+	background:#b5ddff url(left/nei_16.gif) no-repeat 0% 96%;
+	_background:#b5ddff url(left/nei_16.gif) no-repeat 0% 80%;
+	overflow:hidden;
+	_overflow:auto;
+	position:absolute;
+	top:-25px;
+	_top:-26px;
+	left:0px;
+}
+.leftDiv_none
+{
+    display:none;
+    }
+.rightDiv {
+	width: 100%;
+	height: 100%;
+	position:absolute;
+	_padding-bottom:27px;
+}
+.rightDiv_right {
+	width: 100%;
+	height: 100%;
+	_padding:0px;
+	position:absolute;
+}
+.rightDiv_z
+{
+    width: 100%;
+	height: 100%;
+	_padding:0px;
+	position:absolute;
+    }
+#bod>.rightDiv {
+	width:auto;
+	right:200px;
+	left:0px;
+}
+#bod>.rightDiv_right {
+	width:auto;
+	left:200px;
+	right:0px;
+}
+#bod>.rightDiv_z {
+	width:auto;
+	right:0px;
+	left:0px;
+}
+.centerDiv {
+	width:100%;
+	height:100%;
+	overflow:hidden;
+}
+#rig>#cen{
+	height:auto;
+	position:absolute;
+	top:35px;
+	bottom:25px;
+}
+#topDiv {
+	height:35px;
+	width:100%;
+	background:url(time/nei_06.gif) bottom;
+	overflow:hidden;
+	position:absolute;
+	top:0px;
+}
+#head_left
+{   width:145px;
+    float:left;
+    height:35px;
+    }
+#head_time
+{	color:#384b6c;
+    font-size:12px;
+    float:right;
+    line-height:35px;
+    margin-right:9px;
+    }
+#bottomDiv {
+bottom:-1px;
+position:fixed; 
+_position:absolute; 
+z-index:1000;
+width:100%; 
+background:#eee url(bottom/nei_15.gif); 
+left:0px;
+right:0px;
+text-align:center;
+font-size:12px;
+height:25px;
+line-height:25px;
+}
+#right_nei
+{
+    bottom:0px;
+    width:100%;
+    height:100%;
+	_height:78%;
+    position:absolute;
+	_top:35px;
+    overflow:auto;
+    }
+/*-------left--------*/
+/*TAB样式*/
+.main{
+ clear:both;
+ padding:0px;
+ text-align:center;
+}
+#tabs0 {
+ width: 200px;
+ background-color: #b5ddff;
+}
+#tab_bt
+{
+    background:#f6feff;
+    }
+li
+{
+     list-style-type:none;
+     font-size:12px;}
+.menu0{
+ width: 200px;
+ height:25px;
+ background:#1a5998;
+}
+.menu0 li{
+ color:#fff;
+ display:block;
+ float: left;
+ padding:0;
+ width:66px;
+ text-align: center;
+ cursor:pointer;
+// background:;
+ font-size:12px;
+ line-height:25px;
+ height:25px;
+}
+.menu0 li.hover{
+ color:#384b6c;
+ font-weight:bold;
+ background: #007482 url(left/nei_11.gif) bottom no-repeat;
+ height:26px;
+ _position:relative;
+ _top:1px;
+}
+#main0 ul{
+ display: none;
+}
+/*----信息显示----*/
+/*-----------树型菜单------------*/
+#nav2 {
+	width:196px;
+    line-height: 24px; 
+	list-style-type: none;
+	text-align:left;
+	padding:0px;
+	margin:0px;
+}
+/*---一级目录---*/
+#nav2 a 
+{
+    padding-left:10px;
+	width: 184px;
+	_width:196px;
+	display: block;
+	border:solid 1px #1a5998;
+	border-bottom:none;
+}
+.one_cai
+{
+    background:url(menu/nei_22.gif);
+    }
+#nav2 span
+{
+    }
+#nav2 li {
+	
+	float:left;
+	font-weight:bold;
+	}
+#nav2 li a:hover{
+	background:url(menu/nei_21.gif);
+}
+#nav2 a:link  {
+	color:#fff; text-decoration:none;
+}
+#nav2 a:visited  {
+	color:#fff;text-decoration:none;	
+}
+#nav2 a:hover  {
+	color:#FFF;text-decoration:none;font-weight:bold;
+}
+/*==================二级目录===================*/
+#nav2 li ol {
+	list-style:none;
+	text-align:left;
+}
+#nav2 li ol li{
+	background: #b5ddff;
+	font-weight:normal;
+}
+#nav2 li ol a{
+         padding-left:20px;
+         width:174px;
+		 _width:196px;
+	
+}
+/*-----二级目录的链接样式------*/
+#nav2 li ol a:link  {
+	font-weight:bold;
+	color:#597ab5; text-decoration:none;
+}
+#nav2 li ol a:visited  {
+	color:#597ab5;text-decoration:none;
+}
+#nav2 li ol a:visited {
+	color:#597ab5;
+	text-decoration:none;
+	font-weight:normal;
+	background:#b5ddff;
+}
+#nav2 li ol a:hover {
+	color:#384b6c;
+	text-decoration:none;
+	background:#fff url(menu/link.gif) no-repeat 90% 50%;
+}
+#nav2 li:hover ol {
+	left: auto;
+}
+#nav2 li.sfhover ol {
+	left: auto;
+}
+#nav2 ol.collapsed {
+	display: none;
+}
+#PARENT{
+	width:200px;
+	padding:3px;
+	*padding:0px;
+	margin:0;
+}
+#qt_bt
+{
+    height:50px;
+    width:200px;
+    padding:2px;
+    margin-top:5px;
+    }
+#qt_bt li
+{
+    float:left;}
+/*------------------------------right.aspx--------------------------------*/
+#right_body
+{
+	}
+/*index.aspx*/
+#index_body
+{
+	background:#007482;
+	width:100%;
+	overflow:hidden;
+	}
+#index_login
+{
+	position:relative;
+	top:20%;
+	left:50%;
+	margin-left:-385px;
+	margin-top:10%;
+	*margin-top:2%;
+	width:755px;
+	height:301px;
+	background:url(load/load_06.gif) no-repeat;
+	}
+#index_load
+{
+    width:100%;
+    height:100%;
+    padding:110px 0px 0px 250px;
+	}
+#index_load li
+{
+	list-style-type:none;
+	font-size:12px;
+	margin-top:5px;
+	}
+#index_bottom
+{
+	background:#33909b;
+	font-size:12px;
+	line-height:20px;
+	width:100%;
+	height:20px;
+	position:absolute;
+	bottom:0px;
+	border-top:solid 1px #ccc;
+	text-align:center;
+	color:#fff;
+	}
+/*load_style*/
+.inputStyle
+{
+    border:solid 1px #007482;
+    background:url(style/bg_input_text.png);
+    width:200px;
+    }
+.inputStyle_Hover
+{
+    border:solid 1px #004982;
+    background:url(style/bg_input_text_hover.png);
+    width:200px;
+    }
+/*------------Button----------*/
+.btn_2_style,.btn_2_hover,.btn_4_style,.btn_4_hover,.btn_6_style,.btn_6_hover
+{
+    border: 0;
+	height: 20px;
+	line-height: 19px;
+	font: 12px "Microsoft Sans Serif";
+	color: #333;
+    }
+.btn_2_style,.btn_2_hover
+{
+    width:100px;
+    height:20px;
+    background:url(bottom/nei_32-03.gif)
+    }
+.btn_4_style,.btn_4_hover
+{
+    width:70px;
+    height:21px;
+    background:url(bottom/nei_32.gif)
+    }
+.btn_6_style,.btn_6_hover
+{
+    width:50px;
+    height:21px;
+    background:url(bottom/nei_34.gif)
+    }
+.btn_2_hover
+{
+    background:url(bottom/nei_32-03_hover.gif)
+    }
+.btn_4_hover
+{
+    background:url(bottom/nei_32_hover.gif)
+    }
+.btn_6_hover
+{
+    background:url(bottom/nei_34_hover.gif)
+    }
+/*------主体内容区------*/
+.center_body
+{
+    background:#fff;
+    text-align:center;
+    padding-top:10px;
+    overflow:scroll;
+    *overflow:auto;
+}
+#right_main
+{
+    margin-left:10px;
+}
+.center_table
+{
+    width:98%;
+    border:none;   
+    }
+.center_table_leftTop
+{
+    height:41px;
+    width:22px;
+    background:url(center/nei_30.gif);}
+.center_table_centerTop
+{
+    height:41px;
+    background:url(center/nei_27.gif);
+    font-size:14px;
+    font-weight:bold;
+    text-align:left;
+    padding-left:5px;
+    line-height:40px;
+    }
+.center_table_rightTop
+{
+    height:41px;
+    height:22px;
+    background:url(center/nei_32.gif);}
+.center_table_leftCenter
+{
+    width:22px;
+    background:url(center/nei_41.gif);}
+.center_table_Center
+{
+    text-align:left;
+    font-size:12px;
+    font-family:Arial;/*英文安全字体,注意*/
+    }
+.center_table_rightCenter
+{
+    width:24px;
+    background:url(center/nei_43.gif);}
+.center_table_leftBottom
+{
+    height:26px;
+    width:22px;
+    background:url(center/nei_42.gif);}
+.center_table_centerBottom
+{
+    height:26px;
+    background:url(center/nei_43-07.gif);
+    }
+.center_table_rightBottom
+{
+    height:26px;
+    width:22px;
+    background:url(center/nei_49.gif);}ter_table_Center
+{
+    text-align:left;
+    font-size:12px;
+    font-family:Arial;/*英文安全字体,注意*/
+    }
+.center_table_rightCenter
+{
+    width:24px;
+    background:url(center/nei_43.gif);}
+.center_table_leftBottom
+{
+    height:26px;
+    width:22px;
+    background:url(center/nei_42.gif);}
+.center_table_centerBottom
+{
+    height:26px;
+    background:url(center/nei_43-07.gif);
+    }
+.center_table_rightBottom
+{
+    height:26px;
+    width:22px;
+    background:url(center/nei_49.gif);
+    kground:url(center/nei_49.gif);
+}

@@ -1,0 +1,24 @@
+#框架页面
+AdminBundle_SystemUser_index:
+    path: /
+    defaults: { _controller: BiyeAdminBundle:Admin:index }
+#后台登录
+AdminBundle_SystemUser_login:
+    path: /login
+    defaults: { _controller: BiyeAdminBundle:SystemUser:login }
+#后台登录验证
+AdminBundle_SystemUser_login_check:
+    path: /login_check
+    defaults: { _controller: BiyeAdminBundle:SystemUser:loginCheck }
+
+#后台退出登录
+AdminBundle_SystemUser_logout:
+    path: /login/logout
+#生成验证码
+AdminBundle_SystemUser_captcha:
+   path: /login/captcha
+   defaults: {_controller: BiyeAdminBundle:SystemUser:captcha }
+#校验验证码
+AdminBundle_SystemUser_captchaMatching:
+   path: /login/captchaMatching
+   defaults: {_controller: BiyeAdminBundle:SystemUser:captchaMatching }

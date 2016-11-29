@@ -1,0 +1,156 @@
+{% if memberId is empty %}
+<!--登录弹层-->
+<div class="login1_main" id="login_div" style="display: none; position:fixed;left:35%;top:25%; margin: 0 auto;z-index: 1200; background: #FFFFFF;" >
+    <div class="login1_close">
+        <span id="close_login" style="cursor: pointer;"><img src="{{ asset('assets/img/login1_close.jpg') }}"></span>
+    </div>
+
+    <div class="login1_area login_layer">
+        <div class="login1_hint"></div>
+        <div class="login1_title">登录</div>
+        <div class="login1_email">
+            <input type="text" name="_username" class="input email" placeholder="邮箱" value="{% if username is not empty %}{{ username }}{% endif %}">
+        </div>
+        <div class="login1_psss">
+            <input type="password" name="_password" id="_password" class="input password" placeholder="密码">
+        </div>
+        <div class="login1_box">
+            <span><a href="javascript:;" class="find_pass_pop">忘记密码?</a></span>
+            <input type="checkbox" id="remember" name="remember" value="remember" checked="checked">记住我
+        </div>
+        <div class="login1_bt">
+            <a href="javascript:;">
+                <img style="margin-left: 135px; display: none;" src="{{ asset('assets/img/loading.gif') }}" width="50px" height="50px">
+                <input type="hidden" id="callback" name="callback" value="">
+                <button class="btn_sub" style="width:330px;height: 40px;">登录</button>
+            </a>
+        </div>
+        {#<div class="login1_link">
+            社交账号登录<img src="{{ asset('assets/img/qq.jpg') }}"><img src="{{ asset('assets/img/qq.jpg') }}"><img src="{{ asset('assets/img/qq.jpg') }}">
+        </div>#}
+    </div>
+    <div class="login1_bom">
+        <a href="javascript:;">>  注册</a>
+    </div>
+</div>
+
+<!--注册弹层-->
+<div class="login1_main" id="reg_div"  style="display: none; position:fixed;left:35%;top:20%; margin: 0 auto;z-index: 1200; background: #FFFFFF;">
+    <div class="login1_close">
+        <span id="close_reg" style="cursor: pointer;"><img src="{{ asset('assets/img/login1_close.jpg') }}"></span>
+    </div>
+    <div class="login1_area register_layer">
+        <div class="login1_hint">
+        </div>
+        <div class="login1_title">使用邮箱注册</div>
+        <div class="login1_email">
+            <input type="text" name="email" class="input email" placeholder="邮箱">
+        </div>
+        <div class="login1_code">
+            <input type="text" name="username" class="input username" placeholder="你的昵称">
+        </div>
+        <div class="login1_psss">
+            <input type="password" name="password" id="password" class="input pass" placeholder="输入密码">
+        </div>
+        <div class="login1_psss">
+            <input type="password" name="review_pass" id="review_pass" class="input pass review_pass" placeholder="重复密码">
+        </div>
+        {#{% if member_ip is not empty %}
+            <div class="login1_psss">
+                <input type="text" name="validate_code" class="input validateCode" placeholder="输入验证码">
+            </div>
+            <div class="yzm">
+                <div class="re_yzm">
+                    <img src="{{ path('PageBundle_user_validateCode') }}" onclick="this.src='{{ path('PageBundle_user_validateCode') }}?dumy=' + Math.random();">
+                </div>
+            </div>
+        {% endif %}#}
+        <div class="regist1_bt">
+            <a href="javascript:;">
+                <img style="margin-left: 135px; display: none;" src="{{ asset('assets/img/loading.gif') }}" width="50px" height="50px">
+                <button class="btn_sub" style="width:330px;height: 40px;">注册</button>
+            </a>
+        </div>
+    </div>
+    <div class="login1_bom">
+        <a href="javascript:;">>  登录</a>
+    </div>
+</div>
+
+<!--注册激活弹层-->
+<div class="login1_main" id="feed_back_div"  style="display: none; position:fixed;left:35%;top:25%; margin: 0 auto;z-index: 1200; background: #FFFFFF;">
+    <div class="login1_close">
+        <span id="close_feed_back" style="cursor: pointer;"><img src="{{ asset('assets/img/login1_close.jpg') }}"></span>
+    </div>
+    <div class="login1_area">
+        <div class="login1_hint">
+        </div>
+        <div class="login1_title">注册账号激活</div>
+        <div class="content">
+            <div class="content_con">
+                <img src="{{ asset('assets/img/log_out.png') }}"/>
+                <span class="f20">　恭喜您注册成功,注册邮件已经发送到您的邮箱里，请去邮箱激活账户！</span>
+                <a href="{{ path('PageBundle_page_index') }}" >点击跳转到首页</a>
+                <p class="tc" style="margin-bottom: 30px;">提示框将在<strong id="endTime" class="f6"></strong>秒后自动关闭！</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+<!--找回密码邮件提示弹层-->
+<div class="login1_main" id="find_back_div"  style="display: none; position:fixed;left:35%;top:25%; margin: 0 auto;z-index: 1200; background: #FFFFFF;">
+    <div class="login1_close">
+        <span id="close_find_back" style="cursor: pointer;"><img src="{{ asset('assets/img/login1_close.jpg') }}"></span>
+    </div>
+    <div class="login1_area">
+        <div class="login1_hint">
+        </div>
+        <div class="login1_title">找回密码</div>
+        <div class="content">
+            <div class="content_con">
+                <img src="{{ asset('assets/img/log_out.png') }}"/>
+                <span class="f20"> 找回密码邮件已经发送到您的邮箱里，请点击邮件中的链接进行密码重置！</span>
+                <a href="{{ path('PageBundle_page_index') }}" >点击跳转到首页</a>
+                <p class="tc" style="margin-bottom: 30px;">提示框将在<strong id="endTime2" class="f6"></strong>秒后自动关闭！</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--忘记密码弹层-->
+<div class="login1_main" id="find_pass_div" style="display: none; position:fixed;left:35%;top:25%; margin: 0 auto;z-index: 1200; background: #FFFFFF;">
+    <div class="login1_close">
+        <span id="close_find_pass" style="cursor: pointer;"><img src="{{ asset('assets/img/login1_close.jpg') }}"></span>
+    </div>
+    <div class="login1_area findPass_layer">
+        <div class="login1_title"><a href="javascript:;" class="back_login_pop">&gt;返回登录</a></div>
+        <div class="login2_hint">
+            <p>我们将发送一封秘密重置的邮件到你的注册邮箱,请点击邮件中的链接进行密码重置</p>
+        </div>
+        <div class="login2_email">
+            <input type="text" placeholder="输入注册邮箱地址" class="input register_email">
+        </div>
+        <div class="login2_bt">
+            <img style="margin-left: 135px; display: none;" src="{{ asset('assets/img/loading.gif') }}" width="50px" height="50px">
+            <button style="width:330px;height: 40px;" class="btn_sub">立即找回</button>
+        </div>
+        <div class="login2_bt_in msb_in" style="text-align: center; color: #EE0000">
+        </div>
+        <div class="login2_bt_in">
+            <img src="{{ asset('assets/img/login2_email.jpg') }}">
+        </div>
+        <div style="height: 70px;"></div>
+    </div>
+
+</div>
+
+<div class="layer_bg" id="layer_bg">
+</div>
+
+<script type="text/javascript">
+    var register_check_url = "{{ path('PageBundle_user_registerCheck') }}";
+    var user_register = "{{ path('PageBundle_user_register') }}";
+    var user_findPass = "{{ path('PageBundle_user_findPass') }}";
+    var user_index = "{{ path('PageBundle_user_index') }}";
+    var user_login = "{{ path('PageBundle_user_login') }}";
+</script>

@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="public.js"></script>
+</head>
+    <body>
+    	<script type="text/javascript">
+
+    		var xhr = createxhr();
+    		// var url = 'demo5.php?name=zhangsan&n='+Math.random();  方法一
+    		var url = 'demo5.php?name=zhangsan&n='+new Date().getTime();  //方法二
+    		// alert(url);
+    		xhr.open('get',url);
+
+    		// xhr.setRequestHeader("If-Modified-Since","0"); 方法三
+    		xhr.onreadystatechange=function(){
+    			if (xhr.readyState==4&&xhr.status==200) {
+    				alert(xhr.responseText);
+    			}
+    		};
+
+    		xhr.send(null);
+
+    	</script>
+    </body>
+</html>

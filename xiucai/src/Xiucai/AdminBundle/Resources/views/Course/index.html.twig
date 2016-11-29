@@ -1,0 +1,188 @@
+    <!--datepicker start-->
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl/green/gui.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl/styles.css') }}" />
+    <script src="{{ asset('assets/js/wzl/jquery-1.7.2.min.js') }}"></script>
+    <script type="text/javascript">
+        function searchAll(){
+            $('#page').val(1);
+            var myForm = document.getElementById('searchForm');
+            myForm.action = '{{ path('AdminBundle_Course_index') }}';
+            myForm.submit();
+        }
+        function categoryDele(id){
+            if (confirm("真的要删除吗？")){
+                $.post('{{ path('AdminBundle_Course_categoryDelete') }}',{'id':id},function(data){
+                    if( data != 'ok'){
+                        alert('删除失败！');
+                        return false;
+                    }else{
+                        alert('删除成功！');
+                        window.location.reload();
+                    }
+                });
+            }else{
+                return false;
+            }
+        }
+        function categoryAdd(){
+            $("#main_body").css('opacity','0.3');
+            document.getElementById("ifr").style.display = "block";
+            document.getElementById("ifr").src = "{{ path('AdminBundle_Course_categoryAddPage') }}";
+        }
+        function categoryEdit(id){
+            $("#main_body").css('opacity','0.3');
+            document.getElementById("ifr").style.display = "block";
+            document.getElementById("ifr").src = "{{ path('AdminBundle_Course_categoryUpdatePage') }}?id="+id;
+        }
+        function checkAll(){
+            var checkid   = document.getElementById("checkAll");
+            var checkname = document.getElementsByName('ck');
+            if (checkid.checked)
+            {
+                for(var i = 0; i < checkname.length; i++)
+                    checkname[i].checked = true;
+            }else{
+                for(var i = 0; i < checkname.length; i++)
+                    checkname[i].checked = false;
+            }
+        }
+        function removeAll()
+        {
+            var ary='';
+            var Ids=document.getElementsByName('ck');
+            for(var s=0;s<Ids.length;s++)
+            {
+                if(Ids[s].checked)
+                {
+                    ary+=Ids[s].value+',';
+                }
+            }
+            if(ary.length<=0)
+            {
+                alert('请选择至少一条数据')
+                return false;
+            }else{
+                $.post('{{path('AdminBundle_Course_categoryRemove')}}',{'Ids' : encodeURIComponent(ary)},function (data){
+                            if(data == 'no')
+                            {
+                                alert('删除发生错误！');
+                            }else{
+                                alert('删除成功！');
+                                window.location.reload();
+                            }
+                        }
+                );
+            }
+        };
+
+        function zindexSort(){
+            var zindex_id = $('#priority').val();
+            if(zindex_id == ''){
+                $('#priority').val('2');
+            }else if(zindex_id == '1'){
+                $('#priority').val('2');
+            }else{
+                $('#priority').val('1');
+            }
+            searchAll();
+        }
+        function clearAll(){
+            if($('#condition').val() == ' '){
+                $('#priority').val('');
+                $('#page').val('');
+                $('#contents').val('');
+                $('#condition').val('');
+                searchAll();
+            }
+        }
+    </script>
+    <div id="main_body">
+        <ul class="main_top">
+            <li class="main_top_left left">
+                <strong>课程管理—分类列表</strong>
+            </li>
+            <li class="main_top_right right">
+            </li>
+        </ul>
+        <div class="main_content_rightbg">
+            <div class="main_content_leftbg">
+                <form id="searchForm" action="" method="get" name="searchForm" onsubmit="return checkForm();">
+                    <input type="hidden" id="priority" name="priority" value="{{ parameter.priority }}">
+                    <input type="hidden" id="page" name="page" value="{{ parameter.page }}">
+                    <table  width="98%" border="0" align=center cellpadding="2" cellspacing="1" bgcolor="#FFFFFF" class="border">
+                        <tr>
+                            <td align=left>
+                                <input type="button" onclick="categoryAdd()" value="添加分类>>" style="margin-right: 230px;">
+                                <input id="contents" type="text" name="contents" class="contents" value="{{ parameter.contents }}" placeholder="请输入..">
+                                <select name="condition" id="condition" style="width: 150px;margin-left: 5px;" onchange="clearAll()">
+                                    <option value=" " {% if(parameter.condition == ' ') %}selected=selected{% endif %}>搜索范围(全部)</option>
+                                    <option value="1" {% if(parameter.condition == '1') %}selected=selected{% endif %}>只搜分类ID</option>
+                                    <option value="2" {% if(parameter.condition == '2') %}selected=selected{% endif %}>只搜分类名称</option>
+                                    <option value="3" {% if(parameter.condition == '3') %}selected=selected{% endif %}>只搜父类名称</option>
+                                </select>
+
+                                <input type="button" onclick="searchAll()" value="搜索">
+                                <span style="font-size: 11px;color: blue;">搜索到{{ parameter.nums }}条匹配结果！</span>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <table width="98%" border="0" align=center cellpadding="2" cellspacing="1" bgcolor="#FFFFFF" class="border table_content">
+                    <thead>
+                    <th align="center" width="5%">
+                        <input type='checkbox' id='checkAll' name='checkAll' onclick="checkAll()">
+                    </th>
+                    <th align="center">种类ID</th>
+                    <th align="center">名称</th>
+                    <th align="center">层级</th>
+                    <th align="center">父类名称</th>
+                    <th align="center"><a href="javascript:;" onclick="zindexSort()">优先级</a></th>
+                    <th align="center">操作</th>
+                    </thead>
+                    {% if(cdata) %}
+                        {% for c in cdata %}
+                            <tr>
+                                <td align="center">
+                                    <input type="checkbox" name='ck' value="{{c.id}}" />
+                                </td>
+                                <td align="center">
+                                    {{ c.categoryId}}
+                                </td>
+                                <td align="center">
+                                    {{ c.cname }}
+                                </td>
+                                <td align="center">
+                                    {{ c.rank }}
+                                </td>
+                                <td align="center">
+                                    {{ c.pname }}
+                                </td>
+                                <td align="center">
+                                    {{ c.zindex }}
+                                </td>
+                                <td align="center">
+                                    <a id="asss" href="javascript:void(0)" onclick="categoryEdit({{ c.id }})">编辑</a>|
+                                    <a href="javascript:;" onclick="categoryDele({{ c.id }})">删除</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    <tr>
+                        <td align="center"><input type="button" class="delete" value="删除所选" onclick="removeAll()"></td>
+                        <td colspan='9'></td>
+                    </tr>
+                    <tr>
+                        <td id="page" colspan="10" style="text-align: center">
+                            {{ pages | raw }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <ul class="main_end">
+            <li class="main_end_left left"></li>
+            <li class="main_end_right right"></li>
+        </ul>
+    </div>
+    <iframe  scrolling="no" id="ifr" src="" style="background:#ffffff;
+    display: none;position:absolute;left: 25%;top: 20%;width: 560px;height: 400px;"></iframe>

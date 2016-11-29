@@ -1,0 +1,86 @@
+    <link rel="stylesheet" href="{{ asset('assets/css/common.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/member.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl_people.css') }}" />
+    <script type="text/javascript" src="{{ asset('assets/js/jquery-1.7.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/wzl_people.js') }}"></script>
+    <link href="{{ asset('assets/css/wzl/wzl_tc.css') }}" type="text/css" rel="stylesheet">
+
+    <script>
+        function adminAdd(){
+            var name        = document.getElementById('account').value;
+            var pwd         = document.getElementById('pwd').value;
+            name            = name.replace(/(^\s*)|(\s*$)/g, "");
+            pwd             = pwd.replace(/(^\s*)|(\s*$)/g, "");
+            if(name.length <= 0)
+            {
+                alert('账号名不能为空！');
+                return;
+            }
+            if(pwd.length <= 0)
+            {
+                alert('密码不能为空！');
+                return;
+            }
+            $.post('{{ path('AdminBundle_System_adminRedo') }}',{'name':name},function(data){
+                if(data == 'ok'){
+                    alert('账户名已存在，请重新输入！');
+                    return false;
+                }else{
+                    var myForm    = document.getElementById('admin_add_form');
+                    myForm.action = '{{ path('AdminBundle_System_adminAdd') }}';
+                    myForm.submit();
+                }
+            });
+
+        }
+        function closes(){
+            window.location.href = "{{ path('AdminBundle_System_permission') }}"
+        }
+    </script>
+    <p style="text-indent: 1cm;line-height: 38px;height: 38px;">
+        系统管理 / 权限管理 / 添加管理员
+    </p>
+    <div class="teacher_main">
+        <div class="div_2" style="text-align: center">
+            <form id="admin_add_form" action="" method="post">
+                <div style="margin-top:40px;" class="people_message">
+                    <ul>
+                        <li style="margin-top: 14px;" class="w1">
+                            账户名：<input type="text" id="account" name="account" class="nickname" value="">
+                        </li>
+                        <li class="w2">
+                            密&nbsp;&nbsp;码：<input type="password" class="title" name="pwd" id="pwd" value="">
+                        </li>
+                        <li class="w2">
+                            角&nbsp;&nbsp;色：
+
+                            <select name="role" class="role">
+                                <option value="1">管理员</option>
+                                <option value="2">技术人员</option>
+                                <option value="3">编辑</option>
+                                <option value="4">客服</option>
+                            </select>
+                        </li>
+                        <li class="w2">
+                            姓&nbsp;&nbsp;名：<input type="text" class="nickname" name="real_name" value="">
+                        </li>
+                    </ul>
+                </div>
+                <div class="people_bto" style="margin-left: 45%">
+                    <div style="margin: 0;text-align: center;" class="submit_bt w_bt_size" onclick="adminAdd()"> 创建</div>
+                    <div style="text-align: center" class="cancel_bt w_bt_size" onclick="closes()"> 取消</div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--头像弹层-->
+    <div class="layer_bg">
+    </div>
+    <div class="pop_bg">
+        <div class="img_bg">
+            <img id="target" border="0" src=""/>
+        </div>
+        <a href="javascript:;" id="avatar_submit" class="yh f22 con">确定</a>
+        <a href="javascript:;" class="res">取消</a>
+    </div>

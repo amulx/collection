@@ -1,0 +1,15 @@
+#biye_page_homepage:
+#    path:     /hello/{name}
+#    defaults: { _controller: BiyePageBundle:Default:index }
+
+biye_page_page:
+    resource: "@BiyePageBundle/Resources/config/page.yml"
+    prefix:
+
+biye_page_user:
+    resource: "@BiyePageBundle/Resources/config/user.yml"
+    prefix:
+
+biye_page_shopcar:
+    resource: "@BiyePageBundle/Resources/config/shopcar.yml"
+    prefix:

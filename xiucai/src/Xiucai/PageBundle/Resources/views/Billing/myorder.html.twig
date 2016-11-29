@@ -1,0 +1,112 @@
+{% extends 'PageBundle::layoutIndex.html.twig' %}
+{% block js_css %}
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/member.css') }}"/>
+{% endblock %}
+{% block content %}
+<script type="text/javascript" language="JavaScript">
+    $(document).ready(function()
+    {
+        $("a#cancel_order").click(function(){
+            if(confirm('确定要取消此订单吗？'))
+            {
+                var orderId = $(this).attr('order_id');
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('PageBundle_billing_order_cancel') }}",
+                    data: {orderId : orderId},
+                    success: function(result){
+                        if (result.code == 1){
+                            $("#tr_status_"+orderId).html('取消');
+                            $("#tr_operate_"+orderId).html('');
+                        }
+                        else{
+                            layer.alert("取消失败");
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    function show_order_item(id)
+    {
+        $("#tr_"+id).slideDown('slow');
+    }
+</script>
+    <style type="text/css">
+        .div_2 .list dl{ margin-bottom: 22px;}
+        .div_2 .list dl dt{ height: 50px;line-height: 50px;}
+        .div_2 .list dl dt b{ font-weight: bold;color: #444444;}
+        .div_2 .list dl dt .num{ width: 130px;}
+        .div_2 .list dl dt .time{ width: 150px;}
+        .div_2 .list dl dt .bname{ width: 280px;}
+        .div_2 .list dl dt .type{ width: 70px;}
+        .div_2 .list dl dt .price{ width: 70px;}
+        .div_2 .list dl dt .status{ width: 65px;}
+        .div_2 .list dl dt .operation{ width: 60px;}
+
+        .div_2 .list dl dd { min-height: 50px;line-height: 50px;}
+        .div_2 .list dl dd .num{ width: 130px;}
+        .div_2 .list dl dd .time{ width: 150px;}
+        .div_2 .list dl dd .bname{ width: 280px;}
+        .div_2 .list dl dd .type{ width: 70px;}
+        .div_2 .list dl dd .price{ width: 70px;}
+        .div_2 .list dl dd .status{ width: 65px;}
+        .div_2 .list dl dd .operation{ width: 60px;}
+        .div_2 .list dl dd:hover{ background-color: #eeeeee;}
+        .div_2 .list ul{ margin-left: 150px; padding-bottom: 10px;}
+        .div_2 .list ul li{ height: 25px;}
+        .div_2 .list ul li .s_title{ width: 380px; margin-right: 50px;display: inline-block;}
+        .div_2 .list .ss{width:850px;background: url({{ asset('assets/img/ncart/pack_bg.gif') }}) repeat-x scroll 0 0;height: 29px;line-height: 29px;text-align: center; cursor: pointer;}
+        .cart_list b{display: inline-block;}
+    </style>
+
+<div class="myorder">
+    {% include "PageBundle:User:left.html.twig" with{'type':'order'} %}
+    <div class="div_2 fr">
+        <ul class="process">
+            <li>全部订单</li>
+            <li class="gray2"></li>
+        </ul>
+        <div class="list">
+            <div class="cart_list">
+                <dl>
+                    <dt>
+                        <b class="num">订单编号</b>
+                        <b class="time">购买日期</b>
+                        <b class="bname">商品名称</b>
+                        <b class="type">课程类型</b>
+                        <b class="price">价格</b>
+                        <b class="status">交易状态</b>
+                        <b class="operation">操作</b>
+                    </dt>
+                    {% for list in orderList %}
+                        <dd>
+                            <b class="num">{{ list.order_code }}</b>
+                            <b class="time">{{ list.create_time }}</b>
+                            <b class="bname">{% if list.count > 1 %}<span class="active" style="color: #f29644;cursor: pointer;" onclick="javascript:show_order_item({{ list.id }});">共有{{ list.count }}门课程</span>{% else %}<span><a href="{{ path('PageBundle_course_detail',{id:list.item_list.0.id}) }}" target="_blank" class="active" style="color: #f29644; cursor: pointer;">{{ list.item_list.0.title }}</a></span>{% endif %}</b>
+                            <b class="type">课程订单</b>
+                            <b class="price">{{ list.amount }}</b>
+                            <b class="status" id="tr_status_{{ list.id }}">{% if list.order_status == 0 %}未支付{% elseif list.order_status == 1 %}有警告{% elseif list.order_status == 2 %}支付成功{% elseif list.order_status == 3 %}取消{% endif %}</b>
+                            <b class="operation" id="tr_operate_{{ list.id }}">{% if list.order_status == 0 and list.amount != 0 %}<a class="active" href="{{ path('PageBundle_billing_pay',{'orderId':list.id}) }}">付款</a> {% endif %}{% if list.order_status == 0 %}<a class="active" order_id="{{ list.id }}" id="cancel_order" href="javascript:;">取消</a>{% endif %}</b>
+                            {% if list.count > 1 %}
+                                <div class="lesson_list" style="display: none; line-height: 25px;" id="tr_{{ list.id }}">
+                                    <ul>
+                                        {% for list_item in list.item_list %}
+                                            <li>
+                                                <b class="s_title"><a href="{{ path('PageBundle_course_detail',{id:list_item.id}) }}" target="_blank" class="active">{{ list_item.title }}</a></b><b>主讲人：{{ list_item.instructor_name }}</b>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                     <div class="ss" href="javascript:;" onclick="javascript:$('#tr_{{ list.id }}').slideUp('slow');">收起</div>
+                                </div>
+                            {% endif %}
+                        </dd>
+                    {% endfor %}
+                </dl>
+            </div>
+            <div>{{ pages | raw }}</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

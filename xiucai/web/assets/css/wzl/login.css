@@ -1,0 +1,31 @@
+/* CSS Document */
+body {
+	margin-top: 100px;
+}
+#login_all {
+	width: 732px;
+	margin:auto;
+}
+
+#login_top {
+	width: 732px;
+	float:left;
+	background:url(/manager/images/logo_bg.gif) no-repeat;
+	height:190px;
+}
+#login_cnt {
+	width: 732px;
+	float:left;
+	background:url(/manager/images/logo_bg1.gif) no-repeat;
+	height:150px;
+}
+#login_bottom {
+	width: 732px;
+	float:left;
+	background:url(/manager/images/logo_bg2.gif) no-repeat;
+	height:76px;
+}
+#login_dl{ 
+width:450px;
+margin:0 auto;
+font-size:13px;}

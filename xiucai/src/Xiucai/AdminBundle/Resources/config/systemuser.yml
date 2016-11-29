@@ -1,0 +1,22 @@
+#秀财网管理后台登录
+AdminBundle_SystemUser_login:
+    path: /admin/login
+    defaults: { _controller: AdminBundle:SystemUser:login }
+
+#秀财网管理后台登录验证
+AdminBundle_SystemUser_login_check:
+    path: /admin/login_check
+
+#秀财网管理后台退出登录
+AdminBundle_SystemUser_logout:
+    path: admin/logout
+
+AdminBundle_SystemUser_index:
+    path: /admin/
+    defaults: { _controller: AdminBundle:SystemUser:index }
+#AdminBundle_SystemUser_validate:
+#    path: /validate
+#    defaults: { _controller: AdminBundle:SystemUser:validate }
+#AdminBundle_SystemUser_validateMatching:
+#    path: /validateMatching
+#    defaults: { _controller: AdminBundle:SystemUser:validateMatching }

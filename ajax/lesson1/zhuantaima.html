@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>状态码</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="public.js"></script>
+</head>	
+<body>
+		<script>
+			var xhr =createxhr();//创建ajax对象
+			//ajax对象状态码改变时所触发的回调函数
+			xhr.onreadystatechange=function(){
+				alert(xhr.readyState);
+			};
+
+			xhr.open('get', 'demo03.php');//发送状态码
+
+			xhr.send(null);
+		</script>
+</body>
+</html>

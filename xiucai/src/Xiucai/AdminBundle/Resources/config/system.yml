@@ -1,0 +1,42 @@
+#秀财网管理后台权限管理
+
+AdminBundle_System_permission:
+    path: /permission
+    defaults: { _controller: AdminBundle:System:permission }
+AdminBundle_System_activeUpdate:
+    path: /activeUpdate
+    defaults: { _controller: AdminBundle:System:activeUpdate }
+AdminBundle_System_adminRemove:
+    path: /adminRemove
+    defaults: { _controller: AdminBundle:System:adminRemove }
+AdminBundle_System_adminAddPage:
+    path: /adminAddPage
+    defaults: { _controller: AdminBundle:System:adminAddPage }
+AdminBundle_System_adminAdd:
+    path: /adminAdd
+    defaults: { _controller: AdminBundle:System:adminAdd }
+AdminBundle_System_adminRedo:
+    path: /adminRedo
+    defaults: { _controller: AdminBundle:System:adminRedo }
+AdminBundle_System_adminUpdatePage:
+    path: /adminUpdatePage
+    defaults: { _controller: AdminBundle:System:adminUpdatePage }
+AdminBundle_System_adminUpdate:
+    path: /adminUpdate
+    defaults: { _controller: AdminBundle:System:adminUpdate }
+
+AdminBundle_System_msconfig:
+    path: /msconfig
+    defaults: { _controller: AdminBundle:System:msconfig }
+AdminBundle_System_msconfigAdd:
+    path: /msconfigAdd
+    defaults: { _controller: AdminBundle:System:msconfigAdd }
+AdminBundle_System_msconfigUpdate:
+    path: /msconfigUpdate
+    defaults: { _controller: AdminBundle:System:msconfigUpdate }
+AdminBundle_System_msconfigDele:
+    path: /msconfigDele
+    defaults: { _controller: AdminBundle:System:msconfigDele }
+AdminBundle_System_msconfigRemove:
+    path: /msconfigRemove
+    defaults: { _controller: AdminBundle:System:msconfigRemove }

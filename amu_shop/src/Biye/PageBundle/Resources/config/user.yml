@@ -1,0 +1,7 @@
+PageBundle_User_register:
+    path: /user/register
+    defaults: { _controller: "BiyePageBundle:User:register" }
+
+PageBundle_User_login:
+    path: /user/login
+    defaults: { _controller: "BiyePageBundle:User:login" }

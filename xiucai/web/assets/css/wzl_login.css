@@ -1,0 +1,50 @@
+@charset "utf-8";
+/*html,body{padding:0px;margin:0px; }*/
+/*body{}*/
+/*ul li{list-style:none;}*/
+/*h1,h2,h3,h4,h5,h6,p,form,dl,dt,dd,ul,li,b,img{padding:0px;margin:0px;font-size:12px;font-weight:normal;font-family:"arial";color:#666;}*/
+/*input,textarea{font-size:12px;border:0px;}*/
+/*a{text-decoration:none;color:#666;font-size:12px;outline:none;blr:expression(this.onFocus=this.blur());}*/
+/*a:hover{text-decoration:underline;text-decoration:none;}*/
+/*b.orange{color:#ff8023;font-weight:normal;}*/
+/*input{outline:none;}*/
+/*.clear{clear:both;}*/
+
+
+/*.btn_sub{background-color:#ee7c4a; border:0px; color:#FFFFFF; font-size:14px; font-weight:bold; padding:7px 25px 7px 25px;border-radius: 3px; cursor:pointer;}*/
+/*.btn_sub:hover{background-color:#e96830;}*/
+/*** login1 ***/
+
+.login1_main{margin:0 auto;width:400px;border:1px solid #cbcbcb;border-radius:4px;}
+.login1_close{ height:28px;}
+.login1_close span{float:right;}
+.login1_area{ width: 330px;margin: 0 auto;color: #cbcbcb}
+.login1_area .login1_hint{width: 330px;height: 38px;display: none;color: #EE0000;text-align: center;}
+.login1_area .input{ margin-left:48px;width: 270px;margin-top: 10px; height: 20px; }
+.login1_title{ font-size:24px; height:38px;line-height: 38px;}
+.login1_email{ background-image:url(../img/login_email.jpg);height:40px;margin-top: 10px; }
+.login1_psss{ background-image:url(../img/login_pass.jpg);height:40px;margin-top:20px;}
+.login1_box{ font-size: 12px; margin-top: 20px;line-height: 20px;}
+.login1_box span a{ float:right;font-size: 12px; color: #cbcbcb}
+.login1_box input{margin-right: 8px;}
+.login1_bt{ margin-top: 10px;}
+.login1_link{margin-top: 18px;height: 24px;line-height: 24px; font-size: 14px;}
+.login1_link img{vertical-align:middle; margin-left: 10px}
+.login1_bom{ height: 46px; line-height: 46px;border-top:1px solid #cbcbcb;margin-top: 40px;text-align: center; }
+.login1_bom a{font-size: 16px;color: #ed7000}
+
+/**login2**/
+.login1_title a{ color:#ed7000;font-size:14px;}
+.login2_hint{height: 48px;font-size: 12px;line-height: 24px;margin-top: 5px;}
+.login2_email{ background-image:url(../img/login2_input.jpg);height:40px;margin-top:25px;}
+.login2_email .input{margin-left:10px;height: 20px;width: 300px;color: #5E5E5E}
+.login2_bt{ margin-top: 32px;}
+.login2_bt_in{ margin-top: 44px;display: none;}
+
+/**regist**/
+.login1_code{ background-image:url(../img/regist_code.jpg);height:40px;margin-top:20px;}
+.regist1_bt{ margin-top: 36px;}
+/***regiset*/
+.regist2_main{margin:0 auto;width:400px;border:1px solid #cbcbcb;border-radius:4px;}
+.re_yzm{background: #ffe7d1;width: 100px;height: 30px;margin: 0 auto;margin-top: 22px;}
+.re_yzm img{cursor: pointer;}

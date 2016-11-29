@@ -1,0 +1,90 @@
+<link rel="stylesheet" href="{{ asset('assets/css/wzl/green/gui.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/wzl/styles.css') }}" />
+<div id="main_body" style="filter: alpha(opacity=35);">
+    <ul class="main_top">
+        <li class="main_top_left left">
+            <strong>支付管理—交易信息</strong>
+        </li>
+        <li class="main_top_right right">
+        </li>
+    </ul>
+    <div class="main_content_rightbg">
+        <div class="main_content_leftbg">
+            <table width="98%" border="0" align=center cellpadding="2" cellspacing="1" bgcolor="#FFFFFF" class="border table_content">
+                <thead>
+                <th align="center" width="5%">
+                    <input type='checkbox' id='checkAll' name='checkAll' onclick="checkAll()">
+                </th>
+                <th align="center">ID</th>
+                <th align="center">名称</th>
+                <th align="center">类别</th>
+                <th align="center">主讲</th>
+                <th align="center">现价（￥）</th>
+                <th align="center">直播时间</th>
+                <th align="center">级别</th>
+                <th align="center">预约人数</th>
+                <th align="center">时长</th>
+                <th align="center">直播状态</th>
+                <th align="center">审核显示</th>
+                <th align="center">操作</th>
+                </thead>
+                {% if(list) %}
+                    {% for l in list %}
+                        <tr>
+                            <td align="center">
+                                <input type="checkbox" name='ck' value="{{l.id}}" />
+                            </td>
+                            <td align="center">
+                                {{ l.member_id}}
+                            </td>
+                            <td align="center">
+                                {{ l.member_id}}
+                            </td>
+                            <td align="center">
+                                {{ l.member_id }}
+                            </td>
+                            <td align="center">
+                                {{ l.member_id }}
+                            </td>
+                            <td align="center">
+                                {{ l.member_id }}
+                            </td>
+                            <td align="center">
+                                {{ l.member_id }}
+                            </td>
+                            <td align="center">
+                            </td>
+                            <td align="center">
+                                {{ l.member_id}}
+                            </td>
+                            <td align="center">
+                                {{ l.member_id }}
+                            </td>
+                            <td align="center">
+                            </td>
+                            <td align="center">
+                            </td>
+                            <td align="center">
+                                <a href="javascript:void(0)" onclick="">编辑</a>|
+                                <a href="javascript:;" onclick="liveDele({{ l.id }})">删除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                <tr>
+                    <td align="center"><input type="button" class="delete" value="删除所选" onclick="removeAll()"></td>
+                    <td colspan='12'></td>
+                </tr>
+                <tr>
+                    <td id="page" colspan="12" style="text-align: center">
+                        {{ pages | raw }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <ul class="main_end">
+        <li class="main_end_left left"></li>
+        <li class="main_end_right right"></li>
+    </ul>
+</div>

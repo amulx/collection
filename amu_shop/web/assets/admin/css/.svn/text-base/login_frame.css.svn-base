@@ -1,0 +1,16 @@
+a{color:#075aaa;}
+form{margin:0; padding:0;}
+input{height:16px; padding:1px 1px 1px 2px; border:0; background:transparent;}
+body{margin:0; padding:0; background:#d4d4d4 url(../images/lg_bg.gif) repeat-x top; text-align:center; font-size:12px;}
+.login_bg{width:598px; height:293px; margin:163px auto; background:url(../images/login_bg.gif) no-repeat; position:relative;}
+.login_bg form{margin:0; padding:0;}
+.login_bg .u_name{width:113px; position:absolute; left:305px; top:85px; }
+.login_bg .u_pwd{width:113px; position:absolute; left:305px; top:120px; }
+.login_bg .u_code{width:73px; position:absolute; left:305px; top:151px; }
+.login_bg .u_codeimg{width:78px; position:absolute; left:391px; top:151px; }
+.login_bg .u_loginbtn{width:56px; position:absolute; left:305px; top:186px; }
+.login_bg .u_goindex{width:60px; position:absolute; left:380px; top:195px; }
+
+.login_bg .u_name input,.login_bg .u_pwd input{width:113px;}
+.login_bg .u_code input{width:70px; }
+.login_bg .u_loginbtn input{width:50px; height:22px; cursor:pointer;}

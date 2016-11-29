@@ -1,0 +1,91 @@
+    <link rel="stylesheet" href="{{ asset('assets/css/common.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/member.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl_people.css') }}" />
+    <script type="text/javascript" src="{{ asset('assets/js/jquery-1.7.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/wzl_people.js') }}"></script>
+    <link href="{{ asset('assets/css/wzl/wzl_tc.css') }}" type="text/css" rel="stylesheet">
+    <!--uploadify start-->
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/uploadify/uploadify/uploadify.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/uploadify/jcrop/jquery.Jcrop.css') }}" />
+    <script type="text/javascript" src="{{ asset('assets/uploadify/uploadify/jquery.uploadify-3.1.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/uploadify/jcrop/jquery.Jcrop.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/uploadify/uploadify/uploadify-js.js') }}"></script>
+    <!--uploadify end-->
+
+    <script>
+        var uploadUrl = "/assets/uploadify_img/upload.php?member_id="+Math.random();
+        var get_user_city = "{{ path('PageBundle_user_city') }}";
+        function teacherEdit(){
+            var name        = document.getElementById('name').value;
+            name            = name.replace(/(^\s*)|(\s*$)/g, "");
+            if(name.length <= 0)
+            {
+                alert('老师名称不能为空！');
+                return;
+            }
+            var myForm    = document.getElementById('teacher_edit_form');
+            myForm.action = '{{ path('AdminBundle_User_teacherUpdate') }}';
+            myForm.submit();
+        }
+        function closes(){
+            window.location.href = "{{ path('AdminBundle_User_teacher') }}"
+        }
+    </script>
+    <p style="text-indent: 1cm;line-height: 38px;height: 38px;">
+        用户管理 / 老师管理 / 编辑老师
+    </p>
+    <div class="teacher_main">
+        <div class="div_2 fr">
+            <form id="teacher_edit_form" action="" method="post">
+                <input type="hidden" name="tid" value="{{ tdata.id }}">
+                <div style="margin-top:40px;" class="people_message">
+                    <ul>
+                        <li style="margin-top: 14px;" class="w1">
+                            姓名：<input type="text" id="name" name="name" class="nickname" value="{{ tdata.name }}">
+                        </li>
+                        <li class="w2">
+                            头衔：<input type="text" class="title" name="title" value="{{ tdata.title }}">
+                        </li>
+                        <li class="w2">
+                            <span style="margin-bottom: 20px;">简介：</span>
+                            <textarea name="brief" style="margin-left:60px;width: 328px; height: 89px;border-radius: 4px;border:1px solid #cbcbcb;resize:both;">{{ tdata.brief }}
+                            </textarea>
+                        </li>
+                        <li class="w2">
+                            手机：<input type="text" class="cellphone" name="cellphone" value="{{ tdata.cellphone }}">
+                        </li>
+                        <li class="w2">
+                            头像：<img id="avatar" style="margin-right: 20px;" width="131" height="129" src="{% if tdata.avatar is not empty %}{{ asset(tdata.avatar) }}{% else %}{{ asset('assets/img/people_heand.jpg') }}{% endif %}" class="t_pic preview">
+                            <div class="up_pic">
+                                <input type="hidden" name="avatar" id="head_pic" value=""/>
+                                <input type="hidden" name="avatar_large" id="head_pic_large" value="{% if tdata.avatar is not empty %}{{ tdata.avatar }}{% endif %}"/>
+                                <input type="text" id="avatarUpload" value="" />
+                                <input type="hidden" id="img" name="img" />
+                                <input type="hidden" id="x" name="x" value="0" />
+                                <input type="hidden" id="y" name="y" value="0" />
+                                <input type="hidden" id="w" name="w" value="200" />
+                                <input type="hidden" id="h" name="h" value="200" />
+                                <input type="hidden" id="member_id" name="member_id" value="" />
+                                <p>支持JPG、PNG、GIF,不要超过2M。</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="people_bto">
+                    <div style="margin: 0;text-align: center;" class="submit_bt w_bt_size" onclick="teacherEdit()"> 更新</div>
+                    <div style="text-align: center" class="cancel_bt w_bt_size" onclick="closes()"> 取消</div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--头像弹层-->
+    <div class="layer_bg">
+    </div>
+    <div class="pop_bg">
+        <div class="img_bg">
+            <img id="target" border="0" src=""/>
+        </div>
+        <a href="javascript:;" id="avatar_submit" class="yh f22 con">确定</a>
+        <a href="javascript:;" class="res">取消</a>
+    </div>

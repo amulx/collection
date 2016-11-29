@@ -1,0 +1,137 @@
+{% extends 'PageBundle::layoutIndex.html.twig' %}
+{% block js_css %}
+    <script>
+        var loadInfo = {
+            level: '{{ level }}',
+            rType: '{{ rType }}',
+            hasMore: true,
+            isLoading: false,
+            page: 2,
+            limit: 3
+        };
+        var course_video_url = "{{ path('PageBundle_course_video') }}";
+        var course_live_detail = "{{ path('PageBundle_live_detail') }}";
+        var course_live_ajaxLoad = "{{ path('PageBundle_course_live_ajaxLoad') }}";
+    </script>
+    <script type="text/javascript" src="{{ asset('assets/js/live_index.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/bxslider/jquery.bxslider.css') }}" />
+    <script type="text/javascript" src="{{ asset('assets/bxslider/jquery.bxslider.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/jquery.countdown.js') }}"></script>
+    <script type="text/javascript" lang="javascript">
+        $(document).ready(function(){
+            $('.bxslider').bxSlider();
+            //$(".bxslider li img").attr("width",document.body.clientWidth);
+        });
+    </script>
+{% endblock %}
+{% block content %}
+    <ul class="bxslider">
+        {% for focusImage in focusImageData %}
+            <li style="display:block; overflow:hidden;">{% if focusImage.targetUrl is not empty %}<a href="{{ focusImage.targetUrl }}" target="_blank">{% endif %}<img src="{{ asset(focusImage.url) }}" width="100%" border="0" style="vertical-align:bottom; display:block;"/>{% if focusImage.targetUrl is not empty %}</a>{% endif %}</li>
+        {% endfor %}
+    </ul>
+    <div class="allzhibo">
+        {#<div class="div_1 fl">#}
+            {#<p class="title">所有直播课</p>#}
+            {#<div class="line"></div>#}
+            {#<div class="ul_div">#}
+                {#<div class="div1">#}
+                    {#<a href="{{ path('PageBundle_course_live', {'rType': rType}) }}">所有水平</a>#}
+                    {#<img width="14" height="8" src="{{ asset('assets/img/vedio_arrow_black_d.png') }}">#}
+                {#</div>#}
+                {#<ul class="level_ul">#}
+                    {#<li><a href="{{ path('PageBundle_course_live', {'level': 1, 'rType': rType}) }}" {% if level == 1 %}class="current"{% endif %}>初级</a></li>#}
+                    {#<li><a href="{{ path('PageBundle_course_live', {'level': 2, 'rType': rType}) }}" {% if level == 2 %}class="current"{% endif %}>中级</a></li>#}
+                    {#<li><a href="{{ path('PageBundle_course_live', {'level': 3, 'rType': rType}) }}" {% if level == 3 %}class="current"{% endif %}>高级</a></li>#}
+                {#</ul>#}
+            {#</div>#}
+        {#</div>#}
+        <div class="div_2" style="width: 1100px;margin-left: 70px;">
+            <ul class="process">
+                <li {% if rType == 'old' %}class="gray1"{% endif %}><a href="{{ path('PageBundle_course_live', {'rType': 'new'}) }}">最新</a></li>
+                <li {% if rType == 'new' %}class="gray1"{% endif %}><a href="{{ path('PageBundle_course_live', {'rType': 'old'}) }}">往期</a></li>
+                <li class="gray2" style="width: 900px;"></li>
+            </ul>
+            <div class="clear"></div>
+            <div class="my_appointment">
+                {% if liveCourseData is not empty %}
+                    {% for key,liveCourse in liveCourseData %}
+
+                        <div style="padding-top: 10px;" class="{% if loop.first %}{% else %}blank{% endif %}">
+                            <div id="day_box_{{ key }}" class="day_box">{{ key | slice(4,2) }}月{{ key | slice(6,2) }}日</div>
+                        </div>
+                        {% for live in liveCourse %}
+                        <div class="appointment_list">
+                            <div>
+                                <div class="div1"></div>
+                                <div style="" class="fl">
+                                    <div class="time fl">{{ live.schedule_time | date("H:i") }}</div>
+                                    <div class="circle"></div>
+                                    <div class="line_b" {% if rType == 'old' %}style="height: 206px;"{% else %}{% if today_date < key | slice(0,8) %}style="height: 206px;"{% endif %}{% endif %}></div>
+                                </div>
+
+                                <div class="app_r">
+                                    {% if rType == 'new' %}
+                                        {% if today_date >= key | slice(0,8) %}
+                                            {% if(live.time_left != 0) %}
+                                                <ul class="countdown" data-diff="{{ live.time_left }}" style="height: 70px;">
+                                                    <li class="hour">
+                                                        <p>{{ live.schedule_time | date("H") }}</p>
+                                                    </li>
+                                                    <li class="colon fl">:</li>
+                                                    <li class="hour">
+                                                        <p>{{ live.schedule_time | date("i") }}</p>
+                                                    </li>
+                                                    <li class="colon fl">:</li>
+                                                    <li class="hour">
+                                                        <p>{{ live.schedule_time | date("s") }}</p>
+                                                    </li>
+                                                </ul>
+                                            {% else %}
+                                                <ul>
+                                                    <li style="color: #ed7101;font-size: 18px;height: 70px;line-height: 70px;">
+                                                        正在直播。。。
+                                                    </li>
+                                                </ul>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                    <div style="padding-top: 15px;" class="content" {% if rType == 'old' %}style="padding-top: 0px;" {% endif %}>
+                                        <div class="relative">
+                                        <div class="div_pic fl">
+                                            <a href="{{ path('PageBundle_live_detail',{'id': live.id}) }}" target="_blank"><img width="280" height="192" style="border:1px solid #CCCCCC;" src="{{ asset(live.img_url) }}"></a>
+                                        </div>
+                                        <div class="word">
+                                            <div class="h_right_box" style="height: 190px;">
+                                                <div class="div_top">
+                                                    <p class="title">
+                                                        <a style="font-size: 18px;" href="{{ path('PageBundle_live_detail',{'id': live.id}) }}" target="_blank">{{ live.title }}</a>
+                                                    </p>
+                                                    <p class="w_c">{{ live.brief | addSlice(0,105) }}</p>
+                                                </div>
+                                                <div class="div_bottom" style="left: 320px;">
+                                                    <p style="padding-bottom: 20px;" class="div_bottom_text" style="font-size: 12px;">时间：{{ live.time_length }}</p>
+                                                    <img src="{{ asset('assets/img/icon/list/person_black.png') }}">
+                                                    <span>{{ live.reserve_count }}</span>
+                                                    <span style="margin-left: 28px;"><img src="{{ asset('assets/img/icon/list/money_black.png') }}">{% if live.current_price is empty or live.current_price == '0.00' %}
+                                                免费
+                                            {% else %}
+                                                {{ live.current_price }}
+                                            {% endif %}</span>
+                                                    <span style="margin-left: 28px;"><img src="{{ asset('assets/img/icon/list/teacher_level.png') }}"> {{ live.course_level }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

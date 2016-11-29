@@ -1,0 +1,103 @@
+{% extends 'PageBundle::layoutIndex.html.twig' %}
+{% block js_css %}
+    <script>
+        var loadInfo = {
+            level: '{{ level }}',
+            hasMore: true,
+            isLoading: false,
+            page: 2,
+            limit: 3
+        };
+        var course_video_url = "{{ path('PageBundle_course_video') }}";
+        var course_detail_url = "{{ path('PageBundle_course_detail') }}";
+        var course_ajax_load_url = "{{ path('PageBundle_course_ajax_load') }}";
+    </script>
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl_introduce.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/bxslider/jquery.bxslider.css') }}" />
+    <script type="text/javascript" src="{{ asset('assets/bxslider/jquery.bxslider.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/course_index.js') }}"></script>
+    <script type="text/javascript" lang="javascript">
+        $(document).ready(function(){
+            $('.bxslider').bxSlider();
+            //$(".bxslider li img").attr("width",document.body.clientWidth);
+        });
+    </script>
+{% endblock %}
+{% block content %}
+    <ul class="bxslider">
+        {% for focusImage in focusImageData %}
+        <li style="display:block; overflow:hidden;">{% if focusImage.targetUrl is not empty %}<a href="{{ focusImage.targetUrl }}" target="_blank">{% endif %}<img src="{{ asset(focusImage.url) }}" width="100%" style="vertical-align:bottom; display:block;"/>{% if focusImage.targetUrl is not empty %}</a>{% endif %}</li>
+        {% endfor %}
+    </ul>
+    <div class="allzhibo">
+        {#<div class="div_1 fl">#}
+            {#<p class="title">所有录播课</p>#}
+            {#<div class="line"></div>#}
+            {#&#123;&#35;<div class="ul_div">#}
+                {#<ul>#}
+                    {#<li>税务 <img width="8" height="14" src="{{ asset('assets/img/vedio_arrow_black.png') }}"></li>#}
+                    {#<li>高层管理 <img width="8" height="14" src="{{ asset('assets/img/vedio_arrow_black.png') }}"></li>#}
+                    {#<li>会计管理 <img width="8" height="14" src="{{ asset('assets/img/vedio_arrow_black.png') }}"></li>#}
+                    {#<li>财会工具 <img width="8" height="14" src="{{ asset('assets/img/vedio_arrow_black.png') }}"></li>#}
+                {#</ul>#}
+            {#</div>#}
+            {#<div class="line"></div>&#35;&#125;#}
+            {#<div class="ul_div">#}
+                {#<div class="div1">#}
+                    {#<a href="{{ path('PageBundle_course_video') }}">所有水平</a>#}
+                    {#<img width="14" height="8" src="{{ asset('assets/img/vedio_arrow_black_d.png') }}">#}
+                {#</div>#}
+                {#<ul class="level_ul">#}
+                    {#<li><a href="{{ path('PageBundle_course_video', {'level': 1}) }}" {% if level == 1 %}class="current"{% endif %}>初级</a></li>#}
+                    {#<li><a href="{{ path('PageBundle_course_video', {'level': 2}) }}" {% if level == 2 %}class="current"{% endif %}>中级</a></li>#}
+                    {#<li><a href="{{ path('PageBundle_course_video', {'level': 3}) }}" {% if level == 3 %}class="current"{% endif %}>高级</a></li>#}
+                {#</ul>#}
+            {#</div>#}
+        {#</div>#}
+        <div class="div_2" style="width: 1200px;;margin-left: 70px;">
+            {#<div class="clear"></div>#}
+            <h1 style="color: #8e8e8e;font-size: 18px;height: 30px;">热门精品课</h1>
+            <div class="all_recording">
+                {% if courseData is not empty %}
+                    {% for course in courseData %}
+                        <div class="content_list {% if loop.first %}first{% else %} blank{%endif %}">
+                            <div class="relative">
+                            <div class="div_pic fl">
+                                <a href="{{ path('PageBundle_course_detail',{'id': course.id}) }}" target="_blank"><img style="border:1px solid #CCCCCC;" src="{{ asset(course.img_url) }}" width="280" height="192"></a>
+                            </div>
+                            <div class="word">
+                                <div class="h_right_box" style="height: 190px;">
+                                    <div class="div_top">
+                                        <p class="title" ><a class="title" href="{{ path('PageBundle_course_detail', {'id': course.id}) }}" target="_blank">{{ course.title }}</a>
+                                        </p>
+                                        <p class="w_c">{{ course.brief | addSlice(0,105) }}</p>
+                                    </div>
+                                    <div class="div_bottom" style="left: 320px;">
+                                        <p class="div_bottom_text">更新于{{ course.modify_time }}</p>
+                                        <img src="{{ asset('assets/img/icon/list/person_black.png') }}">
+                                        <span>
+                                            {{ course.play_count }}
+                                        </span>
+                                        <span style="margin-left: 28px;"><img src="{{ asset('assets/img/icon/list/money_black.png') }}">
+                                            {% if course.current_price is empty or course.current_price == '0.00' %}
+                                                免费
+                                            {% else %}
+                                                {{ course.current_price }}
+                                            {% endif %}
+                                        </span>
+                                        <span style="margin-left: 28px;">
+                                            <img src="{{ asset('assets/img/icon/list/teacher_level.png') }}">
+                                            {{ course.course_level }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" id="course_level" value="{{ level }}">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

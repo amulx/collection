@@ -1,0 +1,23 @@
+.top{background:url(../images/t_bg.gif) repeat-x left top;height:55px}
+.top .header{width:960px;margin:0 auto}
+.top .header .left{float:left;margin-top:10px}
+.top .header .left li{float:left; position:relative}
+.top .header .left .menu{padding:10px;margin:0 10px}
+.top .header .left .menu a{color:#fff; text-decoration:none;display:inline-block;margin:0 8px}
+.top .header .left a.on{font-weight:bold;font-size:14px}
+
+.top_search{background:url(../images/all.png) no-repeat -102px -149px;width:249px;height:33px;float:left}
+.top_search .input{border:none;width:180px;height:15px;margin:8px;}
+.top_search a{float:right;width:30px;height:30px;display:block}
+.top .header .left .ask{ background:url(../images/all.png) no-repeat -121px -91px;width:51px;height:33px;display:inline-block;margin:0 10px;color:#fff;text-decoration:none;line-height:33px;text-align:center;font-weight:bold}
+
+.top .header .user{color:#fff;font-size:14px; background:url(../images/user_r_dot.gif) no-repeat right center;padding-right:15px;display:block;margin:10px 0 0 0px;width:120px; text-align:right}
+.top .header .email{ background:url(../images/all.png) no-repeat -287px -231px;width:20px;height:30px;display:block;margin:0 0 0 30px; position:relative}
+.top .header .email span,.top .header .cart span{ background:url(../images/topNumbg.gif) no-repeat;width:21px; height:21px; position:absolute;top:-5px;right:-10px;color:#fff; text-align:center; line-height:20px;font-family:Arial, Helvetica, sans-serif}
+.top .header .cart{ background:url(../images/all.png) no-repeat -333px -229px;width:37px;height:32px; display:block;margin:0 0 0 30px; position:relative}
+
+.top .header .poll_menu{background:url(../images/dropmenu_bg.gif) repeat-x left bottom;height:140px;width:160px; position:absolute; z-index:999;padding:10px 0;border:1px solid #dfdfdf;margin-top:10px}
+.top .header .poll_menu .updot{ background:url(../images/up.gif) no-repeat;width:15px;height:9px;display:block; position:absolute;top:-8px;left:70px}
+.top .header .poll_menu li{width:100%;text-align:center}
+.top .header .poll_menu li a{dipslay:block; text-align:center;color:#666;font-size:12px;padding:10px ;float:left;width:140px}
+.top .header .poll_menu li a:hover{background:#44b5df;color:#fff}

@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>后台管理员登录</title>
+    <script type="text/javascript" src="{{ asset('assets/public/js/jquery.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/login_frame.css') }}" />
+    <script type='text/javascript' >
+        function formCheck(){
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var captcha = document.getElementById("captcha").value;
+            var subm = document.getElementById("subm").value;
+            if(username == ""){
+                alert('请输入写用户名！');
+                return false;
+            }else if(password == ""){
+                alert('请输入用户密码！');
+                return false;
+            }
+//            else if (captcha == '') {
+//                alert('请输入验证码！');
+//                return false;
+//            }
+            else{
+                {#$.post(#}
+                {#'{{ path('AdminBundle_SystemUser_captchaMatching') }}',#}
+                {#{'yzm':captcha},#}
+                {#function(data){#}
+                {#if( data != 'ok'){#}
+                {#alert('验证码错误，请重新输入验证码！');#}
+                {#return false;#}
+                {#}else{#}
+                {#var myForm = document.getElementById('signup');#}
+                {#myForm.submit();#}
+                {#}#}
+                {#});#}
+                var myForm = document.getElementById('signup');
+                myForm.submit();
+            }
+        }
+        document.onkeydown=function (event) {
+            if (event.keyCode==13) {
+                subm.click();
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="login_bg">
+    <form id="signup" action="{{ path('AdminBundle_SystemUser_login_check') }}" method="post" >
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData) }}</div>
+        {% endif %}
+        <div class="u_name">
+            <input type="text" id="username" name="_username" value="{{ last_username }}" size="20" maxlength="20" tabindex="1"/>
+        </div>
+        <div class="u_pwd">
+            <input type="password" id="password" name="_password" value="" size="20" maxlength="20" tabindex="2" />
+        </div>
+        <input type="hidden" name="_target_path" value="/admin" />
+        <div class="u_code">
+            <input type="text" id="captcha" name="random" value="" size="8" maxlength="8" tabindex="3" />
+        </div>
+        {#<div class="u_codeimg">#}
+        {#<img src="{{ path('AdminBundle_SystemUser_captcha') }}?dumy={{ random() }}" onClick="this.src='{{ path('AdminBundle_SystemUser_captcha') }}?dumy=' + Math.random();" height="22" width="77"  alt="验证码,看不清楚,请点击刷新验证码" style="cursor:pointer;">#}
+        {#</div>#}
+        <div class="u_loginbtn">
+            <input type="button" value="" onclick="formCheck()" id="subm">
+        </div>
+    </form>
+</div>
+</body>
+</html>

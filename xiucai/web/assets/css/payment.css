@@ -1,0 +1,83 @@
+/*** ncart  cart_list***/
+.cart_list dl{margin-bottom:22px;}
+.cart_list dl dt{height:38px; line-height:38px; background:url(../img/ncart/dt_bg.gif) no-repeat;}
+.cart_list dl dd{height:72px; lihe-height:72px; border-bottom:dashed 1px #d7d7d7;}
+.cart_list dl dt b,.cart_list dl dd b,.cart_list dl dd a{display:inline-block; text-align:center;}
+.cart_list dl .bname{width:210px; margin-right:46px; padding-left:10px; text-align:center;}
+.cart_list dl .type{width:56px; margin-right:54px;}
+.cart_list dl .time{width:118px; margin-right:36px;}
+.cart_list dl .price{width:66px; margin-right:46px;}
+.cart_list dl .off{width:54px; margin-right:50px;}
+.cart_list dl .total{width:66px; margin-right:60px;}
+.cart_list dl .del{width:40px;}
+.cart_list dl dd .bname{line-height:18px;}
+.cart_list dl dd .bname,.cart_list dl dd .del{color:#0078b6;}
+.cart_list dl dd .orange{color:#ff8a00;}
+.cart_list dl dd b{line-height:72px;}
+.cart_list h2{margin-bottom:30px;}
+.cart_list h2 b{color:#ff0000; margin-right:26px;}
+.cart_list h2 .pay,.cart_list h6 a.pay{color:#fff; display:inline-block; width:155px; height:56px; line-height:56px; background:url(../img/ncart/pay_btn.png) no-repeat; text-align:center;}
+
+/*** ncart  check_bg***/
+.check_bg{width:498px; min-height:176px; padding:18px 20px 24px 24px; border:solid 1px #ccc; border-radius:4px; margin-bottom:30px;}
+.check_bg h3,.cart_list h4{margin-bottom:26px;}
+.cart_list h5{margin-bottom:18px;}
+.cart_list h4,.cart_list h6{text-align:right;}
+.cart_list h4 b{color:#ff0000;}
+.cart_list h5 b{margin-right:44px;}
+.cart_list h5 .modify{color:#0078b6; margin-left:14px;}
+.cart_list h6 a.check{display:inline-block; padding-left:30px; width:50px; height:23px; line-height:26px; background:url(../img/ncart/check.png) no-repeat; margin-right:18px; vertical-align:bottom;}
+.cart_list h6 a.open{background:url(../img/ncart/check_cur.png) no-repeat;}
+.cart_list h6 a.check:hover{text-decoration:none;}
+.check_bg .information_edit{padding:19px 0px 17px 14px; width:477px; height:310px; background:url(../img/ncart/edit_bg.png) no-repeat; display:none;}
+.check_bg .information_edit p{margin-bottom:9px;}
+.check_bg .information_edit p.txt3 ,.check_bg .information_edit p b{padding-left:10px;}
+.check_bg .information_edit input,.check_bg .information_edit textarea,.check_bg .information_edit select,.check_bg .information_edit p,.check_bg .information_edit p b{color:#a1a1a1;}
+.check_bg .information_edit .txt{width:135px; height:26px; line-height:26px; border:solid 1px #cbcbcb; border-radius:4px; padding-left:10px; background:#fff;}
+.check_bg .information_edit .sel_bg{width:145px; margin-right:10px; padding:0;}
+.check_bg .information_edit select{width:124px; height:18px; margin:4px 0px 0px 10px;}
+.check_bg .information_edit input.check{width:297px;}
+.check_bg .information_edit input.tel,.check_bg .information_edit input.tel2{margin-right:2px;}
+.check_bg .information_edit input.tel2,.check_bg .information_edit input.tel3{margin-left:2px;}
+.check_bg .information_edit .txt2{width:452px; height:54px; padding-top:6px; overflow:hidden; line-height:22px;}
+.check_bg .information_edit .subm,.check_bg .information_edit .res{width:80px; height:26px; line-height:26px; border-radius:4px;}
+.check_bg .information_edit .subm{background:#2679a4; border:solid 1px #1a6287; color:#fff;}
+.check_bg .information_edit .res{background:#f2f2f2; border:solid 1px #cbcbcb;}
+.check_bg .information_list{margin-top:32px; display:none}
+.check_bg .information_list p{padding-left:48px;margin-bottom:16px;}
+.check_bg .information_list p.title{padding-left:0px;}
+.check_bg .information_list p a{color:#0078b6;}
+
+/*** ncart  tab***/
+.tab_menu{height:50px; border-left:solid 1px #d8d8d8; position:relative; margin-top: 30px;}
+.tab_menu ul li{width:149px; height:50px; line-height:48px; background:url(../img/ncart/tab.gif) no-repeat; text-align:center;}
+.tab_menu ul li a{color:#ccc;}
+.tab_menu ul li.current{background:url(../img/ncart/tab_cur.gif) no-repeat; border:0px;}
+.tab_menu ul li.current a{color:#277aa4;}
+.tab_menu ul li a:hover{text-decoration:none;}
+.tab_content{padding-bottom:20px;}
+.tab_content1 .more,.tab_content2{display:none;}
+.tab_content1,.tab_content2{min-height:238px; border:solid 1px #d8d8d8; margin-top:-1px;}
+.tab_content1 ul{margin:40px 0px 18px 26px;}
+.tab_content1 a.choose{margin-left:26px; padding-right:20px; background:url(../img/ncart/choose.png) no-repeat right;}
+.tab_content1 ul li{width:183px; height:42px; padding-left:30px; background:url(../img/ncart/icon.gif) no-repeat left center; margin:0px 16px 30px 0px; cursor:pointer;}
+.tab_content1 ul li.current{background:url(../img/ncart/icon_cur.gif) no-repeat left center;}
+.tab_content1 ul li img{padding:0px 3px 4px 0px; background:url(../img/ncart/li_bg.gif) no-repeat;}
+.tab_content2 p{text-align:center;}
+.tab_content2 p.yh{margin:60px 0px 50px 0px;}
+.tab_content2 .pay{display:inline-block; width:155px; height:56px; line-height:56px; color:#fff; text-align:center; background:url(../img/ncart/pay_btn.png) no-repeat}
+.help{padding-bottom:30px;}
+.help h2{padding-left:30px; margin:30px 0px 18px 0px; background:url(../img/ncart/pay3.png) no-repeat;}
+.help p{line-height:26px;}
+.help p.blue{color:#20729c;}
+.help p.gray{color:#717171; padding-bottom:12px; margin-bottom:12px; border-bottom:dashed 1px #717171;}
+.help p.last{border:0px;}
+
+/*** ncart  success***/
+.success p{margin-bottom:32px; text-align:center;}
+.success .blue{color:#0078b6;}
+.success .pay{display:inline-block; width:187px; height:45px; line-height:45px; color:#fff; background:url(../img/ncart/pay_btn2.png) no-repeat; text-align:center; margin-bottom:50px;}
+.success .les{background:url(../img/ncart/lesson.png) no-repeat;}
+.information{width:375px; margin:0 auto; margin-bottom:46px;}
+.information img{padding:2px; margin-right:38px; background:url(../img/ncart/pic_bg.png) no-repeat;}
+.information h2{margin-bottom:20px;}

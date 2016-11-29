@@ -1,0 +1,131 @@
+Xiucai\StoreBundle\Entity\XcOrder:
+    type: entity
+    table: xc_order
+    id:
+        id:
+            type: bigint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        orderCode:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 订单号（自动生成，日期+4位数字，数字每天从1开始计数，如201410280001）
+            column: order_code
+        memberId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: '用户ID（对应*_member的ID）'
+            column: member_id
+        amount:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: 原价总额
+        payAmount:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: 实际交易金额
+            column: pay_amount
+        paymentGateway:
+            type: string
+            nullable: true
+            length: 16
+            fixed: false
+            comment: '交易方式（0 - internet, 1 - cash, 2 - check, 3 - agent）'
+            column: payment_gateway
+        transactionId:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 第三方支付ID
+            column: transaction_id
+        transactionStatus:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '第三方交易状态（0 - waiting, 1 - approved, 2 - declined, 3 - cancelled）'
+            column: transaction_status
+        orderStatus:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: 订单状态（0为未支付，1为支付失败，2为支付成功，3为取消）
+            column: order_status
+        operatorId:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: '系统操作员（对应*_admin表的admin_id），用户自己通过互联网支付时，此值设为0'
+            column: operator_id
+        ipAddress:
+            type: string
+            nullable: true
+            length: 32
+            fixed: false
+            comment: 交易时的IP
+            column: ip_address
+        createTime:
+            type: datetime
+            nullable: true
+            comment: 创建时间
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: true
+            comment: 更新时间
+            column: update_time
+        type:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '交易类型（缺省为0 - paid, 1 - promotion, 2 - compensation, 3 - test）'
+        notifyTime:
+            type: datetime
+            nullable: true
+            comment: 支付网关回应时间
+            column: notify_time
+        notifyType:
+            type: string
+            nullable: true
+            length: 32
+            fixed: false
+            comment: 支付网关回应类型
+            column: notify_type
+        notifyId:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 支付网关回应ID
+            column: notify_id
+        signType:
+            type: string
+            nullable: true
+            length: 16
+            fixed: false
+            comment: 交易签名类型（从第三方交易平台返回）
+            column: sign_type
+        sign:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 交易签名（从第三方交易平台返回）
+        status:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '内容状态（参考*_content_status表）'
+    lifecycleCallbacks: {  }

@@ -1,0 +1,49 @@
+/* 我的订单开始*/
+.myorder {width:1200px; margin:0 auto; padding:30px 0 0px 0; min-height: 486px;}
+.myorder .div_1 {width:339px}
+.myorder .div_1 .title {padding-bottom:16px; font-size: 16px;}
+.myorder .div_1 .title a{padding-bottom:16px; font-size: 16px;}
+.myorder .div_1 .line {background:url(../img/myorder_line_l.jpg); background-repeat:repeat-x; height:2px; width:280px;}
+.myorder .div_1 .div_list {padding-top:50px;}
+.myorder .div_1 .div_list ul li{height:45px;}
+.myorder .div_1 .div_list ul li a{font-size: 14px;}
+.myorder .div_1 .div_list ul li a:hover {color:#f29644; cursor: pointer;}
+.myorder .div_1 .div_list ul li a.active {color:#f29644;}
+
+.myorder .div_2 { width:850px; padding-bottom: 50px;}
+.myorder .div_2 ul.process{ padding-top:6px;}
+.myorder .div_2 ul.process li{ width:10%;float: left; border-bottom:2px solid #f29644; height:30px; color:#f29644; font-size:16px; text-align:center;}
+.myorder .div_2 ul.process li.gray1{ border-bottom:2px solid #dedede; color:#dedede;}
+.myorder .div_2 ul.process li.gray2{ width:90%;float: left; border-bottom:2px solid #dedede;}
+.myorder .div_2 .list{ padding-top:40px;}
+.myorder .div_2 .total{ padding-top:40px;}
+.myorder .div_2 .total .total_money{ font-size:20px; color:#f29644;}
+.myorder .div_2 .remark_content{ padding-top:40px; color: #757575;}
+.myorder .div_2 .div_button{ padding-top:10px;}
+.myorder table tr th{ text-align:left; height:50px; color:#444444;}
+.myorder table tr td{ height:50px; color:#444444;}
+.myorder table tr.hover:hover{background-color:#eeeeee;}
+.myorder table tr td .active{color:#f29644;}
+.myorder .sb_order{padding: 60px 35px 0 0;}
+.myorder .sb_order .total_div{text-align: right; margin: 0 5px 10px 0;}
+.myorder .sb_order .total_money{font-size:20px; color:#f29644;}
+/* 我的订单结束*/
+
+/* 修改密码开始*/
+.changepwd{}
+.changepwd { width:850px;}
+.changepwd ul.process{ padding-top:6px;}
+.changepwd ul.process li{ width:10%;float: left; border-bottom:2px solid #f29644; height:30px; color:#f29644; font-size:16px; text-align:center;}
+.changepwd ul.process li.gray1{ border-bottom:2px solid #dedede; color:#dedede;}
+.changepwd ul.process li.gray2{ width:90%;float: left; border-bottom:2px solid #dedede;}
+.list input{vertical-align:middle;line-height:40px;}
+.changepwd .list{padding: 55px 0 0 145px;}
+.changepwd .list .pwd_div{margin:20px; height:30px;}
+.changepwd .list .pwd_div .pwd_div_2{margin-right:25px;}
+.changepwd .list .btn_edit{padding: 20px 0 0 150px;}
+.changepwd .list .cancle_edit{margin-left:25px;}
+
+.changepwd .total{ padding-top:40px;}
+.changepwd .remark_content{ padding-top:10px;}
+.changepwd .div_button{ padding-top:10px;}
+/* 修改密码结束*/

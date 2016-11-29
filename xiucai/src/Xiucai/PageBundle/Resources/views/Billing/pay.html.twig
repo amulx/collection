@@ -1,0 +1,172 @@
+{% extends 'PageBundle::layoutIndex.html.twig' %}
+{% block js_css %}
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/payment.css') }}"/>
+<script type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
+{% endblock %}
+{% block content %}
+<script type="text/javascript" language="javascript">
+    $(document).ready(function(){
+
+        //Tab_Menu Start
+        $(".tab_menu ul li").each(function(index){
+
+            $(this).click(function(){
+
+                $(this).addClass("current");
+                $(this).siblings().removeClass("current");
+
+                $(".tab_content .tab_content"+(index+1)).show();
+                $(".tab_content .tab_content"+(index+1)).siblings().hide();
+            })
+        })
+        //Tab_Menu End
+
+        //在线支付 Start
+        $(".tab_content ul li a").click(function(){
+
+            $(this).parent().addClass("current");
+            $(this).parent().siblings().removeClass("current");
+        })
+
+        $(".tab_content ul li img").click(function(){
+
+            $(this).parent().addClass("current");
+            $(this).parent().siblings().removeClass("current");
+        })
+
+        //在线支付 End
+    })
+</script>
+<style type="text/css">
+    .total {
+        border: 1px solid #d8d8d8;
+        border-radius: 6px;
+        height: 58px;
+        line-height: 58px;
+        margin: 30px 0;
+        padding-left: 26px;
+        width: 1174px;
+    }
+</style>
+<div style="min-height: 500px; width: 1200px; margin: 0 auto;">
+<div class="payment_process">
+    <ul>
+        <li>确认选课</li>
+        <li>支付</li>
+        <li class="gray" style="width: 34%;">支付成功</li>
+    </ul>
+</div>
+<div class="clear"></div>
+<div class="total">
+    <b style="font-size: 18px;">共计{{ count }}门课程：</b>
+    <em style="color: #ff0000; font-size: 32px;">￥{{ totalPrice }}</em>
+</div>
+<div class="tab_menu">
+    <ul>
+        <li class="current fl">
+            <a class="yh f20" href="javascript:;">在线支付</a>
+        </li>
+
+        <li class="fl">
+            <a class="yh f20" href="javascript:;">银行转账</a>
+        </li>
+        <div class="clear"></div>
+    </ul>
+    <div class="clear"></div>
+</div>
+
+<div class="tab_content">
+    <div class="tab_content1">
+        <ul>
+            <li class="current fl">
+                <a href="{{ path('PageBundle_billing_checkout',{'order_id':orderId,'type': 'default'}) }}">
+                    <img src="{{ asset('assets/img/cart/c1.gif') }}" width="178" height="38"/>
+                </a>
+            </li>
+            <li class="fl">
+                <a href="{{ path('PageBundle_billing_checkout',{'order_id':orderId,'type': 'CMB'}) }}">
+                    <img src="{{ asset('assets/img/cart/c2.gif') }}" width="178" height="38"/>
+                </a>
+            </li>
+
+            <li class="fl">
+                <a href="{{ path('PageBundle_billing_checkout',{'order_id':orderId,'type': 'CCB'}) }}">
+                    <img src="{{ asset('assets/img/cart/c3.gif') }}" width="178" height="38"/>
+                </a>
+            </li>
+
+            <li class="fl">
+                <a href="{{ path('PageBundle_billing_checkout',{'order_id':orderId,'type': 'ABC'}) }}">
+                    <img src="{{ asset('assets/img/cart/c4.gif') }}" width="178" height="38"/>
+                </a>
+            </li>
+
+            <li class="fl">
+                <a href="{{ path('PageBundle_billing_checkout',{'order_id':orderId,'type': 'COMM'}) }}">
+                    <img src="{{ asset('assets/img/cart/c5.gif') }}" width="178" height="38"/>
+                </a>
+            </li>
+
+            <li class="fl">
+                <a href="{{ path('PageBundle_billing_checkout',{'order_id':orderId,'type': 'ICBCB2C'}) }}">
+                    <img src="{{ asset('assets/img/cart/c6.gif') }}" width="178" height="38"/>
+                </a>
+            </li>
+
+            <li class="fl">
+                <a href="{{ path('PageBundle_billing_checkout',{'order_id':orderId,'type': 'BOCB2C'}) }}">
+                    <img src="{{ asset('assets/img/cart/c7.gif') }}" width="178" height="38"/>
+                </a>
+            </li>
+
+            <li class="fl">
+                <a href="{{ path('PageBundle_billing_checkout',{'order_id':orderId,'type': 'SPDB'}) }}">
+                    <img src="{{ asset('assets/img/cart/c8.gif') }}" width="178" height="38"/>
+                </a>
+            </li>
+        </ul>
+        <div class="clear"></div>
+        <!--<a class="choose" href="javascript:;">选择其它</a>-->
+
+    </div>
+
+    <div class="tab_content2">
+        <p class="yh f18">
+            我们为企业用户提供银行卡转账付款方式,点击确认购买后,我们的课程专员将立刻与您联系,帮助您完成购买流程
+        </p>
+
+        <p>
+            <a class="pay yh f24" href="javascript:;">确认购买</a>
+        </p>
+    </div>
+
+</div>
+
+<div class="help">
+    <h2 class="yh f20">付款时遇到问题</h2>
+
+    <p class="blue fb">
+        问：选择建设银行网银付款提示证件号码和昵称错误怎么办？
+    </p>
+
+    <p class="gray">
+        答：开通建设银行网上银行的时候证件号码和昵称不符，请拨打中国建设银行客服热线咨询：95533。
+    </p>
+
+    <p class="blue fb">
+        问：选择农业银行网上银行付款提示银行证书错误怎么办？
+    </p>
+
+    <p class="gray">
+        答：点击“去网上银行”后提示证书错误，由于农行证书错误导致，请拨打中国农业银行客服热线咨询：95599。
+    </p>
+
+    <p class="blue fb">问：通过中国邮政储蓄银行充值或付款时无法收到校验码？</p>
+
+    <p class="gray last">答：此校验码会发到您在邮储绑定的手机号码中，建议您稍后重新操作，如果还是没有收到，请拨打中国邮政储蓄银行客服热线咨询：95580。
+        银联手机支付是否需要先开通网上银行？
+    </p>
+
+</div>
+</div>
+{% endblock %}

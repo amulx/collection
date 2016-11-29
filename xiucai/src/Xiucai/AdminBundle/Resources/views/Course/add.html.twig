@@ -1,0 +1,385 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>秀财网-点播课程管理-后台管理系统</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/common.css') }}" />
+    <link href="{{ asset('assets/css/wzl/wzl_tc.css') }}" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl/green/gui.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl/green/chapter_pop.css') }}" type="text/css" />
+    <script type="text/javascript" src="{{ asset('assets/js/jquery-1.7.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/admin_course_add.js') }}"></script>
+
+    <!--编辑器 -->
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/ueditor/themes/default/css/ueditor.css') }}" />
+    <script type="text/javascript" src="{{ asset('assets/ueditor/ueditor.config.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/ueditor/ueditor.all.js') }}"></script>
+    <!--编辑器 -->
+
+    <!--uploadify start-->
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/uploadify_img/uploadify/uploadify.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/uploadify_img/jcrop/jquery.Jcrop.css') }}" />
+    <script type="text/javascript" src="{{ asset('assets/uploadify_img/uploadify/jquery.uploadify-3.1.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/uploadify_img/jcrop/jquery.Jcrop.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/uploadify_img/uploadify/uploadify-js.js') }}"></script>
+    <!--uploadify end-->
+
+    <style type="text/css">
+        tr{line-height: 30px;}
+        .select_two{margin-top: 10px;}
+        .tab_menu{border-collapse: collapse;text-align: center;font-family: "微软雅黑";}
+        .td_bg a{text-decoration: none !important;}
+        .td_bg span{color: #008ed0;}
+        .td_bg a:hover,.td_bg span:hover{color: #ee7c4a}
+        .td_bg_current a{color: #ee7c4a;}
+        .chapter_tab td{background-color: #cccccc;}
+        #course_detail_info,#course_video{display: none;}
+        .course_brief{width: 375px; height: 89px;border-radius: 4px;border:1px solid #cbcbcb;resize:both;font-family: "微软雅黑";}
+        .input{border: 1px solid #cbcbcb;height:30px;border-radius: 4px;font-family: "微软雅黑";}
+        .select{border: 1px solid #cbcbcb;height:30px;border-radius: 4px;font-family: "微软雅黑";width: 145px;}
+        #add_chapter_course{background-color: #ee7c4a;color: #FFFFFF;cursor: pointer}
+        .main_content_leftbg{width: 80% !important; margin: 0 auto; background: none !important;}
+    </style>
+    <script>
+        var courseChapter = {};
+        var course_video_index = "{{ path('AdminBundle_Course_vod') }}";
+        var course_ajax_video = "{{ path('AdminBundle_Course_ajax_video') }}";
+        var course_ajax_category = "{{ path('AdminBundle_Course_ajax_category') }}";
+        var course_ajax_sortVideo = "{{ path('AdminBundle_Course_ajax_sortVideo') }}";
+        var uploadUrl = "/assets/uploadify_img/upload.php?member_id="+Math.random()+'&w_max=698&h_max=343';
+
+        function setImagePreview() {
+            var docObj=document.getElementById("doc");
+            var imgObjPreview=document.getElementById("preview");
+            imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+            return true;
+        }
+
+        function setImagePreview2() {
+            var docObj=document.getElementById("doc2");
+            var imgObjPreview=document.getElementById("preview2");
+            imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <p style="text-indent: 1cm;line-height: 38px;height: 38px;text-align: left;">
+        课程管理 / 点播管理 / 添加点播
+    </p>
+    <div id="main_body">
+        <div class="main_content_rightbg">
+            <div class="main_content_leftbg">
+                <table class="tab_menu">
+                    <tr>
+                        <td class="td_bg td_bg_current"><a href="javascript:;" target-table="course_base_info">基本信息</a></td>
+                        <td class="td_bg "><a href="javascript:;" target-table="course_detail_info">高级信息</a></td>
+                        {% if courseData.id is defined %}
+                            <td class="td_bg "><a href="javascript:;" target-table="course_video">相关视频</a></td>
+                        {% endif %}
+                        <td width="70%"></td>
+                    </tr>
+                </table>
+                <form id="add_course_form" action="{{ path('AdminBundle_Course_add') }}" name="question" method="post" enctype="multipart/form-data">
+                    <table id="course_base_info" width="98%" border="0" align=center cellpadding="2"
+                           cellspacing="1" bgcolor="#FFFFFF" class="border">
+                        <tr>
+                            <td align="right" width="30%">课程标题：</td>
+                            <td align="left" width="70%">
+                                <input maxlength="30" type="text" class="input" name="course_title" id="course_title" value="{% if courseData is not empty %}{{ courseData.title }}{% endif %}" size="60">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">课程简介：</td>
+                            <td align="left" width="70%">
+                                <textarea maxlength="200" name="course_brief" id="course_brief" class="course_brief" name="brief">{% if courseData is not empty %}{{ courseData.brief }}{% endif %}</textarea>
+                                {#<input type="text" class="input" name="course_brief" id="course_brief" value="{% if courseData is not empty %}{{ courseData.brief }}{% endif %}" size="60">#}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">课程原价：</td>
+                            <td align="left" width="70%">
+                                <input type="text" class="input" name="original_price" id="original_price" value="{% if courseData is not empty %}{{ courseData.originalPrice }}{% endif %}" size="22">
+                                <font color="gray">元</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">课程现价：</td>
+                            <td align="left" width="70%">
+                                <input type="text" class="input" name="current_price" id="current_price" value="{% if courseData is not empty %}{{ courseData.currentPrice }}{% endif %}" size="22">
+                                <font color="gray">元</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">课程主讲：</td>
+                            <td align="left" width="70%">
+                                <select id="course_instructor" name="course_instructor" class="select" style="float: left; margin-right: 45px;">
+                                    <option value="">--请选择主讲--</option>
+                                    {% if courseTeacher is not empty %}
+                                        {% for teacher in courseTeacher %}
+                                            <option {% if courseData is not empty and courseData.instructorId == teacher.id %}selected="selected"{% endif %} value="{{ teacher.id }}">{{ teacher.name }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                                <img id="course_instructor_avatar" width="100" height="100" src="{% if courseInstructor is not empty %}{{ asset(courseInstructor.avatar) }}{% else %}{{ asset('assets/img/people_heand.jpg') }}{% endif %}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">课程类别：</td>
+                            <td align="left" width="70%">
+                                <select id="parent_course_kind" name="parent_course_kind" class="select">
+                                    <option value="">--请选择类别--</option>
+                                    {% if courseCategory is not empty %}
+                                        {% for category in courseCategory %}
+                                            <option {% if (categoryParent is not empty and categoryParent.categoryId == category.categoryId) or (cCategory is not empty and cCategory.parentCategoryId == category.categoryId) %}selected="selected"{% endif %} value="{{ category.categoryId }}">{{ category.name }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select> <font color="gray">一级类</font><br>
+                                <select id="course_kind" name="course_kind" class="select select_two">
+                                    <option value="">--请选择类别--</option>
+                                    {% if categoryChild is not empty %}
+                                        {% for child in categoryChild %}
+                                            <option {% if categoryParent is empty and cCategory is not empty and cCategory.categoryId == child.categoryId %}selected="selected"{% endif %} value="{{ child.categoryId }}">{{ child.name }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select> <font color="gray">二级类</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">课程级别：</td>
+                            <td align="left" width="70%">
+                                <select id="course_level" name="course_level" class="select">
+                                    <option value="1">初级</option>
+                                    <option value="2">中级</option>
+                                    <option value="3">高级</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">初始化播放人数：</td>
+                            <td align="left" width="70%">
+                                <input type="text" class="input" name="reserve_init" id="reserve_init" value="{% if courseData is not empty %}{{ courseData.reserveInit }}{% endif %}" size="22">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">课程时长：</td>
+                            <td align="left" width="70%">
+                                <input type="text" class="input" name="duration" id="duration" value="{% if courseData is not empty %}{{ courseData.duration }}{% endif %}" size="22">
+                                <font color="gray">分钟</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">课程标签：</td>
+                            <td align="left" width="70%">
+                                <input type="text" class="input" name="tags" id="tags" value="{% if courseData is not empty %}{{ courseData.tags }}{% endif %}" size="22">
+                                <font color="gray">多个标签用逗号分开如:(税务，税法)</font>
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="course_detail_info" width="98%" border="0" align=center cellpadding="2"
+                           cellspacing="1" bgcolor="#FFFFFF" class="border">
+                        <tr>
+                            <td align="right" width="25%">课程描述：</td>
+                            <td align="left" width="75%">
+                                <!-- 加载编辑器的容器 -->
+                                <script id="container" name="content" type="text/plain">
+                                    {% if courseData is not empty and courseData.content is not empty %}
+                                        {{ courseData.content|raw }}
+                                    {% else %}
+                                        <h1>录播课介绍</h1>
+                                        <p></p>
+                                        <h1>课前思考</h1>
+                                        <p></p>
+                                    {% endif %}
+                                </script>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="25%">课程图片：</td>
+                            <td align="left" width="75%">
+                                <div id="up_pic" style="height: 40px;margin-bottom: 8px;">
+                                    <input type="file" name="img_url" id="doc" onchange="javascript:setImagePreview();">
+                                </div>
+                                <img id="preview" width="256" height="186" src="{% if courseData is not empty and courseData.imgUrl is not empty %}{{ asset(courseData.imgUrl) }}{% else %}{{ asset('assets/img/zhibo_desc.jpg') }}{% endif %}" class="img_preview">
+                                <font style="float: right; margin-right: 350px; margin-top: 40px;">
+                                    支持JPG、PNG、GIF<br>
+                                    图片尺寸： 256 × 186
+                                </font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="25%">课程banner：</td>
+                            <td align="left" width="75%">
+                                <div id="up_pic" style="height: 40px;margin-bottom: 8px;">
+                                    <input type="file" name="banner_url" id="doc2" onchange="javascript:setImagePreview2();">
+                                </div>
+                                <img id="preview2" width="698" height="343" src="{% if courseData is not empty and courseData.bannerUrl is not empty %}{{ asset(courseData.bannerUrl) }}{% else %}{{ asset('assets/img/introduce_index.jpg') }}{% endif %}" class="banner_preview">
+                                <font style="float: right; margin-top: 100px;">
+                                    支持JPG、PNG、GIF<br>
+                                    图片尺寸： 698 × 343
+                                </font>
+                            </td>
+                        </tr>
+                    </table>
+                    <div style="min-height: 400px;" id="course_video">
+                    <table id="course_video_table" width="98%" border="0" align=center cellpadding="2"
+                           cellspacing="1" bgcolor="#FFFFFF" class="border">
+                        <tr>
+                            <td align="left" width="10%" style="padding-left: 30px;">
+                                <input type="button" value="添加视频" id="add_chapter_course">
+                            </td>
+                            <td align="left" width="70%" colspan="5"></td>
+                        </tr>
+
+                        <tr class="chapter_tab">
+                            <td align="center" >编号</td>
+                            <td align="center">名称</td>
+                            <td align="center">时长(分钟)</td>
+                            <td align="center">试听</td>
+                            <td align="center">编辑</td>
+                            <td align="center">顺序</td>
+                        </tr>
+                        {% if videoData is not empty %}
+                            {% for video in videoData %}
+                                <tr id="chapter{{ video.id }}" class="{% if loop.first %}first{% endif %}{% if loop.last %}last{% endif %}">
+                                    <td align="center">{{ video.id }}</td>
+                                    <td align="center">{{ video.title }}</td>
+                                    <td align="center">{{ video.length }}</td>
+                                    <td align="center">{% if video.isFree == 0 %}否{% else %}是{% endif %}</td>
+                                    <td align="center" video-id="{{ video.id }}">
+                                        <a class="editor_chapter" href="javascript:;">编辑</a> |
+                                        <a class="del_chapter" href="javascript:;">删除</a>
+                                    </td>
+                                    <td align="center" class="video_sort" zindex="{{ video.zindex }}" video-id="{{ video.id }}">
+                                        <a class="up_sort" href="javascript:;">向上</a> |
+                                        <a class="down_sort" href="javascript:;">向下</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </table>
+                    </div>
+                    <table class="tab_menu">
+                        <tr>
+                            <td width="20%"></td>
+                            <td>
+                                <span class="submit_bt w_bt_size" id="course_submit_btn" > 保存</span>
+                                <span class="submit_bt w_bt_size" id="course_create_btn" style="margin-left: 20px;"> 保存并发布</span>
+                                <span class="cancel_bt w_bt_size" id="cancel_create_btn"> 取消</span>
+                            </td>
+                            <td width="20%"></td>
+                        </tr>
+                    </table>
+                    <input type="hidden" id="course_status" name="status" value="">
+                    <input type="hidden" id="course_id" name="course_id" value="{% if courseData.id is defined %}{{ courseData.id }}{% endif %}">
+                </form>
+            </div>
+        </div>
+        <ul class="main_end">
+            <li class="main_end_left left"></li>
+            <li class="main_end_right right"></li>
+        </ul>
+    </div>
+
+    <!--编辑视频信息 -->
+    {% if courseData is not empty %}
+        <div class="white_content2">
+        <table style="padding-left: 13px;">
+            <tr>
+                <td>ID:</td>
+                <td>{{ courseData.id }}</td>
+            </tr>
+            <tr>
+                <td>创建时间：</td>
+                <td>{{ courseData.createTime | date('Y-m-d H:i') }}</td>
+            </tr>
+            <tr>
+                <td>发布时间：</td>
+                <td>{{ courseData.modifyTime | date('Y-m-d H:i') }}</td>
+            </tr>
+            <tr>
+                <td>视频数：</td>
+                <td>{{ courseData.videoNum }}</td>
+            </tr>
+            <tr>
+                <td>播放人数：</td>
+                <td>{{ courseData.reserveInit }}</td>
+            </tr>
+            <tr>
+                <td>播放次数：</td>
+                <td>{{ courseData.playCount }}</td>
+            </tr>
+            <tr>
+                <td>购买人数：</td>
+                <td>{{ courseData.reserveNum }}</td>
+            </tr>
+            <tr>
+                <td>当前状态</td>
+                <td>{% if courseData.status == 4 %}已发布{% else %}未发布{% endif %}</td>
+            </tr>
+        </table>
+    </div>
+    {% endif %}
+    <!--添加课程视频弹层-->
+    <div id="light" class="white_content">
+        <span class="closeWindow" href="javascript:;"> </span>
+        <div class="main_content_rightbg">
+            <div class="main_content_leftbg" style="width: 100%">
+                <table cellpadding="2" cellspacing="1" bgcolor="#FFFFFF" class="border">
+                    <thead>
+                    <th colspan="3">添加视频</th>
+                    </thead>
+                </table>
+                <table cellpadding="2" cellspacing="1" bgcolor="#FFFFFF" class="border" id="chapter_item">
+                    <tr>
+                        <td align="right">标题：</td>
+                        <td align="left">
+                            <input type="text" class="input" name="title" id="chapter_title" value="" size="45" maxlength="20">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">第三方视频ID：</td>
+                        <td align="left">
+                            <input type="text" class="input" name="third_party_id" id="third_party_id" value="" size="45">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">时长：</td>
+                        <td align="left">
+                            <input type="text" class="input" name="length" id="length" value="" size="45">
+                            <font color="gray">分钟</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">标签：</td>
+                        <td align="left">
+                            <input type="text" class="input" name="tags" id="tags" value="" size="45">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">视频url：</td>
+                        <td align="left">
+                            <input type="text" class="input" name="video_path" id="video_path" value="" size="45">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">试听：</td>
+                        <td align="left">
+                            <input id="isFree" type="radio" name="is_free" value="1"> 是
+                            <input id="noFree" type="radio" name="is_free" value="0"> 否
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="2">
+                            <input type="button" id="add_chapter_btn" class="submit_bt w_bt_size" style="margin-left: 170px" value="提交">
+                        </td>
+                    </tr>
+                    <input type="hidden" id="video_id" value="">
+                </table>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div id="fade" class="black_overlay"></div>
+</body>
+</html>

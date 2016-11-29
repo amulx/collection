@@ -1,0 +1,51 @@
+Xiucai\StoreBundle\Entity\XcRoomType:
+    type: entity
+    table: xc_room_type
+    id:
+        id:
+            type: smallint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        price:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: 直播间价格
+        maxAttendee:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 直播间最大在线人数
+            column: max_attendee
+        name:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 类型名称
+        description:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: 描述
+        imgUrl:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 类型图标，保留字段
+            column: img_url
+        isActivate:
+            type: boolean
+            nullable: true
+            comment: 是否激活
+            default: '1'
+            column: is_activate
+    lifecycleCallbacks: {  }

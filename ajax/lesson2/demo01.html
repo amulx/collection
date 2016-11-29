@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="public.js"></script>
+<script type="text/javascript">
+
+	window.onload=function(){
+		$('btnok').onclick=function(){
+			var f = $('first').value;
+			var s = $('second').value;
+			var data='first='+f+'&second='+s;
+
+			var xhr = createxhr();
+			xhr.open('post','demo01.php');
+			xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+			xhr.onreadystatechange=function(){
+				if(xhr.readyState==4&&xhr.status==200){
+					// alert(xhr.responseText);
+					// alert(xhr.responseXML);
+					var xml = xhr.responseXML;
+					var str = xml.getElementsByTagName('jia')[0].childNodes[0].nodeValue;
+					str += '|' + xml.getElementsByTagName('jian')[0].childNodes[0].nodeValue;
+					str += '|' + xml.getElementsByTagName('cheng')[0].childNodes[0].nodeValue;
+					str += '|' + xml.getElementsByTagName('chu')[0].childNodes[0].nodeValue;
+					$('result').innerHTML=str;
+				}
+			};
+			xhr.send(data);
+		};
+	};
+</script>
+</head>
+    <body>
+    	<input type="text" id="first" /><br>
+    	<input type="text" id="second" /><br>
+    	<div id="result"></div>
+    	<input type="button" id="btnok" value="计算"/>
+    </body>
+</html>

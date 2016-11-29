@@ -1,0 +1,138 @@
+{#<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/xhtmll/DTD/xhtmll-tranitional.dtd">#}
+{#<html>#}
+{#<head>#}
+{#</head>#}
+{#<body>#}
+<script src="{{ asset('assets/js/wzl/jquery-1.7.2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/wzl/wzl_tc.js') }}"></script>
+<link href="{{ asset('assets/css/wzl/wzl_tc.css') }}" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+    function categoryAdd(){
+        var name        = document.getElementById('name').value;
+        var categoryId  = document.getElementById('categoryId').value;
+        name             = name.replace(/(^\s*)|(\s*$)/g, "");
+        categoryId       = categoryId.replace(/(^\s*)|(\s*$)/g, "");
+
+        if(isNaN(categoryId) || categoryId.length != 8){
+            alert('种类ID必须8位数的整数！');
+            return;
+        }
+
+        if(name.length <= 0)
+        {
+            alert('种类名称不能为空！');
+            return;
+        }
+//        if(categoryId.length <= 0){
+//            alert('种类ID不能为空！');
+//            return;
+//        }
+        $.post('{{path('AdminBundle_Course_categoryRedo')}}',{'categoryId' : categoryId},function (data){
+            if(data == 'ok'){
+                alert('重复分类ID，请重新输入！');
+                return false;
+            }else{
+                var myForm = document.getElementById('merchant');
+                myForm.action = '{{ path('AdminBundle_Course_categoryAdd') }}';
+                myForm.submit();
+            }
+        });
+
+    }
+    function one_level(){
+        var first_cid = $('#pid').val();
+        $('#categoryId').val(first_cid);
+        //if(first_cid > 0){
+            $.post('{{path('AdminBundle_Course_categoryTwo')}}',{'first_cid' : first_cid},function (data){
+                $('#two_cid').html(data);
+            });
+      //  }
+    }
+    function two_level(){
+        var two_cid = $('#two_cid').val();
+        $('#categoryId').val(two_cid);
+        {#if(two_cid > 0){#}
+            {#$.post('{{path('AdminBundle_Course_categoryThree')}}',{'two_cid' : two_cid},function (data){#}
+                {#$('#three_level').html(data);#}
+
+            {#});#}
+
+        {#}#}
+    }
+    function three_level(){
+        var three_cid = $('#three_cid').val();
+      //  alert(first_cid);
+        if(first_cid > 0){
+            $.post('{{path('AdminBundle_Course_categoryFour')}}',{'three_cid' : three_cid},function (data){
+                $('#four_level').html(data);
+            });
+
+        }
+    }
+</script>
+<div class="main" >
+    <div class="close_bt">
+        <span>添加分类</span><a href="javascript:;" onclick="closes()">关闭</a>
+    </div>
+    <form id="merchant" name="merchant" action="" method="post" target="_parent" enctype="multipart/form-data">
+        <div class="contents w_one" style="margin-left: 112px;">
+            <span>
+                分&nbsp;类&nbsp;ID：
+            </span>
+            <input type="text" name="categoryId" id="categoryId" value="0"/>
+            <span style="color: #FF0000">*请注意填写分类规范</span>
+        </div>
+        <div class="contents">
+            <span>
+                名&nbsp&nbsp&nbsp&nbsp称：
+            </span>
+            <input type="text" name="name" id="name" />
+        </div>
+        <div class="contents">
+            <span>
+                标&nbsp&nbsp&nbsp&nbsp签：
+            </span>
+            <input  type="text" name="tags" id="tags" />
+        </div>
+        <div class="contents">
+            <span>
+                优&nbsp先&nbsp级：
+            </span>
+            <input  type="text" name="zindex" id="zindex" value="10000"/>
+        </div>
+        <div class="w_select">
+            <span>
+                父级名称：
+            </span>
+            <select name="pid" id="pid" onchange="one_level()">
+                <option value="0">无</option>
+                {% if pdata %}
+                    {% for p in pdata %}
+                        <option value="{{ p.category_id }}">{{ p.name }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+            <div>
+                <span>二&nbsp级&nbsp类：</span>
+                {#<div id="second_level"></div>#}
+                <select name="twocid" id="two_cid" onchange="two_level()">
+                    <option value=""></option>
+                </select>
+            </div>
+            {#<div>#}
+                {#<span>三&nbsp级&nbsp类：</span>#}
+                {#&#123;&#35;<div id="second_level"></div>&#35;&#125;#}
+                {#<select name="three_level" id="three_level">#}
+                    {#<option value=""></option>#}
+                {#</select>#}
+            {#</div>#}
+            {#<div id="four_level"></div>#}
+        </div>
+        <div class="w_down w_one">
+            <div class="submit_bt w_bt_size" onclick="categoryAdd()"> 创建</div>
+            <div class="cancel_bt w_bt_size" onclick="closes()"> 取消</div>
+        </div>
+    </form>
+</div>
+{#</body>#}
+{#</html>#}

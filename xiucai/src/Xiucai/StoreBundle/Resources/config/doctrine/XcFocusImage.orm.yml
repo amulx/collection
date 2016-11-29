@@ -1,0 +1,55 @@
+Xiucai\StoreBundle\Entity\XcFocusImage:
+    type: entity
+    table: xc_focus_image
+    id:
+        id:
+            type: bigint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 焦点名称
+        url:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 图片上传地址
+        targetUrl:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 链接地址
+            column: target_url
+        createTime:
+            type: datetime
+            nullable: true
+            comment: 创建时间
+            column: create_time
+        areaId:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '页面区域ID（对应*_page_area表的ID）'
+            column: area_id
+        order:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: 排序值
+        isActive:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: 是否激活
+            column: is_active
+    lifecycleCallbacks: {  }

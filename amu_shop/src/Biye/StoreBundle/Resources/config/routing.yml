@@ -1,0 +1,3 @@
+biye_store_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: BiyeStoreBundle:Default:index }

@@ -1,0 +1,15 @@
+PageBundle_Page_index:
+    path: /page/index
+    defaults: { _controller: "BiyePageBundle:Page:index" }
+
+PageBundle_Page_proDetails:
+    path: /page/proDetails
+    defaults: { _controller: "BiyePageBundle:Page:proDetails" }
+
+PageBundle_Page_login:
+    path: /page/login
+    defaults: { _controller: "BiyePageBundle:Page:login" }
+
+PageBundle_Page_reg:
+    path: /page/reg
+    defaults: { _controller: "BiyePageBundle:Page:reg" }

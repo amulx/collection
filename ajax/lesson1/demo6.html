@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="public.js"></script>
+<script type="text/javascript">
+
+	window.onload=function(){
+		// 对username文本框失去焦点时进行动态绑定
+		$('username').onblur = function(){
+			var uname = this.value;	//获取用户输入的用户名信息
+			// alert(uname);
+			var xhr = createxhr();//创建ajax对象
+			var url = 'demo6.php?username='+uname;
+			xhr.open('get',url);
+			xhr.onreadystatechange=function(){
+				if (xhr.readyState==4&&xhr.status==200) {
+					// alert(xhr.responseText);
+					var value = xhr.responseText;
+					if (value==1) {
+						$('msg').innerHTML='<font color=red>用户名已被使用</font>';
+					}else{
+						$('msg').innerHTML='<font color=blue>用户名可用</font>';
+					}
+				}
+			};
+			xhr.send(null);
+		};
+	}
+</script>
+</head>
+    <body>
+
+<br><br><br><br>
+    	<form>
+    		用户名:<input type="text" name="username" id="username"/>
+    		<span id='msg'></span>
+    		<br>
+    		密&nbsp;&nbsp;&nbsp;码:<input type="password" name="password" /><br>
+    		确&nbsp;&nbsp;&nbsp;认:<input type="password" name="password1"/><br>
+    		邮&nbsp;&nbsp;&nbsp;箱:<input tyep="email" name="email" /><br>
+
+    	</form>
+    </body>
+</html>

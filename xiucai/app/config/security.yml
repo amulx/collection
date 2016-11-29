@@ -1,0 +1,66 @@
+security:
+    #access_denied_url: AdminBundle_login
+    encoders:
+        Xiucai\StoreBundle\Entity\XcMember:
+            algorithm:   sha1
+            iterations: 1
+            encode_as_base64: false
+        Xiucai\StoreBundle\Entity\XcAdmin:
+            algorithm: bcrypt
+            cost: 12
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+
+    providers:
+        admin_provider:
+            entity:
+                class: StoreBundle:XcAdmin
+                property: account
+
+        member_provider:
+            entity:
+                class: StoreBundle:XcMember
+                property: email
+
+        chain_provider:
+            chain:
+                providers: [admin_provider, member_provider]
+
+        #administrators:
+            #entity: { class: AcmeMngBundle:BasMember, property: account }
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        admin_area:
+            pattern: ^/admin
+            anonymous: ~
+            provider: admin_provider
+            form_login:
+                login_path: AdminBundle_SystemUser_login
+                check_path: AdminBundle_SystemUser_login_check
+            logout:
+                path: /admin/login/logout
+                target: /admin/login
+
+        user_area:
+            pattern: ^/
+            anonymous: ~
+            provider: member_provider
+            form_login:
+                login_path: PageBundle_user_login
+                check_path: PageBundle_user_loginCheck
+            logout:
+                path: /user/logout
+                target: /
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/validate, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        #- { path: ^/member, roles: ROLE_USER }

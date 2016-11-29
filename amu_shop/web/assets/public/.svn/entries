@@ -1,0 +1,55 @@
+10
+
+dir
+1853
+http://svn.wepic.cn:887/svn/wepic/web/server/trunk/web/assets/public
+http://svn.wepic.cn:887/svn/wepic
+
+
+
+2015-02-13T02:01:59.829109Z
+1834
+kevin
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+0e65e881-2792-4bcf-b700-64e39abd441f
+
+1-simple-calendar
+dir
+
+My97DatePicker
+dir
+
+css
+dir
+
+fonts
+dir
+
+images
+dir
+
+img
+dir
+
+js
+dir
+
+ueditor
+dir
+
+umeditor
+dir
+

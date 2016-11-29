@@ -1,0 +1,38 @@
+#秀财网管理后台登录
+AdminBundle_User_memberAdd:
+    path: /admin/user/memberAdd
+    defaults: { _controller: AdminBundle:User:memberAdd }
+AdminBundle_User_member:
+    path: /admin/user/member
+    defaults: { _controller: AdminBundle:User:member }
+AdminBundle_User_memberDelete:
+    path: /admin/user/memberDelete
+    defaults: { _controller: AdminBundle:User:memberDelete }
+AdminBundle_User_memberRemove:
+    path: /admin/user/memberRemove
+    defaults: { _controller: AdminBundle:User:memberRemove }
+AdminBundle_User_teacher:
+    path: /admin/user/teacher
+    defaults: { _controller: AdminBundle:User:teacher }
+AdminBundle_User_teacherDelete:
+    path: /admin/user/teacherDelete
+    defaults: { _controller: AdminBundle:User:teacherDelete }
+AdminBundle_User_teacherRemove:
+    path: /admin/user/teacherRemove
+    defaults: { _controller: AdminBundle:User:teacherRemove }
+AdminBundle_User_teacherAddPage:
+    path: /admin/user/teacherAddPage
+    defaults: { _controller: AdminBundle:User:teacherAddPage }
+AdminBundle_User_teacherAdd:
+    path: /admin/user/teacherAdd
+    defaults: { _controller: AdminBundle:User:teacherAdd }
+AdminBundle_User_teacherUpdatePage:
+    path: /admin/user/teacherUpdatePage
+    defaults: { _controller: AdminBundle:User:teacherUpdatePage }
+AdminBundle_User_teacherUpdate:
+    path: /admin/user/teacherUpdate
+    defaults: { _controller: AdminBundle:User:teacherUpdate }
+
+AdminBundle_User_feedback:
+    path: /admin/user/feedback
+    defaults: { _controller: AdminBundle:User:feedback }

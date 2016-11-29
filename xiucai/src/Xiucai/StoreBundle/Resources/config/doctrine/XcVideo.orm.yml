@@ -1,0 +1,96 @@
+Xiucai\StoreBundle\Entity\XcVideo:
+    type: entity
+    table: xc_video
+    id:
+        id:
+            type: bigint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        title:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 视频名称
+        contentId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: 所属对象的ID(先根据content_type查找到相应的表，再根据content_id对应表里的ID)
+            column: content_id
+        contentType:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '所属对象类型（对应*_content_type的ID）'
+            column: content_type
+        thirdPartyId:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 第三方网站的在线视频ID
+            column: third_party_id
+        length:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: 视频时长（以秒为单位）
+        zindex:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: 排序值
+        brief:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 视频简介
+        tags:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 视频标签，保留字段（标签为字符串数组，以逗号分隔）
+        filename:
+            type: string
+            nullable: true
+            length: 128
+            fixed: false
+            comment: 视频文件名，保留字段
+        path:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 视频上传路径，保留字段
+        url:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 视频在线播放地址
+        playCount:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 播放次数
+            column: play_count
+        isFree:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: 是否免费播放
+            column: is_free
+        status:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '内容状态（参考*_content_status表）'
+    lifecycleCallbacks: {  }

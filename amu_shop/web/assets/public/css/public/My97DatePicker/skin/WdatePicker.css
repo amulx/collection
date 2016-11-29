@@ -1,0 +1,12 @@
+.Wdate{
+	border:#999 1px solid;
+	height:20px;
+	background:#fff url(../../images/sna3.png) no-repeat center right;
+	padding-right:10px;
+}
+.Wdate::-ms-clear{display:none;}
+
+.WdateFmtErr{
+	/*font-weight:bold;
+	color:red;*/
+}

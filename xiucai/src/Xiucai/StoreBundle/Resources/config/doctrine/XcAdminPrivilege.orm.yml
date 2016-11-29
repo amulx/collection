@@ -1,0 +1,51 @@
+Xiucai\StoreBundle\Entity\XcAdminPrivilege:
+    type: entity
+    table: xc_admin_privilege
+    id:
+        adminPrivilegeId:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            column: admin_privilege_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 20
+            fixed: false
+            comment: 功能模块名称
+        active:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 是否启用
+        controller:
+            type: string
+            nullable: false
+            length: 20
+            fixed: false
+            comment: 所属控制器（代码）
+        action:
+            type: string
+            nullable: false
+            length: 20
+            fixed: false
+            comment: 所属实现方法（代码）
+        parentId:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: 父节点，0为根节点
+            column: parent_id
+        menuShow:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: '1:显示  2:不显示'
+            default: '1'
+            column: menu_show
+    lifecycleCallbacks: {  }

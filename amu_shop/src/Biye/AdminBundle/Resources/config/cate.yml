@@ -1,0 +1,23 @@
+AdminBundle_Cate_addCate:
+    path: /addCate
+    defaults: { _controller: "BiyeAdminBundle:Cate:addCate" }
+
+AdminBundle_Cate_cateAdd:
+    path: /cateAdd
+    defaults: { _controller: "BiyeAdminBundle:Cate:cateAdd" }
+
+AdminBundle_Cate_listCate:
+    path: /listCate
+    defaults: { _controller: "BiyeAdminBundle:Cate:listCate" }
+
+AdminBundle_Cate_editCate:
+    path: /editCate
+    defaults: { _controller: "BiyeAdminBundle:Cate:editCate" }
+
+AdminBundle_Cate_updateCate:
+    path: /updateCate
+    defaults: { _controller: "BiyeAdminBundle:Cate:updateCate" }
+
+AdminBundle_Cate_delCate:
+    path: /delCate
+    defaults: { _controller: "BiyeAdminBundle:Cate:delCate" }

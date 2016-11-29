@@ -1,0 +1,80 @@
+{% extends 'PageBundle::layoutIndex.html.twig' %}
+{% block js_css %}
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/member.css') }}"/>
+<script type="text/javascript" src="{{ asset('assets/js/cart.js') }}"></script>
+{% endblock %}
+{% block content %}
+<script type="text/javascript" language="JavaScript">
+    $(document).ready(function()
+    {
+        $("a.operation").click(function(){
+            if(confirm('确定要取消此课程吗？'))
+            {
+                var content_type = $(this).attr('content_type');
+                var content_id = $(this).attr('content_id');
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('PageBundle_billing_ajaxcart') }}",
+                    data: {type : 2 , content_type : content_type,content_id:content_id},
+                    success: function(result){
+                        if (result.code == 1){
+                            $('#'+content_type+'-'+content_id).remove();
+                            $("#total_money").html(result.data);
+                            $("#header_cart_count").html(result.count);
+                            if (result.count == 0){
+                                layer.alert("选课单为空，先去浏览下财务课程吧！");
+                                window.location.href = "{{ path('PageBundle_course_video') }}";
+                            }
+                        }
+                        else{
+                            layer.alert("删除失败");
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
+<style type="text/css">
+.empty_cart{padding:80px 0 0 80px;}
+.empty_cart p{font-size: 28px; padding-bottom: 10px;}
+</style>
+<div class="myorder">
+    {% include "PageBundle:User:left.html.twig" with{'type':'cart'} %}
+    <div class="div_2 fr">
+        <ul class="process">
+            <li>选课单</li>
+            <li class="gray2"></li>
+        </ul>
+        {% if count == 0 %}
+        <div class="empty_cart">
+            <p>选课单里空荡荡的</p>
+            去 <a href="{{ path('PageBundle_course_video') }}">财务课堂</a> 看看有没有适合自己的课程吧~
+        </div>
+        {% else %}
+        <div class="list">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <th>商品名称</th>
+                    <th>课程类型</th>
+                    <th>开课时间</th>
+                    <th>价格</th>
+                    <th>操作</th>
+                </tr>
+                {% for list in cartInfo %}
+                <tr class="hover" id="{{ list.content_type }}-{{ list.content_id }}">
+                    <td><span class="active">{{ list.title }}</span></td>
+                    <td>{{ list.content_type_name }}</td>
+                    <td>{{ list.lession_time }}</td>
+                    <td><span class="active">{{ list.current_price }}</span>元</td>
+                    <td><a class="del operation" content_type="{{ list.content_type }}" content_id="{{ list.content_id }}" href="javascript:;">删除</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="sb_order fr"><div class="total_div">共计￥<span class="total_money" id="total_money">{{ totalPrice }}</span></div><div class="div_button"><button class="btn_sub" onclick="javascript:window.location.href='{{ path('PageBundle_billing_confirmorder') }}'">去结算</button></div></div>
+        {% endif %}
+     </div>
+</div>
+{% endblock %}

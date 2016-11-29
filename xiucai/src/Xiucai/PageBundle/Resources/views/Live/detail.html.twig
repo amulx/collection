@@ -1,0 +1,242 @@
+{% extends 'PageBundle::layoutIndex.html.twig' %}
+{% block title %}{{ courseData.title }}{% endblock %}
+{% block js_css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/wzl_introduce.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/comment.css') }}"/>
+    <script language="JavaScript" type="text/javascript">
+        var commentParam = {
+            u_id:'{{ user.id }}', //评论人的id
+            c_id: "", //评论类型id
+            c_type: '{{ contentId }}', //评论类型
+            u_name: '{{ user.name }}', //评论用户的名称
+            u_logo: '{{ user.logo }}', //评论用户的头像
+            limit: 5, //评论每页条数限制
+            page: 1, //评论页码
+            comment_id: "",
+            course_id: {{ courseData.id }}
+        };
+
+        var live_status_url = "{{ path('PageBundle_live_status') }}";
+        var billing_cart_url = "{{ path('PageBundle_billing_cart') }}";
+        var comment_send_url = "{{ path('ServiceBundle_comment_send') }}";
+        var course_ajax_post = "{{ path('PageBundle_course_ajax_post') }}";
+        var billing_ajax_cart = "{{ path('PageBundle_billing_ajaxcart') }}";
+        var comment_delete_url = "{{ path('ServiceBundle_comment_delete') }}";
+        var comment_load_more = "{{ path('ServiceBundle_comment_load_more') }}";
+        var course_ajax_loadPost = "{{ path('PageBundle_course_ajax_loadPost') }}";
+        var enter_live_room = "{{ path('PageBundle_live_room',{id:courseData.id}) }}";
+        var course_favorite_teach = "{{ path('PageBundle_course_favorite_teach') }}";
+        var live_detail_url = "{{ path('PageBundle_live_detail',{id:courseData.id}) }}";
+    </script>
+    <script type="text/javascript" src="{{ asset('assets/js/course_detail.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/wzl_discuss.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/jquery.countdown.js') }}"></script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="introduce_group introduce_main">
+        <div class="introduce_head">
+            <div class="introduce_top introduce3_hw">
+                <div class="introduce_left" style="border-bottom: 2px solid #cbcbcb;height: 63px;line-height: 63px;">
+                    <h1>
+                        {{ courseData.title }}
+                    </h1>
+                    {#<p>#}
+                        {#{{ teacherData.name }}  {{ teacherData.title }}#}
+                    {#</p>#}
+                </div>
+                {% if conference is not empty and conference.conferenceStatus == 3 and today_date == (courseData.scheduleTime.date | slice(0,10)) %}
+                    <div class="introduce3_time countdown fl" data-diff="{{ timeLeft }}"></div>
+                {% else %}
+                    <div class="introduce3_time"></div>
+                {% endif %}
+                {#<div class="introduce_right">#}
+                    {#<div class="introduce_add">#}
+                    {#{% if conferenceStatus is not empty and conferenceStatus == "加入选课单" %}#}
+                        {#<span style="cursor: pointer" cart_content_id="{{ courseData.id }}" id="add_cart_live_course">{{ conferenceStatus }}</span>#}
+                        {#<span style="margin-left: 20px;margin-right: 40px;"> | </span>#}
+                        {#<span>{% if courseData.currentPrice is empty or courseData.currentPrice == '0.00' %}免费{% else %}￥{{ courseData.currentPrice }}{% endif %}</span>#}
+                    {#{% elseif conferenceStatus is not empty and conferenceStatus == "进入教室" %}#}
+                        {#<span style="cursor: pointer;" class="play_live_course">{{ conferenceStatus }}</span>#}
+                    {#{% else %}#}
+                        {#<span>{{ conferenceStatus }}</span>#}
+                    {#{% endif %}#}
+                    {#</div>#}
+                {#</div>#}
+            </div>
+            {#<div class="clear"></div>#}
+            {#<div style="width: 1200px;">#}
+                {#<div class="introduce_nav3">#}
+                    {#<ul>#}
+                        {#<li class="{% if type == 'about' %}nav{% else %}nav1{% endif %}">#}
+                            {#<a {% if type == 'about' %}class="current"{% endif %} href="{{ path('PageBundle_live_detail', {'id': courseData.id, 'type': 'about'}) }}">关于</a>#}
+                        {#</li>#}
+                        {#<li class="{% if type == 'comment' %}nav{% else %}nav1{% endif %}">#}
+                            {#<a {% if type == 'comment' %}class="current"{% endif %} href="{{ path('PageBundle_live_detail', {'id': courseData.id, 'type': 'comment'}) }}">讨论</a>#}
+                        {#</li>#}
+                        {#<li style="width: 553px;border-bottom: 2px solid #cbcbcb;"></li>#}
+                    {#</ul>#}
+                {#</div>#}
+                {#{% if conference is not empty and conference.conferenceStatus == 3 %}#}
+                {#<div class="introduce3_time countdown" data-diff="{{ timeLeft }}"></div>#}
+                {#{% endif %}#}
+            {#</div>#}
+            {#<div class="clear"></div>#}
+        </div>
+        <div class="introduce_mid">
+            <div class="mid_left">
+                {% if type == 'comment' %}
+                    <div class="discuss_mid_left">
+                        <div class="mid_content">
+                            <div id="course_post_content_insert"></div>
+                            {% if postData is not empty %}
+                                {% for post in postData %}
+                                    <div class="discuss_area">
+                                        <div class="discuss_pic fl">
+                                            <img alt="" src="{{ post.member_logo }}">
+                                        </div>
+                                        <div class="discuss_content fl">
+                                            <div class="dis_t">
+                                                <span class="dis_name">{{ post.member_name }}</span>
+                                                <span>{{ post.create_time | date("Y-m-d H:i:s") }}</span>
+                                            </div>
+                                            <p>{{ post.content }}</p>
+                                        </div>
+                                        <div class="clear discuss_add">
+                                            <img src="{{ asset('assets/img/discuss_xuxian.jpg') }}" class="img_f">
+                                            <img src="{{ asset('assets/img/discuss_speech.jpg') }}">
+                                            <span>
+                                            {% if post.comment_num == 0 %}
+                                                <a href="javascript:;" class="load_comment load_comment_{{ post.id }}" post-id="{{ post.id }}" is-load="false">添加评论</a>
+                                            {% else %}
+                                                <a href="javascript:;" class="load_comment load_comment_{{ post.id }}" post-id="{{ post.id }}" is-load="false"><code>{{ post.comment_num }}</code>条评论</a>
+                                            {% endif %}
+                                            </span>
+                                            <img alt="" src="{{ asset('assets/img/discuss_xuxian.jpg') }}">
+                                        </div>
+                                        <div class="discuss_reply discuss_reply_{{ post.id }}">
+                                        </div>
+                                    </div>
+                                    <div class="discuss_height"></div>
+                                {% endfor %}
+                                {% if postData|length >= 5 %}
+                                    <div class="click_load_more load_more_post">
+                                        <a post_page="2" href="javascript:;" class="blue">点击加载更多讨论</a>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                            <div class="discuss_issue_area">
+                                <p>{{ courseData.title }}</p>
+                                <textarea class="dis_testarea2 course_post_content"></textarea>
+                                <div class="dis_issue">
+                                    <dl>
+                                        <dd class="fr">
+                                            <button style="width:74px;height: 28px;margin-left: 530px;margin-top: 20px;" class="btn_fabu course_post_btn">发布</button>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {#{{ render(controller('ServiceBundle:Comment:index',{'c_id': courseData.id, 'c_type': 1, 'u_id': user.id, 'u_name': user.name, 'u_logo': user.logo})) }}#}
+                {% else %}
+                    <div class="mid_content" id="play_video_cont">
+                        <img id="play_video_img" alt="" src="{{ asset(courseData.bannerUrl) }}" class="h_img" width="780" height="384">
+                        {% if type == 'about' %}
+                            <div class="content">
+                            {{ courseData.content | raw }}
+                            </div>
+                        {% endif %}
+                        {% if favoriteCourse is not empty %}
+                        <h2>喜欢本课的人也喜欢</h2>
+                            <div class="mid_img">
+                                <ul>
+                                {% for favorite in favoriteCourse %}
+                                    <li class="{% if loop.last %}img2{% else %}img1{% endif %}">
+                                        <a href="{{ path('PageBundle_live_detail',{'id': favorite.id}) }}">
+                                            <img alt="" src="{{ asset(favorite.img_url) }}" width="200" height="138">
+                                        </a>
+                                        <p style="font-family: '宋体';width:200px;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden; "><a href="{{ path('PageBundle_live_detail',{'id': favorite.id}) }}" title="{{ favorite.title }}">{{ favorite.title }}</a></p>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="mid_right">
+                <div class="right_content">
+                    <p>课程信息</p>
+                    <div class="right_list right_h" style="border: 0;height: 380px">
+                        <ul>
+                            <li class="list_w1">
+                                <img alt="" src="{{ asset('assets/img/icon/info/i_clock.png') }}">{{ courseData.scheduleTime|date('m月d日 H:i') }}-{{ endTime|date('H:i') }}
+                            </li>
+                            <li class="list_w2">
+                                <img alt="" src="{{ asset('assets/img/icon/info/i_people.png') }}">{{ reserveCount }}人报名
+                            </li>
+                            <li class="list_w2">
+                                <img alt="" src="{{ asset('assets/img/icon/info/i_course.png') }}">
+                                适合{% if courseData.courseLevel == 1 %}初级{% elseif courseData.courseLevel == 2 %}中级{% elseif courseData.courseLevel == 3 %}高级{% else %}初级{% endif %}水平学习者
+                            </li>
+                            <li class="list_w2">
+                                <img alt="" src="{{ asset('assets/img/icon/info/class.png') }}"> {{ categoryName }}
+                            </li>
+                            <li class="list_w2">
+                                <img alt="" src="{{ asset('assets/img/icon/info/price.png') }}"> {% if courseData.currentPrice == "0.00" %}免费{% else %}{{ courseData.currentPrice }}元{% endif %}
+                            </li>
+                            <li>
+                                <div style="margin-top: 50px;" id="live_btn_con">
+                                    {% if showBgStatus == 500 or showBgStatus == 400 %}
+                                    <a href="{{ path('PageBundle_live_room',{id:courseData.id}) }}" target="_blank" style="font-size: 14px;color: #FFFFFF;font-weight: bold">
+                                        <div style="width:190px;height: 40px;padding:0;line-height: 40px;text-align: center" class="btn_sub">
+                                            {{ conferenceStatus }}
+                                        </div>
+                                    </a>
+                                    {% else %}
+                                        <button style="width:190px;height: 40px;padding:0;line-height: 40px;" {% if showBgStatus == '1' %}class="btn_sub play_live_course"{%  elseif showBgStatus == '2' %}class="btn_sub_gray"{% endif %}>{{ conferenceStatus }}</button>
+                                    {% endif %}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <p>
+                        关于讲师
+                    </p>
+                    <div class="right_list right_h">
+                        <div class="right_mid_role">
+                            <div class="right_mid_pic">
+                                <img alt="" width="65" height="65" src="{{ asset(teacherData.avatar) }}">
+                            </div>
+                            <div class="right_mid_content">
+                                <dl>
+                                    <dd class="rmd1">
+                                        {{ teacherData.name | slice(0,10) }}
+                                    </dd>
+                                    <dd class="rmd2">
+                                        <img alt="" src="{{ asset('assets/img/i_red_love.jpg') }}">
+                                        <span class="zan_num">{{ teacherData.favoriteCount }}</span>
+                                    </dd>
+                                    <dd class="rmd2">
+                                        <button style="width:56px;height: 18px;" class="btn_zan" teach-id="{{ teacherData.id }}">点赞</button>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    {% if teacherCourseData is not empty %}
+                    <div class="right_last">
+                        <img alt="" src="{{ asset('assets/img/introduce_xian.jpg') }}"> 他的课程 <img alt="" src="{{ asset('assets/img/introduce_xian.jpg') }}">
+                    </div>
+                        {% for tCourse in teacherCourseData %}
+                        <p><a href="{{ path('PageBundle_live_detail',{'id': tCourse.id}) }}">{{ tCourse.title }}</a></p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

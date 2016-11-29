@@ -1,0 +1,34 @@
+#秀财网首页
+PageBundle_page_index:
+    path: /
+    defaults: { _controller: PageBundle:Page:index }
+
+#关于我们
+PageBundle_page_about:
+    path: /about
+    defaults: { _controller: PageBundle:Page:about }
+
+#联系我们
+PageBundle_page_contact:
+    path: /contact
+    defaults: { _controller: PageBundle:Page:contact }
+
+#服务条款
+PageBundle_page_terms:
+    path: /terms
+    defaults: { _controller: PageBundle:Page:terms }
+
+#意见反馈
+PageBundle_page_feedback:
+    path: /feedback
+    defaults: { _controller: PageBundle:Page:feedback }
+
+#意见反馈提交
+PageBundle_page_feedbacksubmit:
+    path: /feedbacksubmit
+    defaults: { _controller: PageBundle:Page:feedbacksubmit }
+
+#ie8以下的警告
+PageBundle_page_warn:
+    path: /warn
+    defaults: { _controller: PageBundle:Page:warn }

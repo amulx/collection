@@ -1,0 +1,45 @@
+Xiucai\StoreBundle\Entity\XcThirdparty:
+    type: entity
+    table: xc_thirdparty
+    id:
+        id:
+            type: smallint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: true
+            length: 32
+            fixed: false
+            comment: 第三方应用网站名
+        description:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 描述
+        appkey:
+            type: string
+            nullable: true
+            length: 32
+            fixed: false
+            comment: 本站注册第三方网站得到的appkey，保留字段
+        isActive:
+            type: smallint
+            nullable: true
+            unsigned: false
+            comment: 是否使用
+            column: is_active
+        appSecret:
+            type: string
+            nullable: true
+            length: 32
+            fixed: false
+            comment: 调用第三方网站接口时需要加密字符串
+            column: app_secret
+    lifecycleCallbacks: {  }

@@ -1,0 +1,96 @@
+Xiucai\StoreBundle\Entity\XcInvoice:
+    type: entity
+    table: xc_invoice
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        memberId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: '用户ID（对应*_member的ID）'
+            column: member_id
+        createTime:
+            type: datetime
+            nullable: true
+            comment: 创建时间
+            column: create_time
+        amount:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: 发票金额
+        title:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 发票抬头（公司或个人）
+        address:
+            type: string
+            nullable: true
+            length: 512
+            fixed: false
+            comment: 邮寄地址
+        postcode:
+            type: string
+            nullable: true
+            length: 8
+            fixed: false
+            comment: 邮编
+        telephone:
+            type: string
+            nullable: true
+            length: 16
+            fixed: false
+            comment: 联系电话
+        recipient:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 接收人
+        orderId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: '账单ID（对应*_order表的ID），保留字段'
+            column: order_id
+        type:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '发票类型（0 - 公司, 1 - 个人）'
+        status:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '发票当前状态（0 - waiting, 1 - approved, 2 - declined, 3 - sent）'
+        expressName:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 快递公司名称
+            column: express_name
+        expressNo:
+            type: string
+            nullable: true
+            length: 32
+            fixed: false
+            comment: 快递号
+            column: express_no
+        sendTime:
+            type: datetime
+            nullable: true
+            comment: 快递发送时间
+            column: send_time
+    lifecycleCallbacks: {  }

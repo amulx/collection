@@ -1,0 +1,31 @@
+security:
+    encoders:
+        Biye\StoreBundle\Entity\ImoocAdmin:
+            algorithm:   sha1
+            iterations: 1
+            encode_as_base64: false
+
+
+    providers:
+        admin_provider:
+            entity: { class: BiyeStoreBundle:ImoocAdmin, property: username }
+
+    firewalls:
+#        dev:
+#            pattern: ^/(_(profiler|wdt)|css|images|js)/
+#            security: false
+
+        admin_area:
+            pattern: ^/admin
+            anonymous: ~
+            provider: admin_provider
+            form_login:
+                login_path: AdminBundle_SystemUser_login
+                check_path: AdminBundle_SystemUser_login_check
+            logout:
+                path: /admin/login/logout
+                target: /admin/login
+
+    access_control:
+        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/main, roles: ROLE_ADMIN }

@@ -1,0 +1,22 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+    UploadFileFunc.class: Biye\AdminBundle\Services\UploadFileFunc
+    PagePaginationServicesAdmin.class: Biye\AdminBundle\Services\PagePaginationServicesAdmin
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+     UploadFileFunc:
+          class:        %UploadFileFunc.class%
+          arguments:
+              entityManager: "@doctrine.orm.entity_manager"
+     PagePaginationServicesAdmin:
+          class:        %PagePaginationServicesAdmin.class%
+          arguments:
+              entityManager: "@doctrine.orm.entity_manager"
+
+
+

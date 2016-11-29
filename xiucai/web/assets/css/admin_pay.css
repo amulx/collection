@@ -1,0 +1,6 @@
+div,ul,form,table { clear: none;}
+.invoice_form{ width:100%; float: left; vertical-align: top; }
+.invoice_form table tr { line-height: 35px;}
+.invoice_form table tr input[type="text"] {  width: 200px; height: 25px;}
+.invoice_form table tr .td_l {width: 50%; text-align: right;}
+.invoice_form table tr .td_r {width:50%; text-align:left;font-weight: bold;}

@@ -1,0 +1,24 @@
+#秀财网录播课程
+PageBundle_course_live:
+    path: /
+    defaults: { _controller: PageBundle:LiveCourse:index }
+
+#ajax获取更多直播课程
+PageBundle_course_live_ajaxLoad:
+    path: /ajax_load
+    defaults: { _controller: PageBundle:LiveCourse:ajaxLoadLiveCourse }
+
+#秀财网获取课程信息
+PageBundle_live_room:
+    path: /room
+    defaults: { _controller: PageBundle:LiveCourse:enterLiveRoom }
+
+#秀财网直播课程详情页
+PageBundle_live_status:
+    path: /status
+    defaults: { _controller: PageBundle:LiveCourse:liveStatus }
+
+#秀财网直播课程详情页
+PageBundle_live_detail:
+    path: /{id}
+    defaults: { _controller: PageBundle:LiveCourse:detail, id:"" }

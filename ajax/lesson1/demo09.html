@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="public.js"></script>
+<script type="text/javascript">
+	function callback(file){
+		// alert(file);
+		// $('filename').value = file;
+		$('filename').value = file;
+		$('photo').style.display='none';
+		$('submit').style.display='none';
+		$('msg').innerHTML=file;
+		$('msg').style.display='block';
+	}
+
+
+	window.onload = function(){
+		$('btnok').onclick=function(){
+			var username = $('username').value;
+			var password = $('password').value;
+			var photo = $('filename').value;
+			var data ='username='+username+'&password='+password+'&photo='+photo;
+
+			var xhr = createxhr();
+			xhr.open('post','demo09.php');
+			xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+			xhr.onreadystatechange=function(){
+				if (xhr.readyState==4 && xhr.status==200) {
+					// alert(xhr.responseText);
+					$('photo').style.display='block';
+					$('submit').style.display='block';
+					$('msg').style.display='none';
+					$('username').value='';
+					$('password').value='';
+					$('filename').value='';
+				}
+			};
+			xhr.send(data);
+		};
+	};
+</script>
+</head>
+    <body>
+    	用户名:<input type="text" id="username"/><br>
+    	密&nbsp;&nbsp;&nbsp;&nbsp;码:<input type="text" id="password" /><br>
+    	<input type="hidden" id="filename">
+    	<form method="post" enctype="multipart/form-data" action="upload.php" target="frm">
+	    	照&nbsp;&nbsp;&nbsp;&nbsp;片:<input type="file" name="photo" id="photo"/>
+	    	<input type="submit" name="submit" value="上传" id="submit">
+	    	<span id="msg"></span>
+    	</form>
+    	<input type="button" id="btnok" value="注册">
+    	<iframe name="frm" style="display:none"></iframe>
+    </body>
+</html>

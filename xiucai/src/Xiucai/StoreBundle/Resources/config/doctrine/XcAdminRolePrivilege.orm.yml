@@ -1,0 +1,19 @@
+Xiucai\StoreBundle\Entity\XcAdminRolePrivilege:
+    type: entity
+    table: xc_admin_role_privilege
+    id:
+        adminRoleId:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: '角色ID（对应*_admin_role表的admin_role_id）'
+            id: true
+            column: admin_role_id
+        adminPrivilegeId:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: '权限ID（对应*_admin_privilege表的admin_privilege_id）'
+            id: true
+            column: admin_privilege_id
+    lifecycleCallbacks: {  }

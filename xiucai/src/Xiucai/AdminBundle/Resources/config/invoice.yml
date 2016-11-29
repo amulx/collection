@@ -1,0 +1,18 @@
+AdminBundle_Invoice_changeStatus:
+    path: /admin/invoice/changeStatus
+    defaults: { _controller: AdminBundle:Invoice:changeStatus }
+AdminBundle_Invoice_add:
+    path: /admin/invoice/add
+    defaults: { _controller: AdminBundle:Invoice:add}
+
+AdminBundle_Invoice_insert:
+    path: /admin/invoice/insert
+    defaults: { _controller: AdminBundle:Invoice:insert}
+
+AdminBundle_Invoice_updatePage:
+    path: /admin/invoice/updatePage
+    defaults: { _controller: AdminBundle:Invoice:updatePage}
+
+AdminBundle_Invoice_update:
+    path: /admin/invoice/update
+    defaults: { _controller: AdminBundle:Invoice:update}

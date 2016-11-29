@@ -1,0 +1,3 @@
+AdminBundle_OrderFrom_orderlist:
+    path: /orderlist
+    defaults: { _controller: "BiyeAdminBundle:OrderFrom:orderlist" }

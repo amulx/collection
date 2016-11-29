@@ -1,0 +1,35 @@
+Xiucai\StoreBundle\Entity\XcCityDistrict:
+    type: entity
+    table: xc_city_district
+    id:
+        quCode:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: 区域编号
+            id: true
+            column: qu_code
+            generator:
+                strategy: IDENTITY
+    fields:
+        quName:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: 区域名称
+            column: qu_name
+        quPinyin:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: 区域拼写
+            column: qu_pinyin
+        cityCode:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: '所属城市代码（对应*_city表的city_code）'
+            column: city_code
+    lifecycleCallbacks: {  }

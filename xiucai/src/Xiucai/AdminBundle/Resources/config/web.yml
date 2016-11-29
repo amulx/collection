@@ -1,0 +1,26 @@
+#秀财网管理后台轮播图管理
+
+AdminBundle_Web_focusImage:
+    path: /focusImage
+    defaults: { _controller: AdminBundle:Web:focusImage }
+AdminBundle_Web_focusAddPage:
+    path: /focusAddPage
+    defaults: { _controller: AdminBundle:Web:focusAddPage }
+AdminBundle_Web_focusAdd:
+    path: /focusAdd
+    defaults: { _controller: AdminBundle:Web:focusAdd }
+AdminBundle_Web_focusUpdatePage:
+    path: /focusUpdatePage
+    defaults: { _controller: AdminBundle:Web:focusUpdatePage }
+AdminBundle_Web_focusUpdate:
+    path: /focusUpdate
+    defaults: { _controller: AdminBundle:Web:focusUpdate }
+AdminBundle_Web_focusUpDown:
+    path: /focusUpDown
+    defaults: { _controller: AdminBundle:Web:focusUpDown }
+AdminBundle_Web_focusDelete:
+    path: /focusDelete
+    defaults: { _controller: AdminBundle:Web:focusDelete }
+AdminBundle_Web_focusOffline:
+    path: /focusOffline
+    defaults: { _controller: AdminBundle:Web:focusOffline }

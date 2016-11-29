@@ -1,0 +1,44 @@
+	*open(method,url);
+		初始化ajax对象
+		method：请求方式 get 、post
+		url：请求地址
+
+	*setRequestHeader(header,value)
+		设置请求头信息
+		header:请求头名称
+		value:请求头信息
+
+	*send(content)
+		发送请求
+		只有当ajax对象的send方法被调用时，才会发送请求
+		content：post请求时所传递的数据
+		get请求时这里直接设置为“null”
+
+	*onreadystatechange
+		表示当ajax对象状态码发生改变时所触发的回调函数
+		它的值是一个函数首地址（匿名函数）
+		xhr.onreadystatechange=function(){
+
+		}或
+		xhr.onreadystatechange=display;
+
+	*readyState
+		ajax对象的状态码
+		状态码是一个数字0-4
+		0 表示对象已建立，但未初始化
+		1 表示已初始化，但未发送
+		2 已调用send方法进行请求
+		3 正在接受数据
+		4 接受完成
+
+	*status
+		ajax对象接受到的http响应状态码 如：200 302 304 404
+
+	*statusText
+		ajax对象接收到的http状态文本 如 ok not found
+
+	*responseText
+		ajax对象接受到http响应主体字符串
+
+	*responseXML
+		ajax对象接收到的http响应主体内容（）

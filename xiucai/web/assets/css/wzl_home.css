@@ -1,0 +1,27 @@
+@charset "utf-8";
+/*html,body{padding:0px;margin:0px; }*/
+/*body{background:#f2f2f2;}*/
+/*ul li{list-style:none;}*/
+/*h1,h2,h3,h4,h5,h6,p,form,dl,dt,dd,ul,li,b,img{padding:0px;margin:0px;font-size:12px;font-weight:normal;font-family:"arial";color:#666;}*/
+/*input,textarea{font-size:12px;border:0px;}*/
+/*a{text-decoration:none;color:#666;font-size:12px;outline:none;blr:expression(this.onFocus=this.blur());}*/
+/*a:hover{text-decoration:underline;text-decoration:none;}*/
+/*b.orange{color:#ff8023;font-weight:normal;}*/
+/*input{outline:none;}*/
+/*.clear{clear:both;}*/
+
+
+
+/*** 课程 ***/
+
+.header_bg{text-align: center;}
+.course_all{ width:1200px;margin:0 auto;}
+.couse_content{clear:both;padding-top:99px;}
+.ouse_top{padding-top:90px;}
+.course_area{float:left;}
+.course_mar{ margin-right:20px;}
+.couse_content .course_title{ font-size:24px;  color:#21242e;}
+.couse_content .course_title span{ float:right; font-size:14px;}
+.course_name{ font-size:14px; height:38px; line-height:38px;}
+.course_name a:hover{color:#ED7000;}
+

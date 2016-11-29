@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>-.-</title>
+    <link rel="stylesheet" href="{{ asset('shopImooc/admin/styles/backstage.css') }}">
+    <link rel="stylesheet" href="{{ asset('shopImooc/admin/scripts/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css') }}" />
+    <script src="{{ asset('shopImooc/admin/scripts/jquery-ui/js/jquery-1.10.2.js') }}"></script>
+    <script src="{{ asset('shopImooc/admin/scripts/jquery-ui/js/jquery-ui-1.10.4.custom.js') }}"></script>
+    <script src="{{ asset('shopImooc/admin/scripts/jquery-ui/js/jquery-ui-1.10.4.custom.min.js') }}"></script>
+</head>
+<script type="text/javascript">
+    //商品是否展示
+    function showDisable(id){
+        $.ajax({
+            url:"{{ path('AdminBundle_Product_showDisable') }}",
+            type:"POST",
+            data:{"id":id},
+            success:function(result){
+                if(result == 3){
+                    location.reload();
+                }else{
+                    alert('failure');
+                }
+            }
+        });
+    }
+
+    //商品修改
+    function editPro(id){
+        window.location.href ="{{ path('AdminBundle_Product_editPro') }}?id="+id;
+    }
+
+    //商品热卖与否
+    function hotDisable(id){
+        $.ajax({
+            url:"{{ path('AdminBundle_Product_hotDisable') }}",
+            type:"POST",
+            data:{"id":id},
+            success:function(result){
+                if(result == 5){
+                    location.reload();
+                }else{
+                    alert('failure');
+                }
+            }
+        });
+    }
+
+</script>
+<body>
+<div class="details">
+
+    <!--表格-->
+    <table class="table" cellspacing="0" cellpadding="0">
+        <thead>
+        <tr>
+            <th width="10%">编号</th>
+            <th width="20%">商品名称</th>
+            <th width="20%">商品分类</th>
+            <th width="20%">是否上架</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php $i=1;foreach($rows as $row):?>
+        <tr>
+            <!--这里的id和for里面的c1 需要循环出来-->
+            <td><input type="checkbox" id="c1" class="check" value={{ member.id }}><label for="c1" class="label">{{ member.id }}</label></td>
+            <td>{{ member.pName }}</td>
+            <td>
+                {% if resultcate is not empty %}
+                    {% for resultCate in resultcate %}
+                        {% if member.cId == resultCate.id %}
+                            {{ resultCate.cName }}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {#{{ member.cId }}#}
+            </td>
+            <td>{{ member.isShow }}</td>
+            <td align="center">
+                <input type="button" value="详情" class="btn" onclick="showDetail({{ member.id }},'{{ member.pName }}')">
+                <input type="button" value="修改" class="btn" onclick="editPro({{ member.id }})">
+            </td>
+                <table class="table" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="20%"  align="right">商品货号</td>
+                        <td>{{ member.pSn }}</td>
+                    </tr>
+                    <tr>
+                        <td width="20%"  align="right">商品数量</td>
+                        <td>{{ member.pNum}}</td>
+                    </tr>
+                    <tr>
+                        <td  width="20%"  align="right">商品价格</td>
+                        <td>{{ member.mPrice}}</td>
+                    </tr>
+                    <tr>
+                        <td  width="20%"  align="right">幕课网价格</td>
+                        <td>{{ member.iPrice}}</td>
+                    </tr>
+                    <tr>
+                        <td width="20%"  align="right">商品图片</td>
+                        <td>
+                            <img id="img" class="img" src="{{ asset(album.albumPath) }}" style="width: 60px;height: 60px;">
+                        </td>
+                        <td><a href="javascript:void(0);" onclick="addMorePicture({{ member.id }})">添加更多图片</a></td>
+                    </tr>
+                    <tr>
+                        <td width="20%"  align="right">是否上架</td>
+                        <td>
+                            {% if member.isShow == 1 %}
+                                     上架中
+                            {% else %}
+                                    已下架
+                            {% endif %}
+                        </td>
+                        <td><a href="javascript:void(0);" onclick="showDisable({{ member.id }})">
+                                {% if member.isShow == 1 %}
+                                    下架
+                                {% else %}
+                                    上架
+                                {% endif %}
+                            </a></td>
+                    </tr>
+                    <tr>
+                        <td width="20%"  align="right">是否热卖</td>
+                        <td>{% if member.isHot == 1 %}
+                                    热卖中
+                            {% else %}
+                                    不热卖
+                            {% endif %}
+                        </td>
+                        <td><a href="javascript:void(0);" onclick="hotDisable({{ member.id }})">
+                                {% if member.isHot == 1 %}
+                                    不热卖
+                                {% else %}
+                                    热卖
+                                {% endif %}
+                        </a></td>
+                    </tr>
+                </table>
+
+
+            <div id="showDetail{{ member.id }}" style="display:none;">
+                            <span style="display:block;width:80%; ">
+					                        	商品描述<br/>
+                               <p style="text-indent:2em;"> {{ member.pDesc}} </p>
+					                        	</span>
+            </div>
+
+
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    function showDetail(id,t){
+        $("#showDetail"+id).dialog({
+            height:"auto",
+            width: "auto",
+            position: {my: "center", at: "center",  collision:"fit"},
+            modal:false,//是否模式对话框
+            draggable:true,//是否允许拖拽
+            resizable:true,//是否允许拖动
+            title:"商品名称："+t,//对话框标题
+            show:"slide",
+            hide:"explode"
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="秀财网" />
+        <meta name="description" content="秀财网" />
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+        <link rel="shortcut icon" href="{{ asset('assets/img/favicon.ico') }}" />
+        <meta itemprop="image" content="{{ asset('assets/img/favicon.ico') }}">
+        <title>{% block title %}秀财网首页{% endblock %}-秀财网是中国领先的财务在线教育社区，包含财务在线课程，财务问答社区等频道，打造专业的财务智慧供应商</title>
+        <link rel="stylesheet" href="{{ asset('assets/css/common.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/css/wzl_login.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/css/index_v1.css') }}" />
+        <script type="text/javascript" src="{{ asset('assets/js/jquery-1.7.2.min.js') }}"></script>
+        <!--[if lt IE 7]>
+        <script type="text/javascript" src="{{ asset('assets/js/unitpngfix.js') }}"></script>
+        <![endif]-->
+        <script type="text/javascript" src="{{ asset('assets/js/index.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/login_register.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/layer/layer.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/jquery.enplaceholder.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/common.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('assets/css/rightfloat.css') }}" />
+        <script type="text/javascript" src="{{ asset('assets/js/rightfloat.js') }}"></script>
+        {#自定义引用 #}
+        {% block js_css %}
+        {% endblock %}
+    </head>
+
+    <body>
+    {#内容#}
+
+        {#顶部#}
+        {{ render (controller('PageBundle:Public:header')) }}
+        {#顶部 结束#}
+
+        {#中间内容框架#}
+        {% block content%}
+        {% endblock %}
+        {#中间内容框架 结束#}
+
+        {#底部#}
+        {% include "PageBundle:Public:footer.html.twig"%}
+        {#底部 结束#}
+
+        {#弹窗#}
+        {#{% include "PageBundle:Public:window.html.twig"%}#}
+        {{ render (controller('PageBundle:Public:window')) }}
+        {#弹窗 结束#}
+
+    {#内容 结束#}
+    <div style="display: none;">
+    <script type="text/javascript" language="JavaScript">
+        var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F9c675daff12747b73301bc67666a71b6' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    </div>
+    </body>
+</html>

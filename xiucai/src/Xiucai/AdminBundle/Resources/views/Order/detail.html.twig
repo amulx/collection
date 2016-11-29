@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl/green/gui.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl/styles.css') }}" />
+    <script src="{{ asset('assets/js/wzl/jquery-1.7.2.min.js') }}"></script>
+    <style type="text/css">
+        div,ul,form,table { clear: none;}
+        .left_div{background-color: #CCCCCC; width:30%; border: 1px solid #797979; float: left;}
+        .left_div table tr { line-height: 30px;}
+        .left_div table tr .td_l{width: 50%; text-align: right;}
+        .left_div table tr .td_r{width:50%; text-align:left;font-weight: bold;}
+        .right_div{ width:68%; float: right; vertical-align: top;}
+        .right_div table tr { line-height: 30px;}
+    </style>
+</head>
+<body>
+<div style="width: 100%;margin:0 auto;">
+    <div style="padding: 10px;">
+    <div style="text-align: left; padding-bottom: 15px;">支付管理 / 订单管理 / 订单详情</div>
+    <div class="left_div">
+        <table width="100%">
+            <tr><td class="td_l">订单编号：</td><td class="td_r">{{ orderDetail.order_code }}</td></tr>
+            <tr><td class="td_l">用户：</td><td class="td_r"><img src="{{ asset(orderDetail.avatar) }}" height="50"><br>{{ orderDetail.nickname }}</td></tr>
+            <tr><td class="td_l">用户ID：</td><td class="td_r"><a href="{{ path('AdminBundle_Billing_info',{'id': orderDetail.member_id}) }}">{{ orderDetail.member_id }}</a></td></tr>
+            <tr><td class="td_l">消费金额：</td><td class="td_r">{{ orderDetail.amount }}</td></tr>
+            <tr><td class="td_l">订单状态：</td><td class="td_r">{% if(orderDetail.order_status == 0) %}
+                        未支付
+                    {% elseif(orderDetail.order_status == 1) %}
+                        支付失败
+                    {% elseif(orderDetail.order_status == 2) %}
+                        支付成功
+                    {% elseif(orderDetail.order_status == 3) %}
+                        取消支付
+                    {% endif %}</td></tr>
+            <tr><td class="td_l">交易类型：</td><td class="td_r">{% if(orderDetail.type == 0) %}
+                        支付
+                    {% elseif(orderDetail.type == 1) %}
+                        优惠
+                    {% elseif(orderDetail.type == 2) %}
+                        补偿
+                    {% elseif(orderDetail.type == 3) %}
+                        测试
+                    {% endif %}</td></tr>
+            <tr><td class="td_l">创建时间：</td><td class="td_r">{{ orderDetail.create_time }}</td></tr>
+            <tr><td class="td_l">更新时间：</td><td class="td_r">{{ orderDetail.update_time }}</td></tr>
+            <tr><td class="td_l">操作员ID：</td><td class="td_r">{{ orderDetail.operator_id }}</td></tr>
+            <tr><td class="td_l">IP地址：</td><td class="td_r">{{ orderDetail.ip_address }}</td></tr>
+            <tr><td class="td_l">第三方支付ID：</td><td class="td_r">{{ orderDetail.transaction_id }}</td></tr>
+            <tr><td class="td_l">第三方支付状态：</td><td class="td_r">{% if(orderDetail.transaction_status=='0') %}等待买家付款{% elseif(orderDetail.transaction_status==1)%}支付成功{% elseif(orderDetail.transaction_status==2) %}支付失败{% elseif(orderDetail.transaction_status==3) %}支付关闭{% endif %}</td></tr>
+        </table>
+    </div>
+    <div class="right_div">
+        <table width="100%" border="1" style=" border-color: #CCCCCC;" cellpadding="0" cellspacing="0">
+            <tr style="background-color: #CCCCCC;">
+                <th>编号</th>
+                <th>课程名称</th>
+                <th>课程类型</th>
+                <th>原价（￥）</th>
+                <th>现价（￥）</th>
+                <th>数量</th>
+            </tr>
+            {% for list in itemList %}
+            <tr>
+                <td style="text-align: center;">{{ list.id }}</td>
+                <td style="text-align: center;"><a href="{{ path('PageBundle_course_detail',{id:list.cid}) }}" target="_blank">{{ list.title }}</a></td>
+                <td style="text-align: center;">{% if(list.content_type ==1) %}直播{% elseif(list.content_type == 2) %}录播{% endif %}</td>
+                <td style="text-align: center;">{{ list.original_price }}</td>
+                <td style="text-align: center;">{{ list.current_price }}</td>
+                <td style="text-align: center;">{{ list.num }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </div>
+</div>
+</body>
+</html>

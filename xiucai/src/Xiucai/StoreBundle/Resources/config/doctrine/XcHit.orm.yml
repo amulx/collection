@@ -1,0 +1,35 @@
+Xiucai\StoreBundle\Entity\XcHit:
+    type: entity
+    table: xc_hit
+    id:
+        id:
+            type: bigint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        contentId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: 所属对象的ID(先根据content_type查找到相应的表，再根据content_id对应表里的ID)
+            column: content_id
+        contentType:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '所属对象类型（对应*_content_type的ID）'
+            column: content_type
+        count:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 点击数
+        date:
+            type: date
+            nullable: true
+            comment: 日期
+    lifecycleCallbacks: {  }

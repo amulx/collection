@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="public.js"></script>
+<script type="text/javascript">
+
+	window.onload=function(){
+		$('btnok').onclick=function(){
+			var f = $('first').value;
+			var s = $('second').value;
+			var data='first='+f+'&second='+s;
+			var xhr = createxhr();
+			xhr.open('post','demo8.php');
+			xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+			xhr.onreadystatechange=function(){
+				if (xhr.readyState==4 && xhr.status==200) {
+					// $('msg').innerHTML=xhr.responseText;
+					var str = xhr.responseText;
+					// alert(str.split('|'));
+					var result = str.split('|');
+					$('msg').innerHTML='加:'+result[0]+'<br>';
+					$('msg').innerHTML+='减:'+result[1]+'<br>';
+					$('msg').innerHTML+='乘:'+result[2]+'<br>';
+					$('msg').innerHTML+='除:'+result[3]+'<br>';
+				}
+			};
+			xhr.send(data);
+		};
+	};
+
+</script>
+</head>
+    <body>
+    	第一个数:<input type="text" id="first" /><br>
+    	第二个数:<input type="text" id="second" /><br>
+    	结果：<span id='msg'></span><br>
+    	<input type="button" id="btnok" value="计算">
+    </body>
+</html>

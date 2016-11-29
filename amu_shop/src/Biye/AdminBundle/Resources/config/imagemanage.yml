@@ -1,0 +1,12 @@
+#图片管理显示页面
+AdminBundle_ImageManage_listProImages:
+    path: /listProImages
+    defaults: { _controller: "BiyeAdminBundle:ImageManage:listProImages" }
+
+#文字水印添加
+AdminBundle_ImageManage_fontMark:
+    path: /fontMark
+    defaults: { _controller: "BiyeAdminBundle:ImageManage:fontMark" }
+AdminBundle_ImageManage_imageMark:
+    path: /imageMark
+    defaults: { _controller: "BiyeAdminBundle:ImageManage:imageMark" }

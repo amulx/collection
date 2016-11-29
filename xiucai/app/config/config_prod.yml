@@ -1,0 +1,36 @@
+imports:
+    - { resource: config.yml }
+
+#framework:
+#    validation:
+#        cache: apc
+
+#doctrine:
+#    orm:
+#        metadata_cache_driver: apc
+#        result_cache_driver: apc
+#        query_cache_driver: apc
+
+monolog:
+    handlers:
+        main:
+            type:         fingers_crossed
+            action_level: error
+            handler:      grouped
+        grouped:
+            type:    group
+            members: [streamed, buffered]
+        streamed:
+            type: rotating_file
+            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            max_files: 1500
+            level: error
+        buffered:
+            type:    buffer
+            handler: swift
+        swift:
+            type:       swift_mailer
+            from_email: debug@xiucai.com
+            to_email:   [jason@xiucai.com,mike@xiucai.com]
+            subject:    An Error Occurred!
+            level:      error

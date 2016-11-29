@@ -1,0 +1,26 @@
+Xiucai\StoreBundle\Entity\XcOptions:
+    type: entity
+    table: xc_options
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        key:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 参数键
+        value:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: 参数值
+    lifecycleCallbacks: {  }

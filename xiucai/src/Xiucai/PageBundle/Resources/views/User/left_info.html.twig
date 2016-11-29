@@ -1,0 +1,53 @@
+<div class="div_vedio_left fl">
+    <div class="title">
+        <div class="title_1 fl">
+            <img width="45" height="45" src="{% if memberInfo.avatar is not empty %}{{ memberInfo.avatar }}?ver={{ uploadRandom }}{% else %}{{ asset('assets/img/people_heand.jpg') }}{% endif %}">
+        </div>
+        <div style="min-height: 65px;">
+            <h1 class="teacher_name">{{ memberInfo.nickname }}</h1>
+            <h1>
+                {% if memberInfo.brief is not empty %}
+                    {{ memberInfo.brief }}
+                {% elseif memberInfo.position is not empty %}
+                    {{ memberInfo.position }}
+                {% endif %}
+            </h1>
+            <h1>
+                {% if memberInfo.province is not empty %}{{ memberInfo.province }}，{% endif %}
+                {% if memberInfo.city is not empty %}{{ memberInfo.city }}{% endif %}
+            </h1>
+        </div>
+    </div>
+    <div class="edit"><a href="{{ path('PageBundle_user_editor', {'id': memberInfo.id}) }}">编辑</a></div>
+    <div class="line"></div>
+    <div class="div_list">
+        <ul>
+            <li {% if lType == 'live' %}class="active"{% endif %}>
+                <a href="{{ path('PageBundle_user_index') }}">我的直播课</a>
+                {% if lType == 'live' %}
+                    <img src="{{ asset('assets/img/vedio_arrow.png') }}">
+                {% else %}
+                    <img src="{{ asset('assets/img/vedio_arrow_black.png') }}">
+                {% endif %}
+            </li>
+            <li {% if lType == 'video' %}class="active"{% endif %}>
+                <a href="{{ path('PageBundle_user_video') }}">我的精品课</a>
+                {% if lType == 'video' %}
+                    <img src="{{ asset('assets/img/vedio_arrow.png') }}">
+                {% else %}
+                    <img src="{{ asset('assets/img/vedio_arrow_black.png') }}">
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+    <div class="line"></div>
+    {% if recentLiveInfo is not empty %}
+    <div class="recent_vedio">
+        <div>推荐课程<img src="{{ asset('assets/img/vedio_arrow_black_d.png') }}"></div>
+        <div class="pic">
+            <a href="{{ path('PageBundle_live_detail',{'id': recentLiveInfo.id}) }}" title="{{ recentLiveInfo.title }}" target="_blank"><img src="{{ recentLiveInfo.img_url }}" width="214"></a>
+            <h1><a href="{{ path('PageBundle_live_detail',{'id': recentLiveInfo.id}) }}" title="{{ recentLiveInfo.title }}" target="_blank">{{ recentLiveInfo.title | addSlice(0,12) }}</a></h1>
+        </div>
+    </div>
+    {% endif %}
+</div>

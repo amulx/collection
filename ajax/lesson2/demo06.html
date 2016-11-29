@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="publicc.js"></script>
+<script type="text/javascript">
+
+	window.onload=function(){
+		$("btnok").onclick=function(){
+// ===================================================================
+			// $.get('demo06.php','username=xiaoqiang',function(msg){
+			// 	alert(msg);
+			// });
+// ====================================================================
+			// $.post('demo07.php','username=xiaoqwwiang&age=20',function(msg){
+			// 	alert(msg);
+			// },'text');
+// ======================================================================
+			// $.post('demo07.php','username=xiaoqwwiang&age=20',function(msg){
+			// 	var jia = msg.getElementsByTagName('jia')[0].childNodes[0].nodeValue;
+			// 	var jian = msg.getElementsByTagName('jian')[0].childNodes[0].nodeValue;
+			// 	alert(jia+':'+jian);
+			// },'xml');
+// =========================================================================
+			$.post('demo07.php','username=xiaoqwwiang&age=20',function(msg){
+				alert(msg.goodsname +':'+ msg.price);
+			},'json');
+		};
+	};
+</script>
+</head>
+    <body>
+    	<input type="button" id="btnok" value="确定"/>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+#秀财网首页
+PageBundle_page:
+    resource: "routing/page.yml"
+    prefix: /
+
+#秀财网用户相关页面
+PageBundle_user:
+    resource: "routing/user.yml"
+    prefix: /user
+
+#秀财网录播课程
+PageBundle_course:
+    resource: "routing/course.yml"
+    prefix: /course
+
+#秀财网直播课程
+PageBundle_live_course:
+    resource: "routing/live_course.yml"
+    prefix: /live
+
+#秀财网计费
+PageBundle_billing:
+    resource: "routing/billing.yml"
+    prefix: /billing

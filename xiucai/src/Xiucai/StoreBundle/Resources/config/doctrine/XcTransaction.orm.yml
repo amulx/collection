@@ -1,0 +1,88 @@
+Xiucai\StoreBundle\Entity\XcTransaction:
+    type: entity
+    table: xc_transaction
+    indexes:
+        user_id:
+            columns:
+                - member_id
+        type:
+            columns:
+                - type
+    id:
+        id:
+            type: bigint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        type:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '交易类型（对应*_transaction_type的ID）'
+        memberId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: '用户ID（对应*_member的ID）'
+            column: member_id
+        status:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '交易状态（对应*_order表的order_status）'
+        createTime:
+            type: datetime
+            nullable: true
+            comment: 创建时间
+            column: create_time
+        startDate:
+            type: date
+            nullable: true
+            comment: 服务开始时间，保留字段
+            column: start_date
+        endDate:
+            type: date
+            nullable: true
+            comment: 服务结束时间，保留字段
+            column: end_date
+        quantity:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 数量
+        amount:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: 单价金额，保留字段
+        totalAmount:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: 总额
+            column: total_amount
+        contentId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: 所属对象的ID(先根据content_type查找到相应的表，再根据content_id对应表里的ID)
+            column: content_id
+        contentType:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '所属对象类型（对应*_content_type的ID）'
+            column: content_type
+        description:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 交易描述
+    lifecycleCallbacks: {  }

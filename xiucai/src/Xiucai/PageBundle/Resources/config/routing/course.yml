@@ -1,0 +1,39 @@
+#秀财网录播课程
+PageBundle_course_video:
+    path: /
+    defaults: { _controller: PageBundle:Course:index }
+
+#ajax获取更多录播课程
+PageBundle_course_ajax_load:
+    path: /ajax_load
+    defaults: { _controller: PageBundle:Course:ajaxLoadCourse }
+
+#ajax获取录播课程视频
+PageBundle_course_ajax_chapter:
+    path: /ajax_chapter
+    defaults: { _controller: PageBundle:Course:ajaxLoadChapter }
+
+#ajax发布课程讨论
+PageBundle_course_ajax_post:
+    path: /ajax_post
+    defaults: { _controller: PageBundle:Course:ajaxCoursePost }
+
+#ajax获取更多录播课程讨论
+PageBundle_course_ajax_loadPost:
+    path: /load_post
+    defaults: { _controller: PageBundle:Course:ajaxLoadPost }
+
+#ajax老师点赞
+PageBundle_course_favorite_teach:
+    path: /favorite_teach
+    defaults: { _controller: PageBundle:Course:ajaxFavoriteTeach }
+
+#秀财网录播课程详情页按钮状态处理
+PageBundle_course_status:
+    path: /course_status
+    defaults: { _controller: PageBundle:Course:courseStatus }
+
+#秀财网录播课程详情页
+PageBundle_course_detail:
+    path: /{id}
+    defaults: { _controller: PageBundle:Course:detail, id:"" }

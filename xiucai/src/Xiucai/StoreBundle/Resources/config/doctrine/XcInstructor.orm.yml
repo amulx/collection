@@ -1,0 +1,55 @@
+Xiucai\StoreBundle\Entity\XcInstructor:
+    type: entity
+    table: xc_instructor
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: true
+            length: 128
+            fixed: false
+            comment: 姓名
+        title:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 头衔
+        brief:
+            type: string
+            nullable: true
+            length: 512
+            fixed: false
+            comment: 简介
+        avatar:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 头像
+        favoriteCount:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 点赞数
+            column: favorite_count
+        cellphone:
+            type: string
+            nullable: true
+            length: 16
+            fixed: false
+            comment: 手机号码
+        status:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '内容状态（参考*_content_status表）'
+    lifecycleCallbacks: {  }

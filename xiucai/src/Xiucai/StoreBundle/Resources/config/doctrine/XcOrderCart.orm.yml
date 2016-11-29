@@ -1,0 +1,61 @@
+Xiucai\StoreBundle\Entity\XcOrderCart:
+    type: entity
+    table: xc_order_cart
+    id:
+        id:
+            type: bigint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        memberId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: '用户ID（对应*_member的ID）'
+            column: member_id
+        contentId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: 所属对象的ID(先根据content_type查找到相应的表，再根据content_id对应表里的ID)
+            column: content_id
+        contentType:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '所属对象类型（对应*_content_type的ID）'
+            column: content_type
+        originalPrice:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: 商品原价格
+            column: original_price
+        currentPrice:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: 商品实际价格（优惠价）
+            column: current_price
+        num:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: 商品数量
+        createTime:
+            type: datetime
+            nullable: true
+            comment: 创建时间
+            column: create_time
+        status:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '内容状态（参考*_content_status表）'
+    lifecycleCallbacks: {  }

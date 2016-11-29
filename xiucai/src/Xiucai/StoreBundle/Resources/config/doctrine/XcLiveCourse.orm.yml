@@ -1,0 +1,153 @@
+Xiucai\StoreBundle\Entity\XcLiveCourse:
+    type: entity
+    table: xc_live_course
+    id:
+        id:
+            type: bigint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        authorId:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 内容创建者的ID，此ID为管理员用户的ID
+            column: author_id
+        confId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: '课堂直播间ID（对应*_conference表的ID）'
+            column: conf_id
+        title:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 课程标题
+        brief:
+            type: string
+            nullable: true
+            length: 512
+            fixed: false
+            comment: 课程简介
+        instructorId:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 讲师的ID，暂为保留字段
+            column: instructor_id
+        content:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: 课程内容介绍
+        duration:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 课程时长，以分钟为单位
+        reserveInit:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 初始化预约人数，缺省为0
+            column: reserve_init
+        reserveNum:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 预约人数（总预约人数=初始化预约人数+预约人数）
+            column: reserve_num
+        commentStar:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: 课程评论等级，暂为保留
+            column: comment_star
+        courseLevel:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '课程级别（1 - 初级， 2 - 中级， 3 - 高级）'
+            column: course_level
+        isPaid:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '是否付费课程（0 - 免费， 1 - 付费）'
+            column: is_paid
+        originalPrice:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: 课程原价（预定价）
+            column: original_price
+        currentPrice:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: 当前优惠价（实际价格）
+            column: current_price
+        tags:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 课程标签，保留字段（标签为字符串数组，以逗号分隔）
+        categoryId:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: '课程所属的课程类别（对应*_category表的category_id）'
+            column: category_id
+        createTime:
+            type: datetime
+            nullable: true
+            comment: 记录创建时间
+            column: create_time
+        modifyTime:
+            type: datetime
+            nullable: true
+            comment: 记录修改时间
+            column: modify_time
+        scheduleTime:
+            type: datetime
+            nullable: true
+            comment: 直播预定开始时间
+            column: schedule_time
+        status:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '内容状态（参考*_content_status表）'
+        imgUrl:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 课程介绍图（尺寸暂定）
+            column: img_url
+        bannerUrl:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 课程Banner大图（详情页，尺寸暂定）
+            column: banner_url
+        recordUrl:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 录制视频链接地址，暂为保留
+            column: record_url
+    lifecycleCallbacks: {  }

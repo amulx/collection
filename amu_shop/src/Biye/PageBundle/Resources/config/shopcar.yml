@@ -1,0 +1,3 @@
+PageBundle_ShopCar_addgouwuche:
+    path: /shopcar/addgouwuche
+    defaults: { _controller: "BiyePageBundle:ShopCar:addgouwuche" }

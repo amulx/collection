@@ -1,0 +1,32 @@
+AdminBundle_Admin_index:
+    path: /admin/index
+    defaults: { _controller: "BiyeAdminBundle:Admin:index" }
+
+AdminBundle_Admin_main:
+    path: /admin/main
+    defaults: { _controller: "BiyeAdminBundle:Admin:main" }
+
+AdminBundle_Admin_addAdmin:
+    path: /admin/addAdmin
+    defaults: { _controller: "BiyeAdminBundle:Admin:addAdmin" }
+
+AdminBundle_Admin_adminAdd:
+    path: /admin/adminAdd
+    defaults: { _controller: "BiyeAdminBundle:Admin:adminAdd" }
+
+AdminBundle_Admin_listAdmin:
+    path: /admin/listAdmin
+    defaults: { _controller: "BiyeAdminBundle:Admin:listAdmin" }
+
+AdminBundle_Admin_editAdmin:
+    path: /admin/editAdmin
+    defaults: { _controller: "BiyeAdminBundle:Admin:editAdmin" }
+
+
+AdminBundle_Admin_updateAdmin:
+    path: /admin/updateAdmin
+    defaults: { _controller: "BiyeAdminBundle:Admin:updateAdmin" }
+
+AdminBundle_Admin_delAdmin:
+    path: /admin/delAdmin
+    defaults: { _controller: "BiyeAdminBundle:Admin:delAdmin" }

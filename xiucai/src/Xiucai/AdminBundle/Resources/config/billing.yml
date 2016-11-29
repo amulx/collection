@@ -1,0 +1,15 @@
+AdminBundle_Billing_list:
+    path: /admin/billing/list
+    defaults: { _controller: AdminBundle:Billing:list}
+
+AdminBundle_Billing_editPage:
+    path: /admin/billing/edit
+    defaults: { _controller: AdminBundle:Billing:edit}
+
+AdminBundle_Billing_update:
+    path: /admin/billing/update
+    defaults: { _controller: AdminBundle:Billing:update}
+
+AdminBundle_Billing_info:
+    path: /admin/billing/info
+    defaults: { _controller: AdminBundle:Billing:info}

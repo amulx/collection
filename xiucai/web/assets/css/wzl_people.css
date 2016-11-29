@@ -1,0 +1,46 @@
+@charset "utf-8";
+.text_style{width:330px; height:40px; border:1px solid #dfdfdf;border-radius: 3px;}
+.text_style:focus{ border-color:#f29644;}
+
+.myorder {width:1200px; margin:0 auto; padding-top:30px;}
+.myorder .div_1 {width:339px}
+.myorder .div_1 .title {padding-bottom:16px;}
+.myorder .div_1 .line {background:url(../img/myorder_line_l.jpg); background-repeat:repeat-x; height:2px; width:280px;}
+.myorder .div_1 .div_list {padding-top:55px;}
+.myorder .div_list ul li {height:50px;}
+.myorder .div_list ul li.active {color:#f29644;}
+.people_message ul li input{ width: 328px;height: 38px;border: 1px solid #cbcbcb;border-radius:4px;margin-left: 60px;vertical-align:middle;line-height:38px;}
+.myorder .div_2 {width:850px}
+input:focus {border: 1px solid #ffcea3;}
+.people_message ul li{font-size: 14px;}
+.people_message .w1{margin-top: 44px;height: 42px;line-height: 42px;vertical-align:middle;}
+.people_message .w2{margin-top: 30px;}
+.w2 dl dd{width: 72px;height: 38px;line-height: 38px;text-align: center;cursor:pointer;}
+.people_message .w3{height: 42px;line-height: 42px;vertical-align:middle;}
+.w2 dl dd img{vertical-align:middle;margin-right: 6px;}
+.w2 .nan{border-bottom-left-radius:4px;border-top-left-radius:4px;border-bottom:1px solid #cbcbcb;border-top:1px solid #cbcbcb;border-left:1px solid #cbcbcb;background-color: #cccccc}
+.w2 .nv{border-bottom-right-radius:4px;border-top-right-radius:4px;border-bottom:1px solid #cbcbcb;border-top:1px solid #cbcbcb;border-right:1px solid #cbcbcb;}
+.people_message .w2 .t_pic{vertical-align:middle;}
+.up_pic{ float: left;vertical-align:middle;margin-left: 50px;}
+/*.up_pic img{}*/
+/*.up_pic p{}*/
+.title_h{width:659px;height: 56px;line-height: 56px;margin-top: 26px;border-bottom:1px solid #cbcbcb; }
+.title_h .zoom_pic{vertical-align:middle;margin-left: 5px;}
+.w2 select{vertical-align:middle;line-height:38px;}
+.people_message ul li .w_df{height: 38px; line-height:38px;width: 102px;border-radius:4px;margin-left: 42px;border:1px solid #cbcbcb; vertical-align: middle;}
+.people_message ul li .w_hy{height: 38px;width: 214px;border-radius:4px;margin-left: 56px; border:1px solid #cbcbcb;}
+.people_message ul li .w_zw{width: 214px}
+.people_message ul li .w_qy{margin-left: 27px;}
+.people_message ul li .w_word{width: 570px;margin-left: 16px;}
+.people_message ul li .w_ag{ margin-left: 115px;margin-top: 12px;}
+.people_bto{margin-top: 44px;margin-left: 210px;margin-bottom: 60px;}
+.people_bto a:hover{ color: #f29644}
+.pm_hidde{ display: none}
+
+/*上传头像弹层*/
+.next,.pop_bg .con,.choose_bg .next{display:inline-block; width:145px; height:45px; line-height:45px; text-align:center; color:#fff; background:url(../img/next_btn.gif) no-repeat; font-weight: bold;font-size: 14px;}
+.next{margin:25px 0px 100px 0px;}
+.pop_bg{width:312px; height:400px; position:absolute; top:50%; left:50%; margin-top:-200px; margin-left:-156px; background:url(../img/pop_bg.png) no-repeat; display:none; z-index: 1200;}
+.pop_bg .con{position:absolute; left:80px; bottom:28px;}
+.pop_bg .res{position:absolute; right:40px; bottom:42px;}
+#target{max-width:289px;    /*IE7和Firefox用*/ width: expression(this.width > 289 ? 289: true);   /*IE6用*/max-height:289px;   /*IE7和Firefox用*/ width: expression(this.width > 289 ? 289: true);   /*IE6用*/}

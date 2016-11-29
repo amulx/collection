@@ -1,0 +1,47 @@
+Xiucai\StoreBundle\Entity\XcCourseInventory:
+    type: entity
+    table: xc_course_inventory
+    id:
+        id:
+            type: bigint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        memberId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: '用户ID（对应*_member的ID）'
+            column: member_id
+        contentId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: 所属对象的ID(先根据content_type查找到相应的表，再根据content_id对应表里的ID)
+            column: content_id
+        contentType:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '所属对象类型（对应*_content_type的ID）'
+            column: content_type
+        quantity:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: 数量
+        createTime:
+            type: datetime
+            nullable: true
+            comment: 创建时间
+            column: create_time
+        expireTime:
+            type: datetime
+            nullable: true
+            comment: 过期时间，保留字段
+            column: expire_time
+    lifecycleCallbacks: {  }

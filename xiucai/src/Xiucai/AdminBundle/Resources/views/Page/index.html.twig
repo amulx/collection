@@ -1,0 +1,331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" id="html1">
+<head><link href="{{ asset('assets/css/wzl/StyleSheet.css') }}" type="text/css" rel="stylesheet" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>秀财网--后台管理系统</title>
+    <script type="text/javascript">
+        <!--
+        //模式切换
+        var Pattren_right="leftDiv";
+        var Pattren_left="left_left";
+        var Pattren_body="bodyDiv"
+        var Pattren_rig="rightDiv"
+        var Pattren_lef="leftDiv"
+        var Pattren=Pattren_right
+        var Pattren_Righ=Pattren_rig
+        var Pattren_Righ2=Pattren_rig+'_z'
+        var Pattren_Bod=Pattren_body
+        var Pattren_Bod2=Pattren_body+'_bi'
+        function leftPattern(){
+            document.getElementById('lef').className = document.getElementById('lef').className == Pattren_right ? Pattren_left : Pattren_left ;
+            document.getElementById('bod').className = document.getElementById('bod').className == Pattren_body ? Pattren_body+'_right' : Pattren_body+'_right';
+            document.getElementById('rig').className = document.getElementById('rig').className == Pattren_rig ? Pattren_rig+'_right' : Pattren_rig+'_right';
+            Pattren=Pattren_left
+            Pattren_Righ=Pattren_rig+'_right'
+            Pattren_Righ2=Pattren_rig+'_z'
+            Pattren_Bod=Pattren_body+'_right'
+            Pattren_Bod2=Pattren_body+'_bi'
+        }
+        function rightPattern(){
+            document.getElementById('lef').className = document.getElementById('lef').className == Pattren_left ? Pattren_right : Pattren_right ;
+            document.getElementById('bod').className = document.getElementById('bod').className == Pattren_body+'_right' ? Pattren_body : Pattren_body;
+            document.getElementById('rig').className = document.getElementById('rig').className == Pattren_rig+'_right' ? Pattren_rig : Pattren_rig;
+            Pattren=Pattren_right
+            Pattren_Righ=Pattren_rig
+            Pattren_Righ2=Pattren_rig+'_z'
+            Pattren_Bod=Pattren_body
+            Pattren_Bod2=Pattren_body+'_bi'
+        }
+        //菜单隐藏
+        function HideClick(){
+            document.getElementById('lef').className = document.getElementById('lef').className == Pattren ? Pattren_lef+'_none' : Pattren;
+            document.getElementById('rig').className = document.getElementById('rig').className == Pattren_Righ ? Pattren_Righ2 : Pattren_Righ;
+            document.getElementById('bod').className = document.getElementById('bod').className == Pattren_Bod ? Pattren_Bod2 : Pattren_Bod;
+        }
+        //TAB菜单控制
+        function setTab(m,n){
+            var tli=document.getElementById("menu"+m).getElementsByTagName("li");/*获取选项卡的LI对象*/
+            var mli=document.getElementById("main"+m).getElementsByTagName("ul");/*获取主显示区域对象*/
+            for(i=0;i<tli.length;i++){
+                tli[i].className=i==n?"hover":"";/*.hover样式*/
+                mli[i].style.display=i==n?"block":"none";/*dispaly:block/none*/
+            }
+        }
+
+        function PreviewPic(obj){
+            document.getElementById("UrlPreview").src = obj.value;
+        }
+        function imgupTab(Num){
+            if(Num == 1){
+                document.getElementById("url").style.display = "block";
+                document.getElementById("urlk").className = "hover";
+            }else{
+                document.getElementById("url").style.display = "none";
+                document.getElementById("urlk").className = "";
+            }
+            if(Num == 2){
+                document.getElementById("Local").style.display = "block";
+                document.getElementById("Localk").className = "hover";
+            }else{
+                document.getElementById("Local").style.display = "none";
+                document.getElementById("Localk").className = "";
+            }
+        }
+        function upload(){
+            document.getElementById("fckForm").submit();
+        }
+        //2010-07-14新增
+        var setUpimgId = "";
+        var getUpimgId = function(strId){setUpimgId = strId;}
+        function upImgInput(){
+            document.frames['right_nei'].frames[setUpimgId].InsertPhoto();
+        }
+        function upImgPlay(){
+            document.frames['right_nei'].frames[setUpimgId].InsertPic();
+        }
+        //2010-07-14新增
+        -->
+    </script>
+
+</head>
+<body onLoad="setTab(0,0);_ifor();"id="body1">
+<div id="mainDiv">
+    <div id="headDiv">
+        <div id="top_left"></div>
+        <div id="top_right">
+            系统管理员：{{ adminName }} | <a href="{{ path('AdminBundle_SystemUser_logout') }}">退出系统</a>
+            <br />
+            <form runat="server" id="form2">
+                <ul>
+                    <li><img src="{{ asset('assets/css/wzl/sql/nei_07.gif') }}" onClick="rightPattern();" alt="右菜单模式"/></li>
+                    <li><img src="{{ asset('assets/css/wzl/sql/nei_06.gif') }}" onClick="HideClick();" alt="菜单隐藏/显示"/></li>
+                    <li><img src="{{ asset('assets/css/wzl/sql/nei_05.gif') }}" onClick="leftPattern();"  alt="左菜单模式"/></li>
+                    <li style=" clear:both; margin-right:7px;">功能菜单</li>
+                </ul>
+            </form>
+        </div>
+    </div>
+    <div id="bod" class="bodyDiv_right">
+
+        <div id="rig" class="rightDiv_left">
+            <div id="topDiv">
+                <div id="head_left"></div>
+                <div id="head_time">
+                    今日日期:&nbsp;&nbsp;
+                    <script language="JavaScript" type="text/javascript">
+                        tmpDate = new Date();
+                        date = tmpDate.getDate();
+                        month= tmpDate.getMonth() + 1 ;
+                        year= tmpDate.getFullYear();
+                        document.write(year);
+                        document.write("年");
+                        document.write(month);
+                        document.write("月");
+                        document.write(date);
+                        document.write("日 ");
+
+                        myArray=new Array(6);
+                        myArray[0]="星期日"
+                        myArray[1]="星期一"
+                        myArray[2]="星期二"
+                        myArray[3]="星期三"
+                        myArray[4]="星期四"
+                        myArray[5]="星期五"
+                        myArray[6]="星期六"
+                        weekday=tmpDate.getDay();
+                        if (weekday==0 | weekday==6)
+                        {
+                            document.write(myArray[weekday])
+                        }
+                        else
+                        {
+                            document.write(myArray[weekday])
+                        }
+                    </script>
+                </div>
+            </div>
+            <div class="centerDiv" id="cen">
+                <iframe frameborder="0"src="" id="right_nei" name="right_nei"></iframe>
+            </div>
+        </div>
+        <div id="lef" class="left_left">
+            <div id="tabs0">
+                <ul class="menu0" id="menu0">
+                    <li onClick="setTab(0,0)" class="hover">前台功能</li>
+                    <li onClick="setTab(0,1)">后台功能</li>
+                    <li onClick="setTab(0,2)">常用功能</li>
+                </ul>
+                <div class="main" id="main0">
+                    <ul class="block">
+                        <li>
+                            <div id="qt_bt" style="height:20px;">
+                                <ol>
+                                    <li></li>
+                                    <li></li>
+                                </ol>
+                            </div>
+                            <div id="PARENT">
+                                <ol id="nav2">
+                                    {% if priInfo is not empty %}
+                                        {% for father in priInfo %}
+                                            <li>
+                                                <a href="#" onClick="DoMenu('ChildMenu{{ father.admin_privilege_id }}')" class="one_cai">
+                                                    {{ father.name }}
+                                                </a>
+                                                <ol id="ChildMenu{{ father.admin_privilege_id }}" class="collapsed">
+                                                    {% if father.children is not empty %}
+                                                        {% for child in father.children %}
+                                                            {% if child.controller == 'Course' %}
+                                                                <li>
+                                                                    <a href="{{ path(child.path_url) }}"  target="right_nei">{{ child.name }}</a>
+                                                                </li>
+                                                            {% elseif child.controller == 'User' %}
+                                                                <li>
+                                                                    <a href="{{ path(child.path_url) }}"  target="right_nei">{{ child.name }}</a>
+                                                                </li>
+                                                            {% elseif child.controller == 'Web' %}
+                                                                <li>
+                                                                    <a href="{{ path(child.path_url) }}"  target="right_nei">{{ child.name }}</a>
+                                                                </li>
+                                                            {% elseif  child.controller == 'System'%}
+                                                                <li>
+                                                                    <a href="{{ path(child.path_url) }}"  target="right_nei">{{ child.name }}</a>
+                                                                </li>
+                                                            {% elseif child.controller == 'Order'%}
+                                                                <li>
+                                                                    <a href="{{ path(child.path_url) }}"  target="right_nei">{{ child.name }}</a>
+                                                                </li>
+                                                            {% elseif child.controller == 'Transaction'%}
+                                                                <li>
+                                                                    <a href="{{ path(child.path_url) }}"  target="right_nei">{{ child.name }}</a>
+                                                                </li>
+                                                            {% elseif child.controller == 'Billing'%}
+                                                                <li>
+                                                                    <a href="{{ path(child.path_url) }}"  target="right_nei">{{ child.name }}</a>
+                                                                </li>
+                                                            {% else %}
+                                                                <li>
+                                                                    {#<a href="{{ path(child.path_url) }}"  target="right_nei">#}
+                                                                    <a href="http://new.xiucai.com/app_dev.php/mng/{{ child.controller }}/{{ child.action }}"  target="right_nei">
+                                                                        {{ child.name }}
+                                                                    </a>
+                                                                </li>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </ol>
+                                            </li>
+                                        {% endfor %}
+                                    {% endif %}
+                                </ol>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <div id="qt_bt" style="height:20px;">
+                                <ol style="height:auto;">
+                                    <li></li>
+                                    <li></li>
+                                </ol>
+                            </div>
+                        </li>
+                        <li>
+                            <div id="PARENT">
+                                <ol id="nav2">
+                                    <li><a href="#" onClick="DoMenu('ChildMenu14')" class="one_cai">活动管理</a>
+                                        <ol id="ChildMenu14" class="collapsed">
+                                            <li><a href="/marketactivity/goaddcollect.action" target="right_nei">添加活动</a></li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <div id="qt_bt" style="height:20px;">
+                                <ol>
+                                    <li></li>
+                                    <li></li>
+                                </ol>
+                            </div>
+                        </li>
+                        <li>常用功能列表</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="bottomDiv">版权所有 | &copy; 秀财网后台管理系统 2014</div>
+</body>
+<script type="text/javascript">
+    //树型菜单控制
+    leftPattern();
+    var _ifor = function(){
+        var l = window.location;
+        l = l+"";
+        if(l.indexOf('or') !== -1){
+            //alert('错误的登录方式');
+            //window.location.href = "http://www.baidu.com";
+        }
+    }
+    var LastLeftID = "";
+    function menuFix(){
+        var obj = document.getElementById("nav2").getElementsByTagName("li");
+
+        for (var i=0; i<obj.length; i++) {
+            obj[i].onmouseover=function() {
+                this.className+=(this.className.length>0? " ": "") + "sfhover";
+            }
+            obj[i].onMouseDown=function() {
+                this.className+=(this.className.length>0? " ": "") + "sfhover";
+            }
+            obj[i].onMouseUp=function() {
+                this.className+=(this.className.length>0? " ": "") + "sfhover";
+            }
+            obj[i].onmouseout=function() {
+                this.className=this.className.replace(new RegExp("( ?|^)sfhover\\b"), "");
+            }
+        }
+    }
+    function DoMenu(emid){
+        var obj = document.getElementById(emid);
+        obj.className = (obj.className.toLowerCase() == "expanded"?"collapsed":"expanded");
+        if((LastLeftID!="") &&(emid!=LastLeftID))	//关闭上一个Menu
+        {
+            document.getElementById(LastLeftID).className = "collapsed";
+        }
+        LastLeftID = emid;
+    }
+    function GetMenuID(){
+        var MenuID="";
+        var _paramStr = new String(window.location.href);
+        var _sharpPos = _paramStr.indexOf("#");
+
+        if(_sharpPos >= 0 && _sharpPos < _paramStr.length - 1){
+            _paramStr = _paramStr.substring(_sharpPos + 1, _paramStr.length);
+        }
+        else{
+            _paramStr = "";
+        }
+
+        if(_paramStr.length > 0){
+            var _paramArr = _paramStr.split("&");
+            if (_paramArr.length>0){
+                var _paramKeyVal = _paramArr[0].split("=");
+                if(_paramKeyVal.length>0){
+                    MenuID = _paramKeyVal[1];
+                }
+            }
+        }
+
+        if(MenuID!=""){
+            DoMenu(MenuID)
+        }
+    }
+    GetMenuID();
+    menuFix();
+</script>
+</html>

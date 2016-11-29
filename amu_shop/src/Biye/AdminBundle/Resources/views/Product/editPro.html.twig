@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>-.-</title>
+    <link href="{{ asset('assets/styles/global.css') }}"  rel="stylesheet"  type="text/css" media="all" />
+    <script type="text/javascript" charset="utf-8" src="{{ asset('assets/plugins/kindeditor/kindeditor.js') }}"></script>
+    <script type="text/javascript" charset="utf-8" src="{{ asset('assets/plugins/kindeditor/lang/zh_CN.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('shopImooc/admin/scripts/jquery-1.6.4.js') }}"></script>
+    <script>
+        KindEditor.ready(function(K) {
+            window.editor = K.create('#editor_id');
+        });
+    </script>
+</head>
+<body>
+<h3>添加商品</h3>
+<form action="{{ path('AdminBundle_Product_modifyPro') }}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="{{ resultpro.id }}"/>
+    <table width="70%"  border="1" cellpadding="5" cellspacing="0" bgcolor="#cccccc">
+        <tr>
+            <td align="right">商品名称</td>
+            <td><input type="text" name="pName"  placeholder="请输入商品名称" value="{{ resultpro.pName }}"/></td>
+        </tr>
+        <tr>
+            <td align="right">商品分类</td>
+            <td>
+                <select name="cId">
+                    {% if result is not empty %}
+                        {% for t in result %}
+                            <option value ="{{ t.id }}" {% if (resultpro.cId == t.id) %} selected="selected" {% endif %}>{{ t.cName }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">商品货号</td>
+            <td><input type="text" name="pSn"  placeholder="请输入商品货号" value="{{ resultpro.pSn }}"/></td>
+        </tr>
+        <tr>
+            <td align="right">商品数量</td>
+            <td><input type="text" name="pNum"  placeholder="请输入商品数量" value="{{ resultpro.pNum }}"/></td>
+        </tr>
+        <tr>
+            <td align="right">商品市场价</td>
+            <td><input type="text" name="mPrice"  placeholder="请输入商品市场价" value="{{ resultpro.mPrice }}"/></td>
+        </tr>
+        <tr>
+            <td align="right">商品慕课价</td>
+            <td><input type="text" name="iPrice"  placeholder="请输入商品慕课价" value="{{ resultpro.iPrice }}"/></td>
+        </tr>
+        <tr>
+            <td align="right">商品描述</td>
+            <td>
+                <textarea name="pDesc" id="editor_id" style="width:100%;height:150px;">{{ resultpro.pDesc }}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">商品图像</td>
+            <td>
+                <img style="width: 60px;height: 60px;" src="{{ asset(resultalbum.albumPath) }}" >
+                请选择上传文件：<input type="file"  name="album"  /><br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit"  value="更改商品"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

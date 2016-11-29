@@ -1,0 +1,54 @@
+    <!--datepicker start-->
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl/green/gui.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl/styles.css') }}" />
+    <script src="{{ asset('assets/js/wzl/jquery-1.7.2.min.js') }}"></script>
+
+    <div id="main_body">
+        <ul class="main_top">
+            <li class="main_top_left left">
+                <strong>用户管理—反馈管理</strong>
+            </li>
+            <li class="main_top_right right">
+            </li>
+        </ul>
+        <div class="main_content_rightbg">
+            <div class="main_content_leftbg">
+                <form id="searchForm" action="" method="get" name="searchForm" onsubmit="return checkForm();">
+                    <input type="hidden" id="page" name="page" value="{{ parameter.page }}">
+                </form>
+                <table width="98%" border="0" align=center cellpadding="2" cellspacing="1" bgcolor="#FFFFFF" class="border table_content">
+                    <thead>
+
+                    <th align="center">用户</th>
+                    <th align="center">时间</th>
+                    <th align="center">建议</th>
+                    </thead>
+                    {% if(fdata) %}
+                        {% for f in fdata %}
+                            <tr>
+
+                                <td align="center">
+                                    {{ f.email}}
+                                </td>
+                                <td align="center">
+                                    {{ f.create_time }}
+                                </td>
+                                <td align="center">
+                                    {{ f.content }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    <tr>
+                        <td id="page" colspan="10" style="text-align: center">
+                            {{ pages | raw }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <ul class="main_end">
+            <li class="main_end_left left"></li>
+            <li class="main_end_right right"></li>
+        </ul>
+    </div>

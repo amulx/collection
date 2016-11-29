@@ -1,0 +1,6 @@
+.page_word_content{width:1000px;margin: 0 auto; padding: 50px 0px 30px 60px;}
+.page_word_content p{ font-family: '宋体'; font-size: 12px; line-height: 25px;}
+.page_word_content .title{font-size: 18px; height: 40px; line-height: 40px; font-family: 'Microsoft Yahei'; color: #000000;}
+.page_word_content .stitle{font-size: 14px; height: 40px; line-height: 40px;}
+.page_word_content .box_content{padding-top: 15px;}
+.page_word_content .box_sub{padding-left: 60px;}

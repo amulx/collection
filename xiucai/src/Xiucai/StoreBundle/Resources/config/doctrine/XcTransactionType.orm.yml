@@ -1,0 +1,20 @@
+Xiucai\StoreBundle\Entity\XcTransactionType:
+    type: entity
+    table: xc_transaction_type
+    id:
+        id:
+            type: smallint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: true
+            length: 16
+            fixed: false
+            comment: 交易类型名称
+    lifecycleCallbacks: {  }

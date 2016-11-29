@@ -1,0 +1,54 @@
+Xiucai\StoreBundle\Entity\XcCategory:
+    type: entity
+    table: xc_category
+    id:
+        id:
+            type: smallint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        categoryId:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 类别数字编号（8位数字，每两位代表一个级别的类别编号，如前两位数字代表一级类编号，以此类推，最后两位数字代表四级类编号）
+            column: category_id
+        name:
+            type: string
+            nullable: true
+            length: 32
+            fixed: false
+            comment: 类别名称
+        description:
+            type: string
+            nullable: true
+            length: 256
+            fixed: false
+            comment: 描述
+        parentCategoryId:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 父类别ID，无父类则为0或空
+            column: parent_category_id
+        tags:
+            type: string
+            nullable: true
+            length: 128
+            fixed: false
+            comment: 类别标签，保留字段（标签为字符串数组，以逗号分隔）
+        status:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '内容状态（参考*_content_status表）'
+        zindex:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: 排序号，缺省为10000
+    lifecycleCallbacks: {  }

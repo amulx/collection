@@ -1,0 +1,90 @@
+    <link rel="stylesheet" href="{{ asset('assets/css/common.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/member.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl_people.css') }}" />
+    <script type="text/javascript" src="{{ asset('assets/js/jquery-1.7.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/wzl_people.js') }}"></script>
+    <!--uploadify start-->
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/uploadify_img/uploadify/uploadify.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/uploadify_img/jcrop/jquery.Jcrop.css') }}" />
+    <script type="text/javascript" src="{{ asset('assets/uploadify_img/uploadify/jquery.uploadify-3.1.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/uploadify_img/jcrop/jquery.Jcrop.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/uploadify_img/uploadify/uploadify-js.js') }}"></script>
+    <!--uploadify end-->
+    <link href="{{ asset('assets/css/wzl/wzl_tc.css') }}" type="text/css" rel="stylesheet">
+
+    <script>
+        var uploadUrl = "/assets/uploadify_img/upload.php?member_id="+Math.random();
+        function focusAdd(){
+            var name        = document.getElementById('name').value;
+            name            = name.replace(/(^\s*)|(\s*$)/g, "");
+            if(name.length <= 0)
+            {
+                alert('描述不能为空！');
+                return;
+            }
+            var myForm    = document.getElementById('focus_add_form');
+            myForm.action = '{{ path('AdminBundle_Web_focusAdd') }}';
+            myForm.submit();
+
+        }
+        function closes(){
+            window.location.href = "{{ path('AdminBundle_Web_focusImage') }}?areaid={{ areaid }}"
+        }
+    </script>
+    <p style="text-indent: 1cm;line-height: 38px;height: 38px;">
+        网站管理 / 轮播图管理 / 添加轮播图
+    </p>
+    <div class="teacher_main">
+        <div class="div_2" style="text-align: center">
+            <form id="focus_add_form" action="" method="post" enctype="multipart/form-data">
+                <input type="hidden"  name="areaid" id="areaid" value="{{ areaid }}">
+                <div style="margin-top:40px;" class="people_message">
+                    <ul>
+                        <li style="margin-top: 14px;" class="w1">
+                            <span style="margin-left: -210px;font-size: 14px;">位&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;置：</span>
+                            {% if(areaid == 1) %}
+                                <span style="margin-left: 60px;font-size: 14px;">点播列表页轮播图</span>
+                            {% elseif(areaid == 2) %}
+                                <span style="margin-left: 60px;font-size: 14px;">直播列表页轮播图</span>
+                            {% else %}
+                            {% endif %}
+                        </li>
+                        <li class="w2">
+                            描&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;述：<input type="text" class="title" name="name" id="name" value="">
+                        </li>
+                        <li class="w2">
+                            链接地址：<input type="text" class="title" name="t_url" id="t_url" value="">
+                        </li>
+                        {#<li class="w2">#}
+                            {#头&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;像：<input type="file" class="nickname" name="url">#}
+                        {#</li>#}
+                        <li class="w2">
+                            <div style="float: left;height: 40px;line-height: 40px;margin-left: 31.5%">头像图片：</div>
+                            <div id="up_pic" style="height: 40px;margin-bottom: 8px;float: left;margin-left:60px;">
+                                <input type="text" id="avatarUpload" value="" />
+                            </div>
+                            <div style="clear: both;">
+                            <input type="hidden" name="img" id="img" value=""/>
+                            <img class="preview"  src="{{ asset('assets/img/zhibo_desc.jpg') }}">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="people_bto" style="margin-left: 45%">
+                    <div style="margin: 0;text-align: center;" class="submit_bt w_bt_size" onclick="focusAdd()"> 创建</div>
+                    <div style="text-align: center" class="cancel_bt w_bt_size" onclick="closes()"> 取消</div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--头像弹层-->
+    <div class="layer_bg">
+    </div>
+    <div class="pop_bg">
+        <div class="img_bg">
+            <img id="target" border="0" src=""/>
+        </div>
+        <a href="javascript:;" id="avatar_submit" class="yh f22 con">确定</a>
+        <a href="javascript:;" class="res">取消</a>
+    </div>

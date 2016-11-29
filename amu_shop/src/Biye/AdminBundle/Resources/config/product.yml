@@ -1,0 +1,57 @@
+#商品添加--跳转页面
+AdminBundle_Product_addPro:
+    path: /addPro
+    defaults: { _controller: "BiyeAdminBundle:Product:addPro" }
+#商品添加处理
+AdminBundle_Product_proAdd:
+    path: /proAdd
+    defaults: { _controller: "BiyeAdminBundle:Product:proAdd" }
+#商品显示
+AdminBundle_Product_listPro:
+    path: /listPro
+    defaults: { _controller: "BiyeAdminBundle:Product:listPro" }
+
+AdminBundle_Product_uploadFile:
+    path: /uploadFile
+    defaults: { _controller: "BiyeAdminBundle:Product:uploadFile" }
+
+AdminBundle_Product_proDisabled:
+    path: /proDisabled
+    defaults: { _controller: "BiyeAdminBundle:Product:proDisabled" }
+#商品修改--跳转页面
+AdminBundle_Product_proUpdatePage:
+    path: /proUpdatePage
+    defaults: { _controller: "BiyeAdminBundle:Product:proUpdatePage" }
+
+AdminBundle_Product_deletePro:
+    path: /deletePro
+    defaults: { _controller: "BiyeAdminBundle:Product:deletePro" }
+
+
+AdminBundle_Product_proDelete:
+    path: /proDelete
+    defaults: { _controller: "BiyeAdminBundle:Product:proDelete" }
+
+AdminBundle_Product_proDeleteAll:
+    path: /proDeleteAll
+    defaults: { _controller: "BiyeAdminBundle:Product:proDeleteAll" }
+
+AdminBundle_Product_proDetail:
+    path: /proDetail
+    defaults: { _controller: "BiyeAdminBundle:Product:proDetail" }
+
+AdminBundle_Product_showDisable:
+    path: /showDisable
+    defaults: { _controller: "BiyeAdminBundle:Product:showDisable" }
+
+AdminBundle_Product_hotDisable:
+    path: /hotDisable
+    defaults: { _controller: "BiyeAdminBundle:Product:hotDisable" }
+
+AdminBundle_Product_editPro:
+    path: /editPro
+    defaults: { _controller: "BiyeAdminBundle:Product:editPro" }
+
+AdminBundle_Product_modifyPro:
+    path: /modifyPro
+    defaults: { _controller: "BiyeAdminBundle:Product:modifyPro" }

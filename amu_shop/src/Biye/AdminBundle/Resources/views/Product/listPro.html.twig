@@ -1,0 +1,576 @@
+<!--datepicker start-->
+<link rel="stylesheet" href="{{ asset('assets/admin/css/gui.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/admin/css/styles.css') }}" />
+<script src="{{ asset('assets/public/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/public/My97DatePicker/WdatePicker.js') }}"></script>
+<script type="text/javascript">
+    $(function(){
+        var time = $('#timeSelect').val();
+        if(time > 0){
+            $('#createTime').css("background-color",'#ffffff');
+            $('#lastLogin').css("background-color",'#ffffff')
+            document.getElementById('createTime').disabled = false;
+            document.getElementById('lastLogin').disabled   = false;
+        }else{
+            $('#createTime').val('');
+            $('#lastLogin').val('');
+            $('#createTime').attr('disabled',true);
+            $('#createTime').css('background','#EFEFEF');
+            $('#createTime').attr('placeholder','请先选择时间段');
+            $('#lastLogin').attr('disabled',true);
+            $('#lastLogin').css('background','#EFEFEF');
+        }
+        if($('#condition').val() == ' '){
+            $('#contents').attr('disabled',true);
+        }
+    });
+    function searchAll(){
+        $('#page').val(1);
+        var myForm = document.getElementById('searchForm');
+        myForm.action = '{{ path('AdminBundle_Product_listPro') }}';
+        myForm.submit();
+    }
+    //操作--禁用
+    function userDisabled(id){
+        $.ajax({
+            url:"{{ path('AdminBundle_Product_proDisabled') }}",
+            type:"POST",
+            data:{"id":id},
+            success:function(result){
+                if(result == 3){
+                    location.reload();
+                }else{
+                    alert('失败');
+                }
+            }
+        });
+        {#window.location.href =  "{{ path('AdminBundle_User_userDisabled') }}?id="+id;#}
+    }
+    {#function userAdd(){#}
+    {#window.location.href = "{{ path('AdminBundle_User_new') }}";#}
+    {#}#}
+    function userEdit(id){
+        window.location.href =  "{{ path('AdminBundle_Product_proUpdatePage') }}?id="+id;
+    }
+    function checkAll(){
+        var checkid   = document.getElementById("checkAll");
+        var checkname = document.getElementsByName('ck');
+        if (checkid.checked)
+        {
+            for(var i = 0; i < checkname.length; i++)
+                checkname[i].checked = true;
+        }else{
+            for(var i = 0; i < checkname.length; i++)
+                checkname[i].checked = false;
+        }
+    }
+    function removeOne(id)
+    {
+        if(confirm('确认删除吗？')){
+            $.post('{{ path('AdminBundle_Product_deletePro') }}',{'id':id},function(data){
+                if( data  != 'ok'){
+                    alert('删除失败！');
+                    return false;
+                }else{
+                    alert('删除成功！');
+                    window.location.reload();
+                }
+            });
+        }else{
+            return false;
+        }
+    }
+
+    function zindexSort(){
+        var zindex_id = $('#priority').val();
+        if(zindex_id == ''){
+            $('#priority').val('2');
+        }else if(zindex_id == '1'){
+            $('#priority').val('2');
+        }else{
+            $('#priority').val('1');
+        }
+        searchAll();
+    }
+    function clearAll(){
+        if($('#condition').val() == ' '){
+            $('#page').val('');
+            $('#contents').val('');
+            $('#condition').val('');
+            $('#timeSelect').val('');
+            $('#createTime').val('');
+            $('#lastLogin').val('');
+            $('#userType').val('');
+            $('#vendorStatus').val('');
+            $('#cityType').val('');
+            document.getElementById('contents').disabled = true;
+            searchAll();
+        }else{
+            $('#contents').css("background-color",'#ffffff');
+            document.getElementById('contents').disabled = false;
+        }
+    }
+    function time_select(){
+        var time = $('#timeSelect').val();
+        if(time > 0){
+            $('#createTime').css("background-color",'#ffffff');
+            $('#lastLogin').css("background-color",'#ffffff')
+            document.getElementById('createTime').disabled = false;
+            document.getElementById('lastLogin').disabled   = false;
+        }else{
+            $('#createTime').val('');
+            $('#lastLogin').val('');
+            $('#createTime').attr('disabled',true);
+            $('#createTime').css('background','#EFEFEF');
+            $('#createTime').attr('placeholder','请先选择时间段');
+            $('#lastLogin').attr('disabled',true);
+            $('#lastLogin').css('background','#EFEFEF');
+//            searchAll();
+        }
+
+    }
+    //用户类型
+    function user_type(){
+        var userType = $('#userType').val();
+        searchAll();
+    }
+    //服务商状态
+    function vendor_status(){
+        var vendorStatus = $('#vendorStatus').val();
+        searchAll();
+    }
+    //居住城市
+    function city_type(){
+        var cityType = $('#cityType').val();
+        searchAll();
+    }
+    //删除所有
+    function removeAll()
+    {
+        var ary='';
+        var Ids=document.getElementsByName('ck');
+        for(var s=0;s<Ids.length;s++)
+        {
+            if(Ids[s].checked)
+            {
+                ary+=Ids[s].value+',';
+            }
+        }
+        if(ary.length<=0)
+        {
+            alert('请选择至少一条数据')
+            return false;
+        }else{
+            if (confirm('确定删除所选吗？')) {
+                $.post('{{path('AdminBundle_Product_proDeleteAll')}}',{'Ids' : encodeURIComponent(ary)},function (data){
+                            if(data == 'no')
+                            {
+                                alert('删除发生错误！');
+                            }else{
+                                alert('删除成功！');
+                                window.location.reload();
+                            }
+                        }
+                );
+            }
+
+
+        }
+    }
+</script>
+<div id="main_body">
+    <ul class="main_top">
+        <li class="main_top_left left">
+            <strong>用户管理—会员管理</strong>
+        </li>
+        <li class="main_top_right right">
+        </li>
+    </ul>
+    <div class="main_content_rightbg">
+        <div class="main_content_leftbg">
+            <form id="searchForm" action="" method="get" name="searchForm" onsubmit="return checkForm();">
+                <input type="hidden" id="page" name="page" value="{{ parameter.page }}">
+                <table  width="98%" border="0" align=center cellpadding="2" cellspacing="1" bgcolor="#FFFFFF" class="border">
+                    <tbody>
+                    <tr>
+                        <td align="center">
+                            <div style="margin: 0 auto;text-align:center;width: 1000px;height:70px;">
+                                <ul>
+                                    <li style="float: left;width: 125px;text-align: left;">
+                                        <p>时间段：</p>
+                                        <select id="timeSelect" name="timeSelect" style="width: 120px;" onchange="time_select()">
+                                            <option value=" " {% if(parameter.timeSelect == '') %}selected=selected{% endif %}>无</option>
+                                            <option value="1" {% if(parameter.timeSelect == '1') %}selected=selected{% endif %}>注册时间</option>
+                                            <option value="2" {% if(parameter.timeSelect == '2') %}selected=selected{% endif %}>最后登录时间</option>
+                                        </select>
+                                    </li>
+                                    <li style="float: left;width: 190px;text-align: left;">
+                                        <p>起始时间：</p>
+                                        <input  type="text" id="createTime" name="createTime" style="width:186px;background-color: #EFEFEF" value="{{ parameter.createTime }}" placeholder="请先选择时间段"
+                                                onclick="WdatePicker({el:'createTime',maxDate:'#F{$dp.$D(\'lastLogin\')||\'2099-10-01\'}',minDate:'2012-01-01',dateFmt:'yyyy-MM-dd H:mm',skin:'whyGreen',lang:'zh-cn',isShowClear:false,alwaysUseStartDate:true,readOnly:false})"/>
+                                    </li>
+                                    <li style="float: left;width: 190px;text-align: left;">
+                                        <p>终止时间：</p>
+                                        <input  type="text" id="lastLogin" name="lastLogin" style="width:186px;background-color: #EFEFEF" value="{{ parameter.lastLogin }}" placeholder="请先选择时间段"
+                                                onclick="WdatePicker({el:'lastLogin',minDate:'#F{$dp.$D(\'createTime\')}',maxDate:'2099-10-01',dateFmt:'yyyy-MM-dd H:mm',skin:'whyGreen',lang:'zh-cn',isShowClear:false,alwaysUseStartDate:true,readOnly:false})"/>
+                                    </li>
+                                    <li style="float: left;width: 125px;text-align: left;">
+                                        <p>商品类型：</p>
+                                        <select id="userType" name="userType" style="width: 120px;" onchange="user_type()">
+                                            <option value=" " {% if(parameter.userType == ' ') %}selected=selected{% endif %}>全部</option>
+                                            <option value="1" {% if(parameter.userType == '1') %}selected=selected{% endif %}>本站</option>
+                                            <option value="2" {% if(parameter.userType == '2') %}selected=selected{% endif %}>QQ</option>
+                                            <option value="3" {% if(parameter.userType == '3') %}selected=selected{% endif %}>新浪微博</option>
+                                        </select>
+                                    </li>
+                                    <li style="float: left;width: 125px;text-align: left;">
+                                        <p>是否展示：</p>
+                                        <select id="vendorStatus" name="vendorStatus" style="width: 120px;" onchange="vendor_status()">
+                                            <option value=" " {% if(parameter.vendorStatus == ' ') %}selected=selected{% endif %}>全部</option>
+                                            <option value="1" {% if(parameter.vendorStatus == '1') %}selected=selected{% endif %}>未开通</option>
+                                            <option value="2" {% if(parameter.vendorStatus == '2') %}selected=selected{% endif %}>等待审核</option>
+                                            <option value="3" {% if(parameter.vendorStatus == '3') %}selected=selected{% endif %}>审核拒绝</option>
+                                            <option value="4" {% if(parameter.vendorStatus == '4') %}selected=selected{% endif %}>审核通过</option>
+                                            <option value="5" {% if(parameter.vendorStatus == '5') %}selected=selected{% endif %}>已开通</option>
+                                        </select>
+                                    </li>
+                                    <li style="float: left;width: 125px;text-align: left;">
+                                        <p>是否热卖：</p>
+                                        <select id="cityType" name="cityType" style="width: 120px;" onchange="city_type()">
+
+                                            <option value="0">全部</option>
+                                            {#{% for csi in resultCity %}#}
+                                                {#<option value="{{ csi.city_code }}" {% if ( parameter.cityType ==  csi.city_code )  %}selected="selected"{% endif %}>{{ csi.city_name }}</option>#}
+                                            {#{% endfor %}#}
+
+                                        </select>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <input type="button" onclick="userAdd()" value="添加" style="margin-right: 230px;">
+                            <input id="contents" type="text" name="contents" class="contents" value="{{ parameter.contents }}"  style="background-color: #EFEFEF" placeholder="请输入..">
+                            <select name="condition" id="condition" style="width: 150px;margin-left: 5px;" onchange="clearAll()">
+                                <option value=" " {% if(parameter.condition == ' ') %}selected=selected{% endif %}>搜索范围(全部)</option>
+                                <option value="1" {% if(parameter.condition == '1') %}selected=selected{% endif %}>搜索ID</option>
+                                {#<option value="2" {% if(parameter.condition == '2') %}selected=selected{% endif %}>搜索第三方ID</option>#}
+                                <option value="3" {% if(parameter.condition == '3') %}selected=selected{% endif %}>搜索昵称</option>
+                                <option value="4" {% if(parameter.condition == '4') %}selected=selected{% endif %}>搜索邮箱</option>
+                                <option value="5" {% if(parameter.condition == '5') %}selected=selected{% endif %}>搜索手机号</option>
+                            </select>
+                            <input type="button" onclick="searchAll()" value="搜索">
+                            <span style="font-size: 11px;color: blue;">搜索到<span  style="color: #FF0000">{{ parameter.nums }}</span>条匹配结果！</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+            <table width="98%" border="0" align=center cellpadding="2" cellspacing="1" bgcolor="#FFFFFF" class="border table_content">
+                <thead>
+                <th align="center" width="5%">
+                    <input type='checkbox' id='checkAll' name='checkAll' onclick="checkAll()">
+                </th>
+                <th align="center" width="50">ID</th>
+                <th align="center">albumPath相片</th>
+                <th align="center">pName商品名称</th>
+                <th align="center">pSn商品货号</th>
+                <th align="center">pNum数量</th>
+                <th align="center">mPrice市场价</th>
+                <th align="center">iPrice会员价</th>
+                <th align="center">pubTime发布时间</th>
+                <th align="center">isShow是否展示</th>
+                <th align="center">isHot热卖</th>
+                <th align="center">操作</th>
+                </thead>
+                {% if(tdata) %}
+                    {% for t in tdata %}
+                        <tr>
+                            <td align="center">
+                                <input type="checkbox" name='ck' value="{{t.id}}" />
+                            </td>
+                            <td align="center">
+                                {{ t.id}}
+                            </td>
+                            <td align="center">
+
+                                {% if resultSM is not empty %}
+                                    {% for resultThirdInfo in resultSM %}
+                                {% if t.id == resultThirdInfo.pid %}<img id="img" class="img" src="{{ asset(resultThirdInfo.albumPath) }}" style="width: 60px;height: 60px;">{% endif %}
+                                        {#{% if t.source_id == resultThirdInfo.albumPath %}{{ resultThirdInfo.name }}{% endif %}#}
+                                    {% endfor %}
+                                    {#{% if t.source_id == "" %}本站{% endif %}#}
+                                {% endif %}
+                            </td>
+                            <td align="center">
+                                {{ t.pName }}
+
+                            </td>
+                            <td align="center">
+                                {{ t.pSn }}
+                            </td>
+                            <td align="center">
+                                {{ t.pNum }}
+                            </td>
+                            <td align="center">
+                                {{ t.mPrice }}
+                            </td>
+                            <td align="center">
+                                {{ t.iPrice }}
+                            </td>
+                            <td align="center">
+                                {{ t.pubTime }}
+                            </td>
+                            <td align="center">
+                                {{ t.isShow }}
+                                {#{{ t.vendor_status | replace ({'0':'未开通','1':'等待审核','2':'拒绝','3':'审核通过','4':'已开通'})}}#}
+                            </td>
+                            <td>
+                                {{ t.isHot }}
+                                {#{{ t.is_activate | replace ({'0':'未激活','1':'已激活'})}}#}
+                            </td>
+                            <td align="center">
+                                <a href="{{ path('AdminBundle_Product_proDetail',{'memberId':t.id}) }}" >查看</a>|
+                                <a href="javascript:void(0);" onclick="userDisabled({{ t.id }})"></a>
+                                <a href="javascript:void(0);" onclick="removeOne({{ t.id}})">删除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                <tr>
+                    <td align="center"><input type="button" class="delete" value="删除所选" onclick="removeAll()"></td>
+                    <td colspan='9'></td>
+                </tr>
+                <tr>
+                    <td id="page" colspan="10" style="text-align: center">
+                        {{ pages | raw }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <ul class="main_end">
+        <li class="main_end_left left"></li>
+        <li class="main_end_right right"></li>
+    </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#&#123;&#35;<?php &#35;&#125;#}
+{#&#123;&#35;require_once '../include.php';&#35;&#125;#}
+{#&#123;&#35;checkLogined();&#35;&#125;#}
+{#&#123;&#35;$order=$_REQUEST['order']?$_REQUEST['order']:null;&#35;&#125;#}
+{#&#123;&#35;$orderBy=$order?"order by p.".$order:null;&#35;&#125;#}
+{#&#123;&#35;$keywords=$_REQUEST['keywords']?$_REQUEST['keywords']:null;&#35;&#125;#}
+{#&#123;&#35;$where=$keywords?"where p.pName like '%{$keywords}%'":null;&#35;&#125;#}
+{#&#123;&#35;//得到数据库中所有商品&#35;&#125;#}
+{#&#123;&#35;$sql="select p.id,p.pName,p.pSn,p.pNum,p.mPrice,p.iPrice,p.pDesc,p.pubTime,p.isShow,p.isHot,c.cName from imooc_pro as p join imooc_cate c on p.cId=c.id {$where}  ";&#35;&#125;#}
+{#&#123;&#35;$totalRows=getResultNum($sql);&#35;&#125;#}
+{#&#123;&#35;$pageSize=2;&#35;&#125;#}
+{#&#123;&#35;$totalPage=ceil($totalRows/$pageSize);&#35;&#125;#}
+{#&#123;&#35;$page=$_REQUEST['page']?(int)$_REQUEST['page']:1;&#35;&#125;#}
+{#&#123;&#35;if($page<1||$page==null||!is_numeric($page))$page=1;&#35;&#125;#}
+{#&#123;&#35;if($page>$totalPage)$page=$totalPage;&#35;&#125;#}
+{#&#123;&#35;$offset=($page-1)*$pageSize;&#35;&#125;#}
+{#&#123;&#35;$sql="select p.id,p.pName,p.pSn,p.pNum,p.mPrice,p.iPrice,p.pDesc,p.pubTime,p.isShow,p.isHot,c.cName from imooc_pro as p join imooc_cate c on p.cId=c.id {$where} {$orderBy} limit {$offset},{$pageSize}";&#35;&#125;#}
+{#&#123;&#35;$rows=fetchAll($sql);&#35;&#125;#}
+{#&#123;&#35;?>&#35;&#125;#}
+{#<!doctype html>#}
+{#<html>#}
+{#<head>#}
+    {#<meta charset="utf-8">#}
+    {#<title>-.-</title>#}
+    {#&#123;&#35;<link rel="stylesheet" href="{{ asset('assets/styles/backstage.css') }}">&#35;&#125;#}
+    {#<link rel="stylesheet" href="{{ asset('assets/styles/backstage.css') }}">#}
+    {#<link rel="stylesheet" href="{{ asset('shopImooc/admin/scripts/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css') }}" />#}
+    {#<script src="{{ asset('shopImooc/admin/scripts/jquery-ui/js/jquery-1.10.2.js') }}"></script>#}
+    {#<script src="{{ asset('shopImooc/admin/scripts/jquery-ui/js/jquery-ui-1.10.4.custom.js') }}"></script>#}
+    {#<script src="{{ asset('shopImooc/admin/scripts/jquery-ui/js/jquery-ui-1.10.4.custom.min.js') }}"></script>#}
+{#</head>#}
+
+{#<body>#}
+{#<div id="showDetail"  style="display:none;">#}
+{#</div>#}
+{#<div class="details">#}
+    {#<div class="details_operation clearfix">#}
+        {#<div class="bui_select">#}
+            {#<input type="button" value="添&nbsp;&nbsp;加" class="add" onclick="addPro()">#}
+        {#</div>#}
+        {#<div class="fr">#}
+            {#<div class="text">#}
+                {#<span>商品价格：</span>#}
+                {#<div class="bui_select">#}
+                    {#<select id="" class="select" onchange="change(this.value)">#}
+                        {#<option>-请选择-</option>#}
+                        {#<option value="iPrice asc" >由低到高</option>#}
+                        {#<option value="iPrice desc">由高到底</option>#}
+                    {#</select>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="text">#}
+                {#<span>上架时间：</span>#}
+                {#<div class="bui_select">#}
+                    {#<select id="" class="select" onchange="change(this.value)">#}
+                        {#<option>-请选择-</option>#}
+                        {#<option value="pubTime desc" >最新发布</option>#}
+                        {#<option value="pubTime asc">历史发布</option>#}
+                    {#</select>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="text">#}
+                {#<span>搜索</span>#}
+                {#<input type="text" value="" class="search"  id="search" onkeypress="search()" >#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+    {#<!--表格-->#}
+    {#<table class="table" cellspacing="0" cellpadding="0">#}
+        {#<thead>#}
+        {#<tr>#}
+            {#<th width="10%">编号</th>#}
+            {#<th width="20%">商品名称</th>#}
+            {#<th width="10%">商品分类</th>#}
+            {#<th width="10%">是否上架</th>#}
+            {#<th width="15%">上架时间</th>#}
+            {#<th width="10%">慕课价格</th>#}
+            {#<th>操作</th>#}
+        {#</tr>#}
+        {#</thead>#}
+        {#<tbody>#}
+        {#{% if(result) %}#}
+        {#{% for t in result %}#}
+        {#<tr>#}
+            {#<!--这里的id和for里面的c1 需要循环出来-->#}
+            {#<td><input type="checkbox" id="{{ t.id}}" class="check" value={{ t.id}}><label for="c1" class="label">{{ t.id}}</label></td>#}
+            {#<td>{{ t.pName}}</td>#}
+            {#<td>{{ t.cId}}</td>#}
+            {#<td>#}
+                {#&#123;&#35;<?php echo $row['isShow']==1?"上架":"下架";?>&#35;&#125;#}
+            {#</td>#}
+            {#<td>{{ t.pubTime}}</td>#}
+            {#<td>{{ t.iPrice}}元</td>#}
+            {#<td align="center">#}
+                {#<input type="button" value="详情" class="btn" onclick="showDetail({{ t.id}},'{{ t.pName}}')"><input type="button" value="修改" class="btn" onclick="editPro({{ t.id}})"><input type="button" value="删除" class="btn"onclick="delPro({{ t.id}})">#}
+                {#<div id="showDetail<?php echo $row['id'];?>" style="display:none;">#}
+                    {#<table class="table" cellspacing="0" cellpadding="0">#}
+                        {#<tr>#}
+                            {#<td width="20%" align="right">商品名称</td>#}
+                            {#<td>{{ t.pName}}</td>#}
+                        {#</tr>#}
+                        {#<tr>#}
+                            {#<td width="20%"  align="right">商品类别</td>#}
+                            {#<td>{{ t.cId}}</td>#}
+                        {#</tr>#}
+                        {#<tr>#}
+                            {#<td width="20%"  align="right">商品货号</td>#}
+                            {#<td>{{ t.pSn }}</td>#}
+                        {#</tr>#}
+                        {#<tr>#}
+                            {#<td width="20%"  align="right">商品数量</td>#}
+                            {#<td>{{ t.pNum }}</td>#}
+                        {#</tr>#}
+                        {#<tr>#}
+                            {#<td  width="20%"  align="right">商品价格</td>#}
+                            {#<td>{{ t.mPrice }}</td>#}
+                        {#</tr>#}
+                        {#<tr>#}
+                            {#<td  width="20%"  align="right">幕课网价格</td>#}
+                            {#<td>{{ t.iPrice }}</td>#}
+                        {#</tr>#}
+                        {#<tr>#}
+                            {#<td width="20%"  align="right">商品图片</td>#}
+                            {#<td>#}
+                                {#&#123;&#35;<?php&#35;&#125;#}
+					                        			{#&#123;&#35;$proImgs=getAllImgByProId($row['id']);&#35;&#125;#}
+					                        			{#&#123;&#35;foreach($proImgs as $img):&#35;&#125;#}
+					                        			{#&#123;&#35;?>&#35;&#125;#}
+                                {#&#123;&#35;<img width="100" height="100" src="uploads/<?php echo $img['albumPath'];?>" alt=""/> &nbsp;&nbsp;&#35;&#125;#}
+                                {#&#123;&#35;<?php endforeach;?>&#35;&#125;#}
+                            {#</td>#}
+                        {#</tr>#}
+                        {#<tr>#}
+                            {#<td width="20%"  align="right">是否上架</td>#}
+                            {#<td>#}
+                                {#{{ t.isShow}}#}
+                                {#&#123;&#35;<?php echo $row['isShow']==1?"上架":"下架";?>&#35;&#125;#}
+                            {#</td>#}
+                        {#</tr>#}
+                        {#<tr>#}
+                            {#<td width="20%"  align="right">是否热卖</td>#}
+                            {#<td>#}
+                                {#{{ t.isHot}}#}
+                                {#&#123;&#35;<?php echo $row['isHot']==1?"热卖":"正常";?>&#35;&#125;#}
+                            {#</td>#}
+                        {#</tr>#}
+                    {#</table>#}
+					                        	{#<span style="display:block;width:80%; ">#}
+					                        	{#商品描述<br/>#}
+                                                    {#{{ t.pDesc}}#}
+                                                    {#&#123;&#35;<?php echo $row['pDesc'];?>&#35;&#125;#}
+					                        	{#</span>#}
+                {#</div>#}
+
+            {#</td>#}
+        {#</tr>#}
+
+           {#{% endfor %}#}
+        {#{% endif %}#}
+        {#</tbody>#}
+    {#</table>#}
+{#</div>#}
+{#<script type="text/javascript">#}
+    {#function showDetail(id,t){#}
+        {#$("#showDetail"+id).dialog({#}
+            {#height:"auto",#}
+            {#width: "auto",#}
+            {#position: {my: "center", at: "center",  collision:"fit"},#}
+            {#modal:false,//是否模式对话框#}
+            {#draggable:true,//是否允许拖拽#}
+            {#resizable:true,//是否允许拖动#}
+            {#title:"商品名称："+t,//对话框标题#}
+            {#show:"slide",#}
+            {#hide:"explode"#}
+        {#});#}
+    {#}#}
+    {#function addPro(){#}
+        {#window.location='addPro.php';#}
+    {#}#}
+    {#function editPro(id){#}
+        {#window.location='editPro.php?id='+id;#}
+    {#}#}
+    {#function delPro(id){#}
+        {#if(window.confirm("您确认要删除嘛？添加一次不易，且删且珍惜!")){#}
+            {#window.location="doAdminAction.php?act=delPro&id="+id;#}
+        {#}#}
+    {#}#}
+    {#function search(){#}
+        {#if(event.keyCode==13){#}
+            {#var val=document.getElementById("search").value;#}
+            {#window.location="listPro.php?keywords="+val;#}
+        {#}#}
+    {#}#}
+    {#function change(val){#}
+        {#window.location="listPro.php?order="+val;#}
+    {#}#}
+{#</script>#}
+{#</body>#}
+{#</html>#}

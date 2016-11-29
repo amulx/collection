@@ -1,0 +1,55 @@
+Xiucai\StoreBundle\Entity\XcOauthinfo:
+    type: entity
+    table: xc_oauthinfo
+    indexes:
+        appkey:
+            columns:
+                - appkey
+        uid:
+            columns:
+                - uid
+    id:
+        id:
+            type: bigint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        sourceId:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '第三方用户来源（与*_thirdparty表的ID关联）'
+            column: source_id
+        appkey:
+            type: string
+            nullable: true
+            length: 32
+            fixed: false
+            comment: 第三方网站注册得到的appkey
+        uid:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: '用户ID（对应*_member表的ID）'
+        accessToken:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 调用第三方应用接口所需要的验证码
+            column: access_token
+        tokenExpiration:
+            type: datetime
+            nullable: true
+            comment: 验证码失效时间
+            column: token_expiration
+        verified:
+            type: smallint
+            nullable: true
+            unsigned: false
+            comment: 是否用户在第三方应用平台验证过
+    lifecycleCallbacks: {  }

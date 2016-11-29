@@ -1,0 +1,24 @@
+#评论模块-评论列表首页
+ServiceBundle_comment_index:
+    path: /index
+    defaults: { _controller: ServiceBundle:Comment:index }
+
+#评论模块-发布评论信息
+ServiceBundle_comment_send:
+    pattern:  /send_comment
+    defaults: { _controller: ServiceBundle:Comment:ajaxSendComment }
+
+#评论模块-编辑评论信息
+ServiceBundle_comment_editor:
+    pattern:  /edit_comment
+    defaults: { _controller: ServiceBundle:Comment:ajaxEditComment }
+
+#评论模块-删除评论信息
+ServiceBundle_comment_delete:
+    pattern:  /del_comment
+    defaults: { _controller: ServiceBundle:Comment:ajaxDeleteComment }
+
+#评论模块-ajax加载更多评论信息
+ServiceBundle_comment_load_more:
+    pattern:  /more_comment
+    defaults: { _controller: ServiceBundle:Comment:ajaxLoadComment }

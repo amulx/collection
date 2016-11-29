@@ -1,0 +1,181 @@
+{% extends 'PageBundle::layoutIndex.html.twig' %}
+{% block content %}
+    <script type="text/javascript" src="{{ asset('assets/js/jquery.countdown.js') }}"></script>
+    <script type="text/javascript" language="JavaScript">
+        $(document).ready(function(){
+            //倒计时
+            $(".countdown").countdown({
+                tmpl : '%{h}:%{m}:%{s}'
+            });
+        })
+        $(function(){
+            $("#play_v_index").click(function(){
+                var _this = $(this);
+                playShow("#outerdiv", "#innerdiv", _this);
+                //$(".index_banner").attr({style:"z-index:-10"});
+                $(this).hide();
+            });
+            $("#vedio_close").click(function(){
+                $('#outerdiv').fadeOut("fast");
+                $("#play_v_index").show();
+            });
+            $("#innerdiv").mouseover(function(){
+                //alert(333);
+                $("#vedio_close").fadeIn(4000);
+            });
+            $("#go_asset").click(function() {
+                $("html, body").animate({
+                    scrollTop: $("#index_arrow").offset().top+1 + "px"
+                }, {
+                    duration: 1000,
+                    easing: "swing"
+                });
+                return false;
+            });
+            $(".index_zhibo li").hover(
+                function(){
+                    $(this).find(".zhibo_bg").show();
+                    $(this).find(".zhibo_bg_word").show();
+                },
+                function(){
+                    $(this).find(".zhibo_bg").hide();
+                    $(this).find(".zhibo_bg_word").hide();
+                }
+            );
+            $(".index_course_online li").hover(
+                    function(){
+                        $(this).find(".course_online_bg").show();
+                        $(this).find(".course_online_word").show();
+                    },
+                    function(){
+                        $(this).find(".course_online_bg").hide();
+                        $(this).find(".course_online_word").hide();
+                    }
+            );
+        });
+        function playShow(outerdiv, innerdiv, _this){
+            var windowW = $(window).width();//获取当前窗口宽度
+            var windowH = $(window).height();//获取当前窗口高度
+            var realWidth = "700";//真实宽度
+            var realHeight = "350";//真实高度
+            /*var scale = 0.8;//缩放尺寸，当真实宽度和高度大于窗口宽度和高度时进行缩放
+
+            if(realHeight>windowH*scale) {//判断高度
+                objHeight = windowH*scale;//如大于窗口高度，高度进行缩放
+                objWidth = imgHeight/realHeight*realWidth;//等比例缩放宽度
+                if(objWidth>windowW*scale) {//如宽度扔大于窗口宽度
+                    objWidth = windowW*scale;//再对宽度进行缩放
+                }
+            } else if(realWidth>windowW*scale) {//如高度合适，判断宽度
+                objWidth = windowW*scale;//如大于窗口宽度，宽度进行缩放
+                objHeight = objWidth/realWidth*realHeight;//等比例缩放高度
+            } else {//如果真实高度和宽度都符合要求，高宽不变
+                objWidth = realWidth;
+                objHeight = realHeight;
+            }*/
+            var w = (windowW-realWidth)/2;//计算与窗口左边距
+            var h = (windowH-realHeight)/2.1;//计算与窗口上边距
+            $(innerdiv).css({"top":h, "left":w});//设置#innerdiv的top和left属性
+            $(outerdiv).fadeIn("fast");//淡入显示#outerdiv及.pimg
+
+            $(outerdiv).click(function(){//再次点击淡出消失弹出层
+                $(this).fadeOut("fast");
+                $("#play_v_index").show();
+            });
+            $(innerdiv).click(function(event){
+                var e=window.event || event;
+                if(e.stopPropagation){
+                    e.stopPropagation();
+                }else{
+                    e.cancelBubble = true;
+                }
+            });
+        }
+    </script>
+    <div class="index_banner" style="z-index: 0; position: relative;"><img src="{{ asset('assets/img/banner.jpg') }}" id="banner" style="margin:0px; padding:0px;z-index: 0;width:100%; min-width:1200px;"/>
+    {% if memberId is empty %}
+        <div style="position: absolute; top: 58%; left: 43%;background: url('{{ asset('assets/img/banner_reg_1.png') }}'); background-repeat: no-repeat; width: 200px; height: 80px; margin: 0 auto; font-size: 28px; color: #FFFFFF;  text-align: center; padding-top: 18px; cursor: pointer;" id="index_banner_reg">用户注册</div>
+    </div>
+    {% endif %}
+    <div class="index_zhibo">
+        <div class="zhibo1"><div class="fl"><h1>最新直播课</h1></div><div class="wr fr">
+                <a style="font-size: 14px;" href="{{ path('PageBundle_course_live') }}" target="_blank">查看更多></a>
+        </div></div>
+        <div style="height: 100%; width: 100%;">
+            <ul>
+                {% if liveCourseData is not empty %}
+                    {% for key,live in liveCourseData %}
+                        <li {% if (key+1)%3 == 0 %}class="last" {% endif %}>
+                            <div class="zhibo_div">
+                                <a href="{{ path('PageBundle_live_detail',{'id': live.id}) }}" target="_blank"><div class="zhibo_bg"></div></a>
+                                <a href="{{ path('PageBundle_live_detail',{'id': live.id}) }}" target="_blank"><div class="zhibo_bg_word">点击查看</div></a>
+                                <img src="{{ asset(live.img_url) }}" width="310" height="215"/>
+                                <div class="go_zhibo">
+                                {% if todayDate >= live.today_t %}
+                                    {% if live.time_left == 0 %}
+                                        <div style="padding-left: 5px;">正在直播</div>
+                                    {% else %}
+                                        <div class="v1">
+                                            <img src="/assets/img/icon/index/count-down.png">
+                                            <div class="zhibo_time index_live_countdown countdown" data-diff="{{ live.time_left }}"></div>
+                                        </div>
+                                    {% endif %}
+                                {% else %}
+                                    <div class="v1">
+                                        <img src="{{ asset('assets/img/icon/index/time.png') }}" />
+                                        <div class="zhibo_time">{{ live.time_length }}</div>
+                                    </div>
+                                {% endif %}
+                                </div>
+                            </div>
+                            <div class="div1">
+                                <div style="width:300px;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden; "class="fl">
+                                    <a href="{{ path('PageBundle_live_detail',{'id': live.id}) }}" target="_blank" title="{{ live.title }}">{{ live.title}}</a>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="index_course_online">
+        <div><div class="fl"><h1>热门精品课</h1></div><div class="wr fr">
+                <a style="font-size: 14px;" href="{{ path('PageBundle_course_video') }}" target="_blank">查看更多></a>
+        </div></div>
+        <div style="height: 100%; width: 100%;">
+        <ul>
+            {% if courseData is not empty %}
+                {% for key,course in courseData %}
+                <li {% if (key+1)%3 == 0 %}class="last" {% endif %}>
+                    <div class="course_online_div">
+                        <a href="{{ path('PageBundle_course_detail',{'id': course.id}) }}" target="_blank"><div class="course_online_bg"></div></a>
+                        <a href="{{ path('PageBundle_course_detail',{'id': course.id}) }}" target="_blank"><div class="course_online_word">点击查看</div></a>
+                        <img src="{{ asset(course.img_url) }}" width="310" height="210"/>
+                        <div class="div1">
+                            <div class="div1_right fl"><img src="{{ asset('assets/img/icon/index/people.png') }}" /><p>{{ course.play_count }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="p_title" style="width:310px;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden; "><a  href="{{ path('PageBundle_course_detail',{'id': course.id}) }}" target="_blank" title="{{ course.title }}">{{ course.title }}</a></p>
+                </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="index_student">
+        <h1>秀财优势</h1>
+        <ul>
+            <li><img src="{{ asset('/assets/img/index/adv/1.png') }}" /><p class="title">行业先驱</p><div class="content">秀财网集财经教育核心资源，打造中国财经行业顶尖在线教育领导品牌。</div></li>
+            <li><img src="{{ asset('/assets/img/index/adv/2.png') }}" /><p class="title">名师汇聚</p><div class="content">从全球知名企业财务高管的实战精英到资深培训专家，与多家享誉全球的商学院建立合作关系。</div></li>
+            <li class="last"><img src="{{ asset('/assets/img/index/adv/3.png') }}" /><p class="title">权威教研</p><div class="content">我们的教研团队，集合权威官员、财税专家、知名跨国企业财税高级管理人员。</div></li>
+            <li><img src="{{ asset('/assets/img/index/adv/4.png') }}" /><p class="title">自由学习</p><div class="content">随时随地利用“碎片时间”，开启高效自由的学习模式。</div></li>
+            <li><img src="{{ asset('/assets/img/index/adv/5.png') }}" /><p class="title">经验交流</p><div class="content">与同行一起在线共同探讨，轻松拥有财税领域最活跃的经验分享圈。</div></li>
+            <li class="last"><img src="{{ asset('/assets/img/index/adv/6.png') }}" /><p class="title">学员特权</p><div class="content">学员可终身享受我们的免费公开课、同行交流平台，了解财经领域的最新动态。</div></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+{% endblock %}

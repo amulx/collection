@@ -1,0 +1,3 @@
+AdminBundle_Transaction_list:
+    path: /admin/transaction/list
+    defaults: { _controller: AdminBundle:Transaction:list}

@@ -1,0 +1,57 @@
+Xiucai\StoreBundle\Entity\XcAdmin:
+    type: entity
+    table: xc_admin
+    id:
+        adminId:
+            type: bigint
+            nullable: false
+            unsigned: true
+            comment: 系统用户ID
+            id: true
+            column: admin_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        account:
+            type: string
+            nullable: true
+            length: 32
+            fixed: false
+            comment: 账户名
+        pwd:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 密码
+        roleId:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: 系统角色
+            column: role_id
+        realName:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: 真实姓名
+            column: real_name
+        createTime:
+            type: datetime
+            nullable: true
+            comment: 创建时间
+            column: create_time
+        loginTime:
+            type: datetime
+            nullable: true
+            comment: 最后登录时间
+            column: login_time
+        isActive:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: 是否激活
+            default: '1'
+            column: is_active
+    lifecycleCallbacks: {  }

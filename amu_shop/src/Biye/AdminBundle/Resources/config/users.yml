@@ -1,0 +1,3 @@
+AdminBundle_Users_listUsers:
+    path: /listUsers
+    defaults: { _controller: "BiyeAdminBundle:Users:listUsers" }

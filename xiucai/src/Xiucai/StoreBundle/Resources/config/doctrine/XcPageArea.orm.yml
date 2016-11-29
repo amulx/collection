@@ -1,0 +1,26 @@
+Xiucai\StoreBundle\Entity\XcPageArea:
+    type: entity
+    table: xc_page_area
+    id:
+        id:
+            type: smallint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 区域名称
+        pageId:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: 所在页面ID，保留字段
+            column: page_id
+    lifecycleCallbacks: {  }

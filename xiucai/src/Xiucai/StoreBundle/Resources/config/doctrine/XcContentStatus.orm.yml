@@ -1,0 +1,26 @@
+Xiucai\StoreBundle\Entity\XcContentStatus:
+    type: entity
+    table: xc_content_status
+    id:
+        id:
+            type: smallint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: true
+            length: 16
+            fixed: false
+            comment: 内容状态名
+        description:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 描述
+    lifecycleCallbacks: {  }

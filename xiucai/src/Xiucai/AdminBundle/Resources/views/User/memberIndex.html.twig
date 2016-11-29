@@ -1,0 +1,264 @@
+    <!--datepicker start-->
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl/green/gui.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl/styles.css') }}" />
+    <script src="{{ asset('assets/js/wzl/jquery-1.7.2.min.js') }}"></script>
+    <!--时间-->
+    <script type="text/javascript" src="{{ asset('assets/My97DatePicker/WdatePicker.js') }}"></script>
+    <script type="text/javascript">
+        function searchAll(){
+            $('#page').val(1);
+            var myForm = document.getElementById('searchForm');
+            myForm.action = '{{ path('AdminBundle_User_member') }}';
+            myForm.submit();
+        }
+        function memberDele(id){
+            if (confirm("真的要删除吗？")){
+                $.post('{{ path('AdminBundle_User_memberDelete') }}',{'id':id},function(data){
+                    if( data != 'ok'){
+                        alert('删除失败！');
+                        return false;
+                    }else{
+                        alert('删除成功！');
+                        window.location.reload();
+                    }
+                });
+            }else{
+                return false;
+            }
+        }
+        function teacherAdd(){
+            window.location.href = "{{ path('AdminBundle_User_teacherAddPage') }}";
+        }
+        function teacherEdit(id){
+            window.location.href =  "{{ path('AdminBundle_User_teacherUpdatePage') }}?id="+id;
+        }
+        function checkAll(){
+            var checkid   = document.getElementById("checkAll");
+            var checkname = document.getElementsByName('ck');
+            if (checkid.checked)
+            {
+                for(var i = 0; i < checkname.length; i++)
+                    checkname[i].checked = true;
+            }else{
+                for(var i = 0; i < checkname.length; i++)
+                    checkname[i].checked = false;
+            }
+        }
+        function removeAll()
+        {
+            var ary='';
+            var Ids=document.getElementsByName('ck');
+            for(var s=0;s<Ids.length;s++)
+            {
+                if(Ids[s].checked)
+                {
+                    ary+=Ids[s].value+',';
+                }
+            }
+            if(ary.length<=0)
+            {
+                alert('请选择至少一条数据')
+                return false;
+            }else{
+                $.post('{{path('AdminBundle_User_memberRemove')}}',{'Ids' : encodeURIComponent(ary)},function (data){
+                            if(data == 'no')
+                            {
+                                alert('删除发生错误！');
+                            }else{
+                                alert('删除成功！');
+                                window.location.reload();
+                            }
+                        }
+                );
+            }
+        };
+
+        function zindexSort(){
+            var zindex_id = $('#priority').val();
+            if(zindex_id == ''){
+                $('#priority').val('2');
+            }else if(zindex_id == '1'){
+                $('#priority').val('2');
+            }else{
+                $('#priority').val('1');
+            }
+            searchAll();
+        }
+        function clearAll(){
+            if($('#condition').val() == ' '){
+                $('#page').val('');
+                $('#contents').val('');
+                $('#condition').val('');
+                $('#timeSelect').val('');
+                $('#startTime').val('');
+                $('#endTime').val('');
+                $('#userType').val('');
+
+                searchAll();
+            }
+        }
+        function time_select(){
+            var time = $('#timeSelect').val();
+            if(time > 0){
+                $('#startTime').css("background-color",'#ffffff');
+                $('#endTime').css("background-color",'#ffffff')
+                document.getElementById('startTime').disabled = false;
+                document.getElementById('endTime').disabled   = false;
+            }else{
+                $('#startTime').val('');
+                $('#endTime').val('');
+                searchAll();
+            }
+
+        }
+        function user_type(){
+            var userType = $('#userType').val();
+            searchAll();
+        }
+
+    </script>
+    <div id="main_body">
+        <ul class="main_top">
+            <li class="main_top_left left">
+                <strong>用户管理—会员管理</strong>
+            </li>
+            <li class="main_top_right right">
+            </li>
+        </ul>
+        <div class="main_content_rightbg">
+            <div class="main_content_leftbg">
+                <form id="searchForm" action="" method="get" name="searchForm" onsubmit="return checkForm();">
+                    <input type="hidden" id="page" name="page" value="{{ parameter.page }}">
+                    <table  width="98%" border="0" align=center cellpadding="2" cellspacing="1" bgcolor="#FFFFFF" class="border">
+                        <tr>
+                            <td align=center>
+                                <div style="text-align: center;width: 840px;height:70px;border: 1px solid #cbcbcb">
+                                    <ul>
+                                        <li style="float: left;width: 170px;text-align: left;">
+                                            <p>时间段：</p>
+                                            <select id="timeSelect" name="timeSelect" style="width: 120px;" onchange="time_select()">
+                                                <option value=" " {% if(parameter.timeSelect == ' ') %}selected=selected{% endif %}>无</option>
+                                                <option value="1" {% if(parameter.timeSelect == '1') %}selected=selected{% endif %}>注册时间</option>
+                                                <option value="2" {% if(parameter.timeSelect == '2') %}selected=selected{% endif %}>最后登录时间</option>
+                                            </select>
+                                        </li>
+                                        <li style="float: left;width: 200px;text-align: left;">
+                                            <p>起始时间：</p>
+                                            <input  type="text" id="startTime" name="startTime" style="width:186px;background-color: #EFEFEF" value="{{ parameter.startTime }}" readonly=readonly disabled="disabled"
+                                                    onclick="WdatePicker({el:'startTime',maxDate:'#F{$dp.$D(\'endTime\')||\'2099-10-01\'}',minDate:'2012-01-01',dateFmt:'yyyy-MM-dd H:mm',skin:'whyGreen',lang:'zh-cn',isShowClear:false,alwaysUseStartDate:true,readOnly:false})"/>
+                                        </li>
+                                        <li style="float: left;width: 200px;text-align: left;">
+                                            <p>终止时间：</p>
+                                            <input  type="text" id="endTime" name="endTime" style="width:186px;background-color: #EFEFEF" value="{{ parameter.endTime }}" readonly=readonly disabled="disabled"
+                                                    onclick="WdatePicker({el:'endTime',minDate:'#F{$dp.$D(\'startTime\')}',maxDate:'2099-10-01',dateFmt:'yyyy-MM-dd H:mm',skin:'whyGreen',lang:'zh-cn',isShowClear:false,alwaysUseStartDate:true,readOnly:false})"/>
+                                        </li>
+                                        <li style="float: left;width: 170px;text-align: left;">
+                                            <p>用户类型：</p>
+                                            <select id="userType" name="userType" style="width: 120px;" onchange="user_type()">
+                                                <option value=" " {% if(parameter.userType == ' ') %}selected=selected{% endif %}>全部</option>
+                                                <option value="1" {% if(parameter.userType == '1') %}selected=selected{% endif %}>本站</option>
+                                                <option value="2" {% if(parameter.userType == '2') %}selected=selected{% endif %}>QQ</option>
+                                                <option value="3" {% if(parameter.userType == '3') %}selected=selected{% endif %}>新浪微博</option>
+                                            </select>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <input type="button" onclick="membererAdd()" value="添加" style="margin-right: 230px;">
+                                <input id="contents" type="text" name="contents" class="contents" value="{{ parameter.contents }}" placeholder="请输入..">
+                                <select name="condition" id="condition" style="width: 150px;margin-left: 5px;" onchange="clearAll()">
+                                    <option value=" " {% if(parameter.condition == ' ') %}selected=selected{% endif %}>搜索范围(全部)</option>
+                                    <option value="1" {% if(parameter.condition == '1') %}selected=selected{% endif %}>搜索ID</option>
+                                    <option value="2" {% if(parameter.condition == '2') %}selected=selected{% endif %}>搜索第三方ID</option>
+                                    <option value="3" {% if(parameter.condition == '3') %}selected=selected{% endif %}>搜索昵称</option>
+                                    <option value="4" {% if(parameter.condition == '4') %}selected=selected{% endif %}>搜索邮箱</option>
+                                    <option value="5" {% if(parameter.condition == '5') %}selected=selected{% endif %}>搜索手机号</option>
+                                </select>
+                                <input type="button" onclick="searchAll()" value="搜索">
+                                <span style="font-size: 11px;color: blue;">搜索到<span  style="color: #FF0000">{{ parameter.nums }}</span>条匹配结果！</span>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <table width="98%" border="0" align=center cellpadding="2" cellspacing="1" bgcolor="#FFFFFF" class="border table_content">
+                    <thead>
+                    <th align="center" width="5%">
+                        <input type='checkbox' id='checkAll' name='checkAll' onclick="checkAll()">
+                    </th>
+                    <th align="center">ID</th>
+                    <th align="center">头像</th>
+                    <th align="center">用户来源</th>
+                    <th align="center">第三方用户ID</th>
+                    <th align="center">昵称</th>
+                    <th align="center">邮箱</th>
+                    <th align="center">手机</th>
+                    <th align="center">居住地</th>
+                    <th align="center">注册时间</th>
+                    <th align="center">服务商状态</th>
+                    <th align="center">操作</th>
+                    </thead>
+                    {% if(mdata) %}
+                        {% for m in mdata %}
+                            <tr>
+                                <td align="center">
+                                    <input type="checkbox" name='ck' value="{{m.id}}" />
+                                </td>
+                                <td align="center">
+                                    {{ m.id}}
+                                </td>
+                                <td align="center">
+                                    <img id="img" class="img" src="{% if(m.avatar_large) %}{{ asset(m.avatar_large) }}{% else %}{{ asset('/assets/uploads/2014/1009/avatar_100_0.7201362944288314.jpg') }}{% endif %}" style="width: 60px;height: 60px;">
+                                </td>
+                                <td align="center">
+                                    {% if(m.source_id == 1) %}
+                                        sina weibo
+                                    {% elseif(m.source_id == 2) %}
+                                        QQ
+                                    {% else %}
+                                    {% endif %}
+                                </td>
+                                <td align="center">
+                                    {{ m.third_user_id }}
+                                </td>
+                                <td align="center">
+                                    {{ m.nickname }}
+                                </td>
+                                <td align="center">
+                                    {{ m.email }}
+                                </td>
+                                <td align="center">
+                                    {{ m.cellphone }}
+                                </td>
+                                <td align="center">
+                                    {{ m.create_time }}
+                                </td>
+                                <td align="center">
+                                    {{ m.last_login }}
+                                </td>
+                                <td align="center">
+                                    <a href="javascript:void(0)" onclick="membererEdit({{ m.id }})">编辑</a>|
+                                    <a href="javascript:;" onclick="memberDele({{ m.id }})">删除</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    <tr>
+                        <td align="center"><input type="button" class="delete" value="删除所选" onclick="removeAll()"></td>
+                        <td colspan='10'></td>
+                    </tr>
+                    <tr>
+                        <td id="page" colspan="11" style="text-align: center">
+                            {{ pages | raw }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <ul class="main_end">
+            <li class="main_end_left left"></li>
+            <li class="main_end_right right"></li>
+        </ul>
+    </div>

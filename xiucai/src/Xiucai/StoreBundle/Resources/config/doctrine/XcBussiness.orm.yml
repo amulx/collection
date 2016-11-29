@@ -1,0 +1,67 @@
+Xiucai\StoreBundle\Entity\XcBussiness:
+    type: entity
+    table: xc_bussiness
+    id:
+        bussinessId:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: 行业id
+            id: true
+            column: bussiness_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        bussinessName:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: 行业名称
+            column: bussiness_name
+        quanName:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: 圈名
+            column: quan_name
+        memberCount:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 圈内成员总数
+            column: member_count
+        questionCount:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 圈内动态问题总数
+            column: question_count
+        tuiFlag:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: 右侧推荐：1
+            column: tui_flag
+        imageUrl:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 图
+            column: image_url
+        indexTui:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: 首页推荐0：不推，1：推
+            column: index_tui
+        icoName:
+            type: string
+            nullable: true
+            length: 2
+            fixed: false
+            comment: 单个字名
+            column: ico_name
+    lifecycleCallbacks: {  }

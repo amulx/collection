@@ -1,0 +1,99 @@
+body{width:100%;margin:0;padding:0}
+ul,li,p,h3,img,dt,dl,dd{border:none;padding:0;margin:0; list-style:none}
+img{display:inline}
+*{font-size:12px}
+.clear{clear:left;float :none}
+a{text-decoration:none}
+
+
+/*动态*/
+
+.tabs{float:left;width:100%;margin:10px 0;border-bottom:1px solid #42b6df}
+.tabs li{float:left}
+.tabs li a,.tabs li a.on{background:url(../images/all.png) no-repeat -287px -88px;width:103px;height:37px;line-height:37px;text-align:center;color:#666;font-size:16px; display:block;margin-right:3px}
+.tabs li a.on{background-position:-184px -88px;font-weight:bold;color:#fff}
+
+.topics{width:638px;border:1px solid #ddd;background:#fff;padding:10px;margin:10px 0;float:left; position:relative}
+.topics .close{ background:url(../images/all.png) no-repeat -55px -200px;width:15px; height:15px;display:block;position:absolute;right:10px;top:10px}
+.topics li{float:left}
+.topics li dl{float:left;margin-left:20px}
+.topics li dt{ height:30px; line-height:30px;color:#999;margin-bottom:10px}
+.topics li dt a{color:#f60;margin-right:10px}
+.topics li dd{float:left;margin:0 20px 0 0}
+.topics li dd img{vertical-align: top}
+.topics li dd a{font-size:14px;color:#666}
+.topics .user {padding-top:8px; line-height:30px;color:#999}
+
+.lastest .bd .list{float:left;width:660px;border-bottom:1px solid #ddd;padding:20px 0 10px 0}
+.lastest .bd .list .l{float:left;margin-right:10px}
+.lastest .bd .list .r{float:right;width:600px;color:#999}
+.lastest .bd .list .r .array li{border-bottom:1px dashed #ddd;padding:10px 0}
+.lastest .bd .list .r li{line-height:25px;color:#bababa}
+.lastest .bd .list .r a.t{color:#f60;margin-right:10px}
+.lastest .bd .list .r h3{color:#0396cd}
+.lastest .bd .list .r .op a{margin-right:5px;color:#0396cd}
+.lastest .bd .list .r .more{color:#0396cd;font-size:12px;margin-top:20px;float:left}
+.lastest .bd .list .replay{color:#666}
+.lastest .user_name{color:#f60}
+.order_lesson{margin:10px 0;flaot:left;width:100%}
+.order_lesson dt{float:left;margin-right:10px}
+.order_lesson dd{ line-height:20px;position:relative}
+.order_lesson dd a{color:#0396cd}
+
+.lastest .bd .list .r .btn{background:#f60;color:#fff;height:25px; line-height:25px;overflow:hidden; text-align:center;width:60px;display:block;position:absolute;right:10px;top:0}
+
+.lastest .bd .list .r .comment{float:left;width:558px;border:1px solid #ddd;background:#fff;padding:10px; position:relative;margin-top:5px}
+.comment_list dl{float:left;width:100%;border-bottom:1px dashed #ddd;padding-bottom:10px;margin-bottom:10px}
+.comment_list dt{float:left;margin-right:10px}
+.comment_list dd{float:right;width:518px;color:#666; line-height:20px}
+.comment_list dd.time{color:#999;margin-top:5px}
+
+.comment_list dd.time a,.comment_list .morelink a{color:#0396cd}
+
+.lastest .bd .list .r .comment .btn{ position:relative; display:inline-block; vertical-align:middle;margin-left:10px}
+.comment_list textarea{width:97%;resize: none;border:1px solid #ddd;padding:1%}
+.comment .up{ background:url(../images/up.gif) no-repeat;width:15px; height:9px; position:absolute;top:-8px;left:128px}
+.comment_list .up{top:-6px;left:90px}
+.comment_list li{ position:relative}
+.comment_list ul{margin-top:10px}
+.comment_list .morelink{float:left;width:100%; text-align:center}
+
+/*签到*/
+.signbtn{position:absolute;left:0;top:-45px}
+.signbtn a,.signbtn a.on{display:block;width:150px;height:43px;background:url(../images/signbg.gif) no-repeat 0 0;padding-left:130px; line-height:42px;color:#fff}
+.signbtn a.on{ background-position:0 -43px;padding-left:150px;width:130px}
+.r_userInfo{float:left;padding:10px 15px;color:#f60; position:relative;margin-top:45px}
+.r_userInfo dt{float:left;margin-right:10px}
+.r_userInfo dd{float:left;margin-bottom:10px;color:#999}
+.r_userInfo dd a{font-size:16px;font-weight:bold;color:#666}
+.r_userInfo dd span{color:#3ca8cc}
+.r_userInfo dd .bar,.r_userInfo dd .bar_on{ background:url(../images/bar_bg.gif) repeat-x;height:4px;font-size:0;width:100px}
+.r_userInfo dd .bar_on{background:url(../images/bar_on.gif) repeat-x;width:50px}
+.user_data{margin-bottom:10px;float:left}
+.user_data .cz{ background:url(../images/all.png) no-repeat -148px -219px;width:112px;height:53px;float:left;margin:0 0 10px 4px}
+.user_data .cz b{font-size:16px}
+.user_data .cz a{float:left;width:45px;height:26px;padding:12px 0;text-align:center;color:#fff;font-weight:bold;}
+.user_data .cz span{width:65px; text-align:center;float:left;padding:8px 0;color:#666; line-height:20px}
+.user_data .cz span b{ display:block}
+.user_data .target,.user_data .invite{border:1px solid #a2d5ea;background:#e8f5fb;color:#999;display:block; height:25px; line-height:25px;padding:0px 10px;margin:0 15px 10px 16px;float:left;width:200px}
+.user_data .target a{color:#3eaad0}
+.user_data .gz{padding:0 12px;margin-bottom:10px;float:left}
+.user_data .gz a{ display:block;float:left;border:1px solid #ccc; background:url(../images/data_bg.gif) repeat-x left top;height:33px; text-align:center;padding:8px 15px;margin:5px; border-radius:5px; line-height:18px;color:#666; box-shadow:0px 2px 2px #ddd}
+.user_data .gz a b{ display:block;font-size:18px}
+.user_data .invite{ background:#feeee1; border:1px solid #fbc7a0;color:#fc6b02}
+
+/*您可能感兴趣的人*/
+.interest,.hottopic{float:left;width:280px;padding-bottom:10px}
+.interest dl dd{margin-bottom:10px;color:#999; position:relative}
+.interest .gz{background:#f60;color:#fff;height:25px; line-height:25px;overflow:hidden; text-align:center;display:block;position:absolute;right:10px;top:-10px}
+.hottopic .title,.interest .title{border:1px solid #ddd;border-left:none;border-right:none;padding:10px}
+.interest .title a{float:right;color:#42aed4}
+.hottopic h3,.interest h3{color:#666;font-size:16px}
+.hottopic ul,.interest ul{padding:15px}
+.hottopic li,.interest li{float:left;width:100%;margin:5px 0}
+/*热门话题*/
+
+.hottopic li{float:left;width:100%;margin:5px 0}
+.hottopic dt,.interest dt{float:left;margin-right:10px}
+.hottopic dd{color:#999;margin-bottom:5px}
+.hottopic dd a{color:#666}

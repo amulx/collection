@@ -1,0 +1,96 @@
+Xiucai\StoreBundle\Entity\XcDeposit:
+    type: entity
+    table: xc_deposit
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        thirdOrderId:
+            type: string
+            nullable: true
+            length: 16
+            fixed: false
+            comment: 第三方支付系统订单ID
+            column: third_order_id
+        memberId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: '用户ID（对应*_member的ID）'
+            column: member_id
+        amount:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: 总额
+        virtualAmount:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 2
+            comment: 虚拟总额
+            column: virtual_amount
+        status:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '第三方交易状态（0 - waiting, 1 - approved, 2 - declined, 3 - cancelled）'
+        createTime:
+            type: datetime
+            nullable: true
+            comment: 创建时间
+            column: create_time
+        approveTime:
+            type: datetime
+            nullable: true
+            comment: 批准时间
+            column: approve_time
+        promotionId:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 优惠计划ID
+            column: promotion_id
+        operatorId:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 系统操作员，用户自己通过互联网支付时，此值设为0
+            column: operator_id
+        accessToken:
+            type: string
+            nullable: true
+            length: 32
+            fixed: false
+            comment: 调用第三方应用接口所需要的验证码
+            column: access_token
+        description:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 交易描述
+        sign:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 交易签名（从第三方交易平台返回）
+        type:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '交易类型（缺省为0 - paid, 1 - promotion, 2 - compensation, 3 - test）'
+        method:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '支付方式（0 - internet, 1 - cash, 2 - check, 3 - agent）'
+    lifecycleCallbacks: {  }

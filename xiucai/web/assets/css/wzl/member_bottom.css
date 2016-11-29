@@ -1,0 +1,7 @@
+/*尾部*/
+.bottom{background:#e7e7e7;border-top:2px solid #ccc;width:100%}
+.bottom .copyright{margin:0 auto;width:960px;padding:20px 0; line-height:20px;height:100px}
+.bottom .copyright .L{float:left;color:#666;font-family:arial}
+.bottom .copyright a{color:#666; text-decoration:none;margin-right:10px}
+.bottom .copyright .R{float:right}
+.bottom .copyright .R li{float:left;color:#666; text-align:center}

@@ -1,0 +1,43 @@
+Xiucai\StoreBundle\Entity\XcCity:
+    type: entity
+    table: xc_city
+    id:
+        cityCode:
+            type: string
+            nullable: false
+            length: 36
+            fixed: false
+            comment: 城市代码
+            id: true
+            column: city_code
+            generator:
+                strategy: IDENTITY
+    fields:
+        cityName:
+            type: string
+            nullable: true
+            length: 90
+            fixed: false
+            comment: 城市名
+            column: city_name
+        cityPinyin:
+            type: string
+            nullable: true
+            length: 90
+            fixed: false
+            comment: 城市拼写
+            column: city_pinyin
+        shengCode:
+            type: string
+            nullable: true
+            length: 90
+            fixed: false
+            comment: 省代码
+            column: sheng_code
+        symbol:
+            type: string
+            nullable: true
+            length: 30
+            fixed: false
+            comment: 符号，保留字段
+    lifecycleCallbacks: {  }

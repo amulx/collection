@@ -1,0 +1,132 @@
+{% extends 'PageBundle::layoutIndex.html.twig' %}
+{% block js_css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/member.css') }}"/>
+{% endblock %}
+{% block content %}
+    <style type="text/css">
+        .people_message ul li{font-size: 14px; padding: 10px 0 10px 0;}
+        .people_message ul li input{ width: 328px;height: 38px;border: 1px solid #cbcbcb;border-radius:4px;VERTICAL-ALIGN: middle; line-height: 38px; }
+        .people_message ul li b{ font-size: 14px; width: 120px;display: inline-block;}
+        .people_bto{margin-top: 44px;margin-left: 210px;margin-bottom: 60px;}
+        .people_bto a:hover{ color: #f29644}
+        .sel_left{ padding:10px 15px;border-bottom-left-radius:4px;border-top-left-radius:4px;border-bottom:1px solid #cbcbcb;border-top:1px solid #cbcbcb;border-left:1px solid #cbcbcb;border-right:1px solid #cbcbcb;cursor: pointer;}
+        .sel_right{padding:10px 15px;border-bottom-right-radius:4px;border-top-right-radius:4px;border-bottom:1px solid #cbcbcb;border-top:1px solid #cbcbcb;border-right:1px solid #cbcbcb; cursor: pointer;}
+    </style>
+    <script type="text/javascript" language="JavaScript">
+        function select_col(val){
+            if(val == 1){
+                $('#type').val(0);
+                document.getElementById('sel_left').style.backgroundColor="#cccccc";
+                document.getElementById('sel_right').style.backgroundColor="#ffffff";
+            }else if(val == 2){
+                $('#type').val(1);
+                document.getElementById('sel_left').style.backgroundColor="#ffffff";
+                document.getElementById('sel_right').style.backgroundColor="#cccccc";
+            }else{
+                $('#type').val('');
+            }
+        }
+
+        $(document).ready(function(){
+            $('#addinvoice').click(function(){
+                var invoice_amount = $('#invoice_amount').val();
+                if(invoice_amount == 0){
+                    layer.alert('可索取金额为0');
+                    //alert('可索取金额为0！');
+                    return false;
+                }
+                var title = $('#title').val();
+                var type = $('#type').val();
+                var contact_name = $('#contact_name').val();
+                var contact_number = $('#contact_number').val();
+                var address = $('#address').val();
+                var postcode = $('#postcode').val();
+                if(title==''){
+                    layer.alert('请输入发票抬头！');
+                    return false;
+                }
+                if(type==''){
+                    layer.alert("请选择发票类型");
+                    return false;
+                }
+                if(contact_name==''){
+                    layer.alert('请输入联系人！');
+                    return false;
+                }
+                if(contact_number==''){
+                    layer.alert('请输入联系电话！');
+                    return false;
+                }
+                if(checkMobile(contact_number)==false && checkTellphone(contact_number)==false){
+                    layer.alert('联系电话不正确！');
+                    return false;
+                }
+                if(address==''){
+                    layer.alert('请输入邮寄地址！');
+                    return false;
+                }
+                if(postcode=='')
+                {
+                    layer.alert('请输入邮编！');
+                    return false;
+                }
+                if(postcode != '' &&  postcode.length != 6)
+                {
+                    layer.alert('邮政编码位数错误！');
+                    return false;
+                }
+                $('#invoice_add_form').submit();
+            });
+        });
+    </script>
+    <div class="myorder">
+        {% include "PageBundle:User:left.html.twig" with{'type':'account'} %}
+        <div class="div_2 fr">
+            <ul class="process">
+                <li style="color: #8e8e8e;" class="gray1">索要发票</li>
+                <li class="gray2"></li>
+            </ul>
+            <div class="list" style="margin-top: 35px;">
+                <form id="invoice_add_form" action="{{ path('PageBundle_billing_addinvoice') }}" method="post">
+                    <div class="people_message">
+                        <ul>
+                            <li>
+                                <b>可索取金额</b>￥{{ detail.total_amount-total_invoice }}
+                            </li>
+                            <li style="padding-bottom: 15px;">
+                                <b>发票抬头</b><input type="text" name="title" id="title" value="{{ detail.company_name }}">
+                            </li>
+                            <li style="padding-bottom:15px;position: relative;">
+                                <b>发票类型</b><div style="position: absolute; top:0; left: 120px;"><dl>
+                                        <dd onclick="select_col(1)" class="sel_left fl" id="sel_left">公司
+                                        </dd>
+                                        <dd onclick="select_col(2)" class="sel_right fl" id="sel_right">个人
+                                        </dd>
+                                        <input id="type" type="hidden" name="type">
+                                    </dl>
+                                </div>
+                            </li>
+                            <li>
+                                <b>联系人</b><input type="text"  name="contact_name" id="contact_name" value="{{ detail.contact_name }}">
+                            </li>
+                            <li>
+                                <b>联系电话</b><input type="text"  name="contact_number" id="contact_number" value="{{ detail.contact_number }}">
+                            </li>
+                            <li>
+                                <b>邮寄地址</b><input type="text" name="address" id="address" value="{{ detail.address }}">
+                            </li>
+                            <li>
+                                <b>邮编</b><input type="text" name="postcode" id="postcode" value="{{ detail.postcode }}">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="people_bto">
+                        <button style="width:150px;height: 38px;margin-right: 16px;" class="btn_sub" id="addinvoice">保存</button>
+                        <a href="{{ path('PageBundle_billing_account') }}" class="cancel_btn">取消修改</a>
+                    </div>
+                    <input type="hidden" name="invoice_amount" id="invoice_amount" value="{{ detail.total_amount-total_invoice }}"/>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

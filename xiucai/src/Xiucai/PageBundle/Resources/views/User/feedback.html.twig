@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>秀财网-注册账号激活</title>
+        <style type="text/css">
+            .f6{color:#FF6600;}
+            .f20{color: #834C38;}
+            .tc{margin-top: 45px;}
+            .content_con{width: 100%; text-align: center;margin-top: 100px;}
+            .content{width: 1024px; background-color: #fff; border: 10px solid #f3f3f3; height: 260px; position:fixed;left:15%;top:25%;}
+        </style>
+        <script type="text/javascript" src="{{ asset('assets/js/jquery-1.7.2.min.js') }}"></script>
+        <script type="text/javascript">
+            var i = 10;
+            setInterval(function(){
+                if(i == 0){
+                    location.href="{{ path('PageBundle_page_index') }}";
+                }
+                document.getElementById('endTime').innerHTML = i--;
+            },1000);
+
+            $(document).ready(function(){
+                $('.resend_activate_email').click(function(){
+                    var _this = $(this);
+                    $(this).hide();
+                    $(this).next().show();
+                    var activate_code = $('.activate_code').val();
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ path('PageBundle_user_resendCode') }}",
+                        data: { activate_code: activate_code},
+                        success: function(result){
+                            _this.next().hide();
+                            if(result.code == 200){
+                                _this.prev().html('激活码已发送到您的邮箱里，请去邮箱激活账户');
+                            }else if(result.code == 300){
+                                _this.prev().html('激活码发送失败，请稍后再发');
+                            }else if(result.code == 404){
+                                _this.prev().html('激活邮箱不存在');
+                            }
+                        }
+                    });
+                });
+            })
+        </script>
+    </head>
+
+    <body>
+        <div class="content">
+            <div class="content_con">
+                {% if type == "before" %}
+                    <img src="{{ asset('assets/img/log_out.png') }}"/>
+                    <span class="f20">　恭喜您注册成功,注册邮件已经发送到您的邮箱里，请去邮箱激活账户！</span>
+                    <a href="{{ path('PageBundle_page_index') }}" >点击跳转到首页</a>
+                {% elseif type == "already" %}
+                    <span class="f20">该账号已被激活！</span>
+                    <a href="{{ path('PageBundle_page_index') }}" >点击跳转到首页</a>
+                {% elseif type == "pass" %}
+                    <span class="f20">该激活码已过有效验证时间！</span>
+                    <a class="resend_activate_email" href="javascript:;" >点击重新发送激活码</a>
+                    <img style="display: none;" src="{{ asset('assets/img/loading.gif') }}" width="50px" height="50px">
+                    <input type="hidden" class="activate_code" value="{{ code }}">
+                {% else %}
+                    <img src="{{ asset('assets/img/log_out.png') }}"/><span class="f20">恭喜您激活成功！</span>
+                    <a href="{{ path('PageBundle_page_index') }}" >点击跳转到首页</a>
+                {% endif %}
+                <p class="tc">系统将会在<strong id="endTime" class="f6"></strong>秒后跳转到首页！</p>
+            </div>
+        </div>
+    </body>
+</html>

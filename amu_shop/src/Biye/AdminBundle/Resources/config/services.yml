@@ -1,0 +1,4 @@
+services:
+#    biye_admin.example:
+#        class: Biye\AdminBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,329 @@
+<!--datepicker start-->
+<link rel="stylesheet" href="{{ asset('assets/admin/css/gui.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/admin/css/styles.css') }}" />
+<script src="{{ asset('assets/public/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/public/My97DatePicker/WdatePicker.js') }}"></script>
+<script type="text/javascript">
+    $(function(){
+        var time = $('#timeSelect').val();
+        if(time > 0){
+            $('#createTime').css("background-color",'#ffffff');
+            $('#lastLogin').css("background-color",'#ffffff')
+            document.getElementById('createTime').disabled = false;
+            document.getElementById('lastLogin').disabled   = false;
+        }else{
+            $('#createTime').val('');
+            $('#lastLogin').val('');
+            $('#createTime').attr('disabled',true);
+            $('#createTime').css('background','#EFEFEF');
+            $('#createTime').attr('placeholder','请先选择时间段');
+            $('#lastLogin').attr('disabled',true);
+            $('#lastLogin').css('background','#EFEFEF');
+        }
+        if($('#condition').val() == ' '){
+            $('#contents').attr('disabled',true);
+        }
+    });
+    function searchAll(){
+        $('#page').val(1);
+        var myForm = document.getElementById('searchForm');
+        myForm.action = '{{ path('AdminBundle_Users_listUsers') }}';
+        myForm.submit();
+    }
+    //操作--禁用
+    function userDisabled(id){
+        $.ajax({
+            url:"",
+            type:"POST",
+            data:{"id":id},
+            success:function(result){
+                if(result == 3){
+                    location.reload();
+                }else{
+                    alert('失败');
+                }
+            }
+        });
+        {#window.location.href =  "{{ path('AdminBundle_User_userDisabled') }}?id="+id;#}
+    }
+    {#function userAdd(){#}
+    {#window.location.href = "{{ path('AdminBundle_User_new') }}";#}
+    {#}#}
+    function userEdit(id){
+        {#window.location.href =  "{{ path('AdminBundle_User_userUpdatePage') }}?id="+id;#}
+    }
+    function checkAll(){
+        var checkid   = document.getElementById("checkAll");
+        var checkname = document.getElementsByName('ck');
+        if (checkid.checked)
+        {
+            for(var i = 0; i < checkname.length; i++)
+                checkname[i].checked = true;
+        }else{
+            for(var i = 0; i < checkname.length; i++)
+                checkname[i].checked = false;
+        }
+    }
+    function removeOne(id)
+    {
+
+        {#if(confirm('确认删除吗？')){#}
+            {#$.post('{{ path('AdminBundle_User_userDelete') }}',{'id':id},function(data){#}
+                {#if(data != 'ok'){#}
+                    {#alert('删除失败！');#}
+                    {#return false;#}
+                {#}else{#}
+                    {#alert('删除成功！');#}
+                    {#window.location.reload();#}
+                {#}#}
+            {#})#}
+        {#}else{#}
+            {#return false;#}
+        {#}#}
+
+    }
+
+    function zindexSort(){
+        var zindex_id = $('#priority').val();
+        if(zindex_id == ''){
+            $('#priority').val('2');
+        }else if(zindex_id == '1'){
+            $('#priority').val('2');
+        }else{
+            $('#priority').val('1');
+        }
+        searchAll();
+    }
+    function clearAll(){
+        if($('#condition').val() == ' '){
+            $('#page').val('');
+            $('#contents').val('');
+            $('#condition').val('');
+            $('#timeSelect').val('');
+            $('#createTime').val('');
+            $('#lastLogin').val('');
+            $('#userType').val('');
+            $('#vendorStatus').val('');
+            $('#cityType').val('');
+            document.getElementById('contents').disabled = true;
+            searchAll();
+        }else{
+            $('#contents').css("background-color",'#ffffff');
+            document.getElementById('contents').disabled = false;
+        }
+    }
+    function time_select(){
+        var time = $('#timeSelect').val();
+        if(time > 0){
+            $('#createTime').css("background-color",'#ffffff');
+            $('#lastLogin').css("background-color",'#ffffff')
+            document.getElementById('createTime').disabled = false;
+            document.getElementById('lastLogin').disabled   = false;
+        }else{
+            $('#createTime').val('');
+            $('#lastLogin').val('');
+            $('#createTime').attr('disabled',true);
+            $('#createTime').css('background','#EFEFEF');
+            $('#createTime').attr('placeholder','请先选择时间段');
+            $('#lastLogin').attr('disabled',true);
+            $('#lastLogin').css('background','#EFEFEF');
+//            searchAll();
+        }
+
+    }
+    //用户类型
+    function user_type(){
+        var userType = $('#userType').val();
+        searchAll();
+    }
+    //服务商状态
+    function vendor_status(){
+        var vendorStatus = $('#vendorStatus').val();
+        searchAll();
+    }
+    //居住城市
+    function city_type(){
+        var cityType = $('#cityType').val();
+        searchAll();
+    }
+    //删除所有
+    function removeAll()
+    {
+        {#var ary='';#}
+        {#var Ids=document.getElementsByName('ck');#}
+        {#for(var s=0;s<Ids.length;s++)#}
+        {#{#}
+            {#if(Ids[s].checked)#}
+            {#{#}
+                {#ary+=Ids[s].value+',';#}
+            {#}#}
+        {#}#}
+        {#if(ary.length<=0)#}
+        {#{#}
+            {#alert('请选择至少一条数据')#}
+            {#return false;#}
+        {#}else{#}
+            {#if (confirm('确定删除所选吗？')) {#}
+                {#$.post('{{path('AdminBundle_User_userDeleteAll')}}',{'Ids' : encodeURIComponent(ary)},function (data){#}
+                            {#if(data == 'no')#}
+                            {#{#}
+                                {#alert('删除发生错误！');#}
+                            {#}else{#}
+                                {#alert('删除成功！');#}
+                                {#window.location.reload();#}
+                            {#}#}
+                        {#}#}
+                {#);#}
+            {#}#}
+
+
+//        }
+    }
+</script>
+<div id="main_body">
+    <ul class="main_top">
+        <li class="main_top_left left">
+            <strong>用户管理—会员管理</strong>
+        </li>
+        <li class="main_top_right right">
+        </li>
+    </ul>
+    <div class="main_content_rightbg">
+        <div class="main_content_leftbg">
+            <form id="searchForm" action="" method="get" name="searchForm" onsubmit="return checkForm();">
+                <input type="hidden" id="page" name="page" value="{{ parameter.page }}">
+                <table  width="98%" border="0" align=center cellpadding="2" cellspacing="1" bgcolor="#FFFFFF" class="border">
+                    <tbody>
+                    <tr>
+                        <td align="center">
+                            <div style="margin: 0 auto;text-align:center;width: 1000px;height:70px;">
+                                <ul>
+                                    <li style="float: left;width: 125px;text-align: left;">
+                                        <p>时间段：</p>
+                                        <select id="timeSelect" name="timeSelect" style="width: 120px;" onchange="time_select()">
+                                            <option value=" " {% if(parameter.timeSelect == '') %}selected=selected{% endif %}>无</option>
+                                            <option value="1" {% if(parameter.timeSelect == '1') %}selected=selected{% endif %}>注册时间</option>
+                                            <option value="2" {% if(parameter.timeSelect == '2') %}selected=selected{% endif %}>最后登录时间</option>
+                                        </select>
+                                    </li>
+                                    <li style="float: left;width: 190px;text-align: left;">
+                                        <p>起始时间：</p>
+                                        <input  type="text" id="createTime" name="createTime" style="width:186px;background-color: #EFEFEF" value="{{ parameter.createTime }}" placeholder="请先选择时间段"
+                                                onclick="WdatePicker({el:'createTime',maxDate:'#F{$dp.$D(\'lastLogin\')||\'2099-10-01\'}',minDate:'2012-01-01',dateFmt:'yyyy-MM-dd H:mm',skin:'whyGreen',lang:'zh-cn',isShowClear:false,alwaysUseStartDate:true,readOnly:false})"/>
+                                    </li>
+                                    <li style="float: left;width: 190px;text-align: left;">
+                                        <p>终止时间：</p>
+                                        <input  type="text" id="lastLogin" name="lastLogin" style="width:186px;background-color: #EFEFEF" value="{{ parameter.lastLogin }}" placeholder="请先选择时间段"
+                                                onclick="WdatePicker({el:'lastLogin',minDate:'#F{$dp.$D(\'createTime\')}',maxDate:'2099-10-01',dateFmt:'yyyy-MM-dd H:mm',skin:'whyGreen',lang:'zh-cn',isShowClear:false,alwaysUseStartDate:true,readOnly:false})"/>
+                                    </li>
+                                    <li style="float: left;width: 125px;text-align: left;">
+                                        <p>用户类型：</p>
+                                        <select id="userType" name="userType" style="width: 120px;" onchange="user_type()">
+                                            <option value=" " {% if(parameter.userType == ' ') %}selected=selected{% endif %}>全部</option>
+                                            <option value="1" {% if(parameter.userType == '1') %}selected=selected{% endif %}>本站</option>
+                                            <option value="2" {% if(parameter.userType == '2') %}selected=selected{% endif %}>QQ</option>
+                                            <option value="3" {% if(parameter.userType == '3') %}selected=selected{% endif %}>新浪微博</option>
+                                        </select>
+                                    </li>
+                                    <li style="float: left;width: 125px;text-align: left;">
+                                        <p>服务商状态：</p>
+                                        <select id="vendorStatus" name="vendorStatus" style="width: 120px;" onchange="vendor_status()">
+                                            <option value=" " {% if(parameter.vendorStatus == ' ') %}selected=selected{% endif %}>全部</option>
+                                            <option value="1" {% if(parameter.vendorStatus == '1') %}selected=selected{% endif %}>未开通</option>
+                                            <option value="2" {% if(parameter.vendorStatus == '2') %}selected=selected{% endif %}>等待审核</option>
+                                            <option value="3" {% if(parameter.vendorStatus == '3') %}selected=selected{% endif %}>审核拒绝</option>
+                                            <option value="4" {% if(parameter.vendorStatus == '4') %}selected=selected{% endif %}>审核通过</option>
+                                            <option value="5" {% if(parameter.vendorStatus == '5') %}selected=selected{% endif %}>已开通</option>
+                                        </select>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <input type="button" onclick="userAdd()" value="添加" style="margin-right: 230px;">
+                            <input id="contents" type="text" name="contents" class="contents" value="{{ parameter.contents }}"  style="background-color: #EFEFEF" placeholder="请输入..">
+                            <select name="condition" id="condition" style="width: 150px;margin-left: 5px;" onchange="clearAll()">
+                                <option value=" " {% if(parameter.condition == ' ') %}selected=selected{% endif %}>搜索范围(全部)</option>
+                                <option value="1" {% if(parameter.condition == '1') %}selected=selected{% endif %}>搜索ID</option>
+                                {#<option value="2" {% if(parameter.condition == '2') %}selected=selected{% endif %}>搜索第三方ID</option>#}
+                                <option value="3" {% if(parameter.condition == '3') %}selected=selected{% endif %}>搜索昵称</option>
+                                <option value="4" {% if(parameter.condition == '4') %}selected=selected{% endif %}>搜索邮箱</option>
+                                <option value="5" {% if(parameter.condition == '5') %}selected=selected{% endif %}>搜索手机号</option>
+                            </select>
+                            <input type="button" onclick="searchAll()" value="搜索">
+                            <span style="font-size: 11px;color: blue;">搜索到<span  style="color: #FF0000">{{ parameter.nums }}</span>条匹配结果！</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+            <table width="98%" border="0" align=center cellpadding="2" cellspacing="1" bgcolor="#FFFFFF" class="border table_content">
+                <thead>
+                <th align="center" width="3%">
+                    <input type='checkbox' id='checkAll' name='checkAll' onclick="checkAll()">
+                </th>
+                <th align="center" width="50">ID</th>
+                <th align="center">头像</th>
+                <th align="center">昵称</th>
+                <th align="center">性别</th>
+                <th align="center">邮箱</th>
+                <th align="center">注册时间</th>
+                <th align="center">激活状态</th>
+                <th align="center">操作</th>
+                </thead>
+                {% if(tdata) %}
+                    {% for t in tdata %}
+                        <tr>
+                            <td align="center">
+                                <input type="checkbox" name='ck' value="{{t.id}}" />
+                            </td>
+                            <td align="center">
+                                {{ t.id}}
+                            </td>
+                            <td align="center">
+                                <img id="img" class="img" src="{{ asset(t.face) }}" style="width: 60px;height: 60px;">
+                            </td>
+                            <td align="center">
+                                {{ t.username }}
+                            </td>
+                            <td align="center">
+                                {{ t.sex }}
+                            </td>
+                            <td align="center">
+                                {{ t.email }}
+                            </td>
+
+                            <td align="center">
+                                {{ t.regTime }}
+                            </td>
+                            <td>
+                                {{ t.activeFlag | replace ({'0':'未激活','1':'已激活'})}}
+                            </td>
+                            <td align="center">
+                                查看 | 删除
+                                {#<a href="{{ path('AdminBundle_User_memberDetail',{'memberId':t.id}) }}" >查看</a>|#}
+                                {#<a href="javascript:void(0);" onclick="userDisabled({{ t.id }})"></a>#}
+                                {#<a href="#" onclick="return removeOne({{ t.id}})">删除</a>#}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                <tr>
+                    <td align="center"><input type="button" class="delete" value="删除所选" onclick="removeAll()"></td>
+                    <td colspan='9'></td>
+                </tr>
+                <tr>
+                    <td id="page" colspan="10" style="text-align: center">
+                        {{ pages | raw }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <ul class="main_end">
+        <li class="main_end_left left"></li>
+        <li class="main_end_right right"></li>
+    </ul>
+</div>

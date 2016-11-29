@@ -1,0 +1,50 @@
+	*,body{ font-size:18px;}
+	.line{border-bottom:1px #ccc solid; height:30px;}
+	p{
+		font-family:arial;
+		
+	}
+	a{
+		color:#000;
+		font-family:arial;
+		font-size:0.8em;
+	}
+	
+	.tree{
+		margin:0px;
+		padding:0px;
+		width:800px; 
+	}
+	.tree div{
+	border-bottom:1px dashed #b2b2b2;
+	}
+	.tree ul{	/*子结点*/
+		margin-left:20px;	/* Left spacing */
+		padding-left:0px;
+		/*width:600px;*/
+	}
+	.add{ color:#ff0000; text-align:right; }
+	.tree li{	/* 结点 */ 
+		list-style-type:none;
+		vertical-align:middle;
+		height:auto; 
+		line-height:22px;
+		clear:both;
+		/*width:600px;*/
+	}
+	.tree li a{	/* 结点连接 */
+		color:#000;
+		text-decoration:none;
+		font-family:arial;
+		font-size:0.8em;
+		padding-left:2px;
+	}
+	.clear{
+	display:block;
+	height:0; 
+	line-height:0; 
+	font-size:0; 
+	clear:both;
+	border:0;
+	border:none;
+	}

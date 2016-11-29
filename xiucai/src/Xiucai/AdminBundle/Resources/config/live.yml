@@ -1,0 +1,24 @@
+#更新直播课程状态
+AdminBundle_Course_updateLiveStatus:
+    path: /updateLiveStatus
+    defaults: { _controller: AdminBundle:Course:updateLiveStatus }
+
+#删除单个直播课程
+AdminBundle_Course_liveDelete:
+    path: /liveDelete
+    defaults: { _controller: AdminBundle:Course:liveDelete }
+
+#批量删除直播课程
+AdminBundle_Course_liveRemove:
+    path: /liveRemove
+    defaults: { _controller: AdminBundle:Course:liveRemove }
+
+#直播管理员设置
+AdminBundle_Live_admin:
+    path: /liveAdmin
+    defaults: { _controller: AdminBundle:Live:addLiveAdmin }
+
+#添加直播
+AdminBundle_Live_add:
+    path: /add
+    defaults: { _controller: AdminBundle:Live:addLiveCourse }

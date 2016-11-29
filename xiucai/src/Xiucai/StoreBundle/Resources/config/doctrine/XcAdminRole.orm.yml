@@ -1,0 +1,37 @@
+Xiucai\StoreBundle\Entity\XcAdminRole:
+    type: entity
+    table: xc_admin_role
+    id:
+        adminRoleId:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            column: admin_role_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 20
+            fixed: false
+            comment: 角色名称
+        active:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 是否启用
+        parent:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 父角色ID
+        descrip:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 角色描述
+    lifecycleCallbacks: {  }

@@ -1,0 +1,34 @@
+admin_homepage:
+    path:     /hell/{name}
+    defaults: { _controller: AdminBundle:Default:index }
+admin_systemuser:
+    resource: "@AdminBundle/Resources/config/systemuser.yml"
+    prefix:   /
+admin_system:
+    resource: "@AdminBundle/Resources/config/system.yml"
+    prefix:   /admin/system
+admin_web:
+    resource: "@AdminBundle/Resources/config/web.yml"
+    prefix:   /admin/web
+admin_user:
+    resource: "@AdminBundle/Resources/config/user.yml"
+    prefix:   /
+admin_course:
+    resource: "@AdminBundle/Resources/config/course.yml"
+    prefix:   /admin/course
+admin_live_course:
+    resource: "@AdminBundle/Resources/config/live.yml"
+    prefix:   /admin/live
+
+admin_order:
+    resource: "@AdminBundle/Resources/config/order.yml"
+    prefix:   /
+admin_transaction:
+    resource: "@AdminBundle/Resources/config/transaction.yml"
+    prefix:   /
+admin_billing:
+    resource: "@AdminBundle/Resources/config/billing.yml"
+    prefix:   /
+admin_invoice:
+    resource: "@AdminBundle/Resources/config/invoice.yml"
+    prefix:   /

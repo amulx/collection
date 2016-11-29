@@ -1,0 +1,23 @@
+<div class="div_1 fl">
+    <div class="title" style="color: #8e8e8e;"><a href="{{ path('PageBundle_user_index') }}">返回我的主页</a></div>
+    <div class="line"></div>
+    <div class="div_list">
+        <ul>
+            {#<li>
+                <a href="{{ path('PageBundle_billing_cart') }}" {% if type == 'cart' %}class="active"{% endif %}>选课单</a>
+            </li>
+            <li>
+                <a href="{{ path('PageBundle_billing_myorder') }}" {% if type == 'order' %}class="active"{% endif %}>我的订单</a>
+            </li>#}
+            <li>
+                <a href="{{ path('PageBundle_user_editor') }}" {% if type == 'editor' %}class="active"{% endif %}>个人信息</a>
+            </li>
+            <li>
+                <a href="{{ path('PageBundle_user_setPass') }}" {% if type == 'pasword' %}class="active"{% endif %}>修改密码</a>
+            </li>
+            {#<li>
+                <a href="{{ path('PageBundle_billing_account') }}" {% if type == 'account' %}class="active"{% endif %}>我的账户</a>
+            </li>#}
+        </ul>
+    </div>
+</div>

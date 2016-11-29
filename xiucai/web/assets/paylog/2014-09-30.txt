@@ -1,0 +1,26 @@
+执行日期：20140930103306
+333
+执行日期：20140930103708
+333
+执行日期：20140930103801
+Receive return info
+执行日期：20140930103801
+Return info verified: from Alipay
+执行日期：20140930103801
+out_trade_no: 201409300005; trade_no: 2014093055293682; trade_status: TRADE_SUCCESS
+
+执行日期：20140930103801
+return SUCCESSFUL
+执行日期：20140930110826
+Receive return info
+执行日期：20140930110826
+Return info verified: from Alipay
+执行日期：20140930110826
+out_trade_no: 201409300006; trade_no: 2014093055447482; trade_status: TRADE_SUCCESS
+
+执行日期：20140930110826
+return SUCCESSFUL
+执行日期：20140930111345
+Receive return info
+执行日期：20140930111345
+Return info verified error: is not from Alipay

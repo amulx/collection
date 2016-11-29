@@ -1,0 +1,87 @@
+#用户主页-我的直播
+PageBundle_user_index:
+    path: /index
+    defaults: { _controller: PageBundle:User:index }
+
+#用户主页-我的视频
+PageBundle_user_video:
+    path: /video
+    defaults: { _controller: PageBundle:User:video }
+
+#用户编辑
+PageBundle_user_editor:
+    path: /edit
+    defaults: { _controller: PageBundle:User:editor}
+
+#用户设置密码
+PageBundle_user_setPass:
+    path: /set_pass
+    defaults: { _controller: PageBundle:User:setPass }
+
+#用户设置密码
+PageBundle_user_ajaxSetPass:
+    path: /ajax_set_pass
+    defaults: { _controller: PageBundle:User:ajaxSetPass }
+
+#用户找回密码
+PageBundle_user_findPass:
+    path: /find_pass
+    defaults: { _controller: PageBundle:User:findPass }
+
+#用户找回密码验证
+PageBundle_user_passActivate:
+    path: /pass_acitvate
+    defaults: { _controller: PageBundle:User:passActivate }
+
+#用户登录
+PageBundle_user_login:
+    path: /login
+    defaults: { _controller: PageBundle:User:login }
+
+#用户登录验证
+PageBundle_user_loginCheck:
+    path: /login_check
+
+#用户退出登录
+PageBundle_user_logout:
+    path: /logout
+
+#秀财网用户注册
+PageBundle_user_register:
+    path: /register
+    defaults: { _controller: PageBundle:User:register }
+
+#激活账号
+PageBundle_user_activate:
+    path: /activate
+    defaults: { _controller: PageBundle:User:activate }
+
+#重新发送激活码
+PageBundle_user_resendCode:
+    path: /resend_code
+    defaults: { _controller: PageBundle:User:resendCode }
+
+#注册成功，验证
+PageBundle_user_registerFeedback:
+    path: /feedback
+    defaults: { _controller: PageBundle:User:feedback }
+
+#注册信息验证
+PageBundle_user_registerCheck:
+    path: /register_check
+    defaults: { _controller: PageBundle:User:check }
+
+#注册信息验证
+PageBundle_user_validateCode:
+    path: /validate_code
+    defaults: { _controller: PageBundle:User:validateCode }
+
+#用户城市信息
+PageBundle_user_city:
+    path: /get_city
+    defaults: { _controller: PageBundle:User:getCity }
+
+#用户主页加载更多课程
+PageBundle_member_course_ajaxLoad:
+    path: /member_course
+    defaults: { _controller: PageBundle:User:ajaxLoadUserCourse }

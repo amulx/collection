@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="public.js"></script>
+<style type="text/css">
+	tr{
+		background-color: #ffffff;
+		height: 30px;
+		font-size: 12px;
+	}
+</style>
+<script type="text/javascript">
+
+	window.onload=function(){
+		var xhr = createxhr();
+		xhr.open('post','demo04.php');
+		xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+
+		xhr.onreadystatechange=function(){
+			if(xhr.readyState==4&&xhr.status==200){
+				// var xml = xhr.responseXML;
+				var value = xhr.responseText;
+				var data = eval('('+value+')');
+				// var goods = xml.getElementsByTagName('goods');
+				for(var i=0;i<data.length;i++){
+					var tr = document.createElement('tr');
+					var tdId = document.createElement('td');
+					tdId.innerHTML = i+1;
+					var tdName = document.createElement('td');
+					// tdName.innerHTML=goods[i].childNodes[1].childNodes[0].nodeValue;
+					tdName.innerHTML = data[i].randnumber;
+					var tdPrice = document.createElement('td');
+					// tdPrice.innerHTML=goods[i].childNodes[2].childNodes[0].nodeValue;
+					tdPrice.innerHTML = data[i].username;
+					tr.appendChild(tdId);
+					tr.appendChild(tdName);
+					tr.appendChild(tdPrice);
+					document.getElementsByTagName('TBODY')[0].appendChild(tr);
+				}
+			}
+		};
+		xhr.send(null);
+	}
+
+</script>
+</head>
+    <body>
+    	<table width="800" cellspacing="1" cellpadding="4" bgcolor="#336699">
+    		<tr>
+    			<td>序号</td>
+    			<td>名称</td>
+    			<td>密码</td>
+    		</tr>
+    	</table>
+    </body>
+</html>

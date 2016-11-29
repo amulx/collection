@@ -1,0 +1,33 @@
+/*detail button css start*/
+.button{
+    width: 50px;line-height: 20px;text-align: center;color: #fff;
+    text-shadow:1px 1px 1px #333;cursor: pointer;
+    border-radius: 5px;margin:0 20px 0 0;position: relative;overflow: hidden;
+}
+.button:hover{color: #f6a828;}
+.button:nth-child(6n){
+    margin-right: 0;
+}
+.button.gray{
+    color: #8c96a0;text-shadow:1px 1px 1px #fff;border:1px solid #dce1e6;
+    box-shadow: 0 1px 2px #fff inset,0 -1px 0 #a8abae inset;
+    background: -webkit-linear-gradient(top,#f2f3f7,#e4e8ec);
+    background: -moz-linear-gradient(top,#f2f3f7,#e4e8ec);
+    background: linear-gradient(top,#f2f3f7,#e4e8ec);
+}
+.closeWindow{width:14px;height:14px;float: right; background: url("../images/close.png") no-repeat;
+    padding: 0px;margin: 0px; cursor: pointer;}
+/*detail button css end*/
+
+/*detail layout css start*/
+.black_overlay{display: none;position: absolute;top: 0%;left: 0%;width: 100%;height: 100%;
+    background-color: black;z-index:1001;-moz-opacity: 0.8;opacity:0.6;filter: alpha(opacity=80);}
+.white_content {display: none;position: absolute;top: 15%;left: 28%;width: 45%;height: auto;
+    border: 2px solid orange;background-color: white;z-index:1002;overflow: auto;}
+/*detail layout css end*/
+
+.order_detail_table{border: 1px solid;}
+#main_table{table-layout: fixed;margin: 0 auto !important;text-align: center;}
+.other{display: none;}
+.account{display: none;}
+.items_table{text-align: center;}

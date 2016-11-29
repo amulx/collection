@@ -1,0 +1,137 @@
+Xiucai\StoreBundle\Entity\XcConference:
+    type: entity
+    table: xc_conference
+    indexes:
+        i_s_time:
+            columns:
+                - schedule_time
+        i_status:
+            columns:
+                - conference_status
+    id:
+        id:
+            type: bigint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        createTime:
+            type: datetime
+            nullable: true
+            comment: 记录创建时间
+            column: create_time
+        modifyTime:
+            type: datetime
+            nullable: true
+            comment: 记录修改时间
+            column: modify_time
+        title:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: '直播课程标题（等于*_live_course表的title）'
+        status:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '内容状态（参考*_content_status表）'
+        conferenceStatus:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '直播间当前状态（参考*_conference_status表）'
+            column: conference_status
+        password:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 进入直播间的密码，保留字段
+        maxAttendee:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 直播间容纳的最大人数
+            column: max_attendee
+        scheduleTime:
+            type: datetime
+            nullable: true
+            comment: '直播预定开始时间（等于*_live_course表的schedule_time）'
+            column: schedule_time
+        duration:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: '直播时长，以分钟为单位（=*_live_course表的duration）'
+        startTime:
+            type: datetime
+            nullable: true
+            comment: 直播开始时间，保留字段
+            column: start_time
+        endTime:
+            type: datetime
+            nullable: true
+            comment: 直播结束时间，保留字段
+            column: end_time
+        roomType:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: '直播间的类型，当前保留值为4（参考*_room_type表）'
+            column: room_type
+        privacy:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '直播间的隐私状态（参考*_conference_privacy表）'
+        roomToken:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 直播间的唯一标识符，创建直播间时得到此token
+            column: room_token
+        roomUrl:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 直播间的链接地址，保留字段
+            column: room_url
+        isRecord:
+            type: smallint
+            nullable: true
+            unsigned: false
+            comment: 是否需要录制，保留字段
+            column: is_record
+        recordUrl:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 录制视频的链接地址，保留字段
+            column: record_url
+        numAttendee:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 实际进入直播间人数
+            column: num_attendee
+        videoProtocol:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '音视频传输协议（0 - RTMP_P2P, 1 - P2P_RTMP, 2 - ONLY_RTMP, 3 - ONLY_P2P ）'
+            column: video_protocol
+        customStatus:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 自定义状态，保留字段
+            column: custom_status
+    lifecycleCallbacks: {  }

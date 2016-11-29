@@ -1,0 +1,13 @@
+#service_homepage:
+#    path:     /service/hello/{name}
+#    defaults: { _controller: ServiceBundle:Default:index }
+
+webservice_service:
+    resource: "@ServiceBundle/Resources/config/webservice.yml"
+    prefix:   /
+
+
+#评论管理模块
+ServiceBundle_comment:
+    resource: "routing/comment.yml"
+    prefix: /comment

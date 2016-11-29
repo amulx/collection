@@ -1,0 +1,27 @@
+Xiucai\StoreBundle\Entity\XcCareerTitle:
+    type: entity
+    table: xc_career_title
+    id:
+        titleId:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: 'title ID'
+            id: true
+            column: title_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        titleName:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: 身份名称
+            column: title_name
+        createTime:
+            type: datetime
+            nullable: true
+            comment: 创建时间
+            column: create_time
+    lifecycleCallbacks: {  }

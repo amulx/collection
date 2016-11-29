@@ -1,0 +1,50 @@
+.index_banner{height:auto; border:1px;}
+.index_arrow{width:1200px; margin:0 auto; text-align:center; padding-bottom: 100px;}
+
+.index_zhibo{width:1000px; margin:0 auto; padding:45px 0 10px 0;position: relative;}
+.index_zhibo div.zhibo1 div h1{height:30px; font-size:18px; color:#8e8e8e; font-weight: normal;}
+.index_zhibo div.zhibo1 .wr { float: right;}
+.index_zhibo div.zhibo1 .wr a{ font-size:14px; color:#8e8e8e;}
+.index_zhibo ul{padding-top:24px; float:left;clear: both;}
+.index_zhibo ul li{float:left; padding-right:35px;}
+.index_zhibo ul li.last{padding-right:0px;}
+.zhibo_div{width:310px;position: relative;}
+.zhibo_div .zhibo_bg{position:absolute; width:310px; height:215px; background-color: #000000;opacity:0.5;filter:alpha(opacity=50); display: none;}
+.zhibo_div .zhibo_bg_word{position:absolute; width:310px; height:215px; font-size: 18px; text-align: center; vertical-align: middle; display: none;color: #D09662; line-height: 215px;}
+.zhibo_div .zhibo_bg a{color: #D09662; font-size: 18px;}
+.index_zhibo .div1{ padding:15px 0 30px 0;font-family: '宋体'; font-size: 12px;}
+
+.go_zhibo{position: absolute; width:100%; height: 30px;  margin:0 auto; left: 0px;bottom:0px;font-size: 16px; color: #FFFFFF; text-align: left; cursor: pointer;background-color: #000000;opacity:0.8;filter:alpha(opacity=80); line-height: 30px;color: #D09662;}
+.zhibo_div .go_zhibo img{float:left;padding-top: 8px;}
+.go_zhibo .v1{padding-left: 5px;}
+.go_zhibo .v1 .zhibo_time{margin-left: 25px; color: #FFFFFF;}
+
+
+.index_course_online{ width:1000px; margin:0 auto; padding:35px 0 24px 0;}
+.index_course_online div div h1{height:30px; font-size:18px; color:#8e8e8e;}
+.index_course_online div .wr {float:right;}
+.index_course_online div .wr a{ font-size:14px; color:#8e8e8e; }
+.index_course_online ul{padding-top:23px;float:left; clear: both;}
+.index_course_online ul li{float: left; padding-right:35px;}
+.index_course_online ul li p{}
+.index_course_online ul li .p_title{ padding: 15px 0 30px 0;font-family: '宋体'; font-size: 12px;}
+.index_course_online ul li.last{padding-right:0px;}
+.course_online_div{position: relative; width:310px;}
+.course_online_div .course_online_bg{position:absolute; width:310px; height:210px; background-color: #000000;opacity:0.5;filter:alpha(opacity=50); display: none; }
+.course_online_div .course_online_word{position:absolute; width:310px; height:210px; font-size: 18px; text-align: center; vertical-align: middle; display: none;color: #D09662; line-height: 215px;cursor: pointer;}
+.course_online_div .course_online_bg a{font-size: 18px;color: #D09662;}
+.course_online_div .div1{ width:100%; height:30px;margin:0 auto; position:absolute; left: 0px;bottom:0px; background-color: #000000;opacity:0.8;filter:alpha(opacity=80);}
+.course_online_div .div1 .div1_right{ width: 70px; height: 30px; line-height: 30px; padding-left: 5px;}
+.course_online_div .div1 .div1_right img{float: left;padding-top: 8px; padding-right: 4px;}
+.course_online_div .div1 .div1_right p{color: #FFFFFF;}
+
+.index_student {width:1000px; margin:0 auto; padding-bottom:120px;}
+.index_student h1{font-size:18px; color:#8e8e8e; padding:20px 0 20px 0;}
+.index_student li{ float: left; padding-right:50px;width:300px; height:300px;text-align: center;}
+.index_student li .title{ font-size: 24px;}
+.index_student li .content{ font-size: 14px; padding-top: 10px; width: 250px; text-align:left; margin: 0 auto;}
+.index_student li.last{padding-right:0px;}
+
+.f6{color:#FF6600;}
+.f20{color: #834C38;}
+.tc{margin-top: 45px;}

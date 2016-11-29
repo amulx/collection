@@ -1,0 +1,395 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>秀财网-点播课程管理-后台管理系统</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/common.css') }}" />
+    <link href="{{ asset('assets/css/wzl/wzl_tc.css') }}" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl/green/gui.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl/green/chapter_pop.css') }}" type="text/css" />
+    <script type="text/javascript" src="{{ asset('assets/js/jquery-1.7.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/admin_live_add.js') }}"></script>
+
+    <!--编辑器 -->
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/ueditor/themes/default/css/ueditor.css') }}" />
+    <script type="text/javascript" src="{{ asset('assets/ueditor/ueditor.config.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/ueditor/ueditor.all.js') }}"></script>
+    <!--编辑器 -->
+
+    <!--datepicker start-->
+    <link type="text/css" href="{{ asset('assets/datepicker/css/jquery-ui-1.8.17.custom.css') }}" rel="stylesheet" />
+    <link type="text/css" href="{{ asset('assets/datepicker/css/jquery-ui-timepicker-addon.css') }}" rel="stylesheet" />
+    <script type="text/javascript" src="{{ asset('assets/datepicker/js/jquery-ui-1.8.17.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/datepicker/js/jquery-ui-timepicker-addon.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/datepicker/js/jquery-ui-timepicker-zh-CN.js') }}"></script>
+    <!--datepicker end-->
+
+    <!--uploadify start-->
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/uploadify_img/uploadify/uploadify.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('assets/uploadify_img/jcrop/jquery.Jcrop.css') }}" />
+    <script type="text/javascript" src="{{ asset('assets/uploadify_img/uploadify/jquery.uploadify-3.1.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/uploadify_img/jcrop/jquery.Jcrop.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/uploadify_img/uploadify/uploadify-js.js') }}"></script>
+    <!--uploadify end-->
+
+    <style type="text/css">
+        tr{line-height: 30px;}
+        .remove_live_admin{padding-left: 20px;color: red;text-decoration: none;}
+        .select_two{margin-top: 10px;}
+        .tab_menu{border-collapse: collapse;text-align: center;font-family: "微软雅黑";}
+        .td_bg a{text-decoration: none !important;}
+        .td_bg span{color: #008ed0;}
+        .td_bg a:hover,.td_bg span:hover{color: #ee7c4a}
+        .td_bg_current a{color: #ee7c4a;}
+        .chapter_tab td{background-color: #cccccc;}
+        #live_detail_info,#live_video{display: none;}
+        .input{border: 1px solid #cbcbcb;height:30px;border-radius: 4px;font-family: "微软雅黑";}
+        .select{border: 1px solid #cbcbcb;height:30px;border-radius: 4px;font-family: "微软雅黑";width: 145px;}
+        .live_brief{width: 375px; height: 89px;border-radius: 4px;border:1px solid #cbcbcb;resize:both;font-family: "微软雅黑";}
+        #add_chapter_live{background-color: #ee7c4a;color: #FFFFFF;cursor: pointer}
+        .main_content_leftbg{width: 80% !important; margin: 0 auto; background: none !important;}
+    </style>
+    <script>
+        var liveChapter = {};
+        var addMembers = []; // 将要邀请的用户
+        {% if roomUser is not empty %}
+        {% for user in roomUser %}
+            addMembers.push("{{ user.email }}");
+        {% endfor %}
+        {% endif %}
+
+        var course_Live_admin = "{{ path('AdminBundle_Live_admin') }}";
+        var course_live_index = "{{ path('AdminBundle_Course_live') }}";
+        var course_ajax_category = "{{ path('AdminBundle_Course_ajax_category') }}";
+        var uploadUrl = "/assets/uploadify_img/upload.php?member_id={{ imgToken }}&w_max=698&h_max=343";
+
+        function setImagePreview() {
+            var docObj=document.getElementById("doc");
+            var imgObjPreview=document.getElementById("preview");
+            imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+            return true;
+        }
+
+        function setImagePreview2() {
+            var docObj=document.getElementById("doc2");
+            var imgObjPreview=document.getElementById("preview2");
+            imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+            return true;
+        }
+
+    </script>
+</head>
+<body>
+    <p style="text-indent: 1cm;line-height: 38px;height: 38px;text-align: left;">
+        课程管理 / 直播课程管理 / 添加直播
+    </p>
+    <div id="main_body">
+        <div class="main_content_rightbg">
+            <div class="main_content_leftbg">
+                <table class="tab_menu">
+                    <tr>
+                        <td class="td_bg td_bg_current"><a href="javascript:;" target-table="live_base_info">基本信息</a></td>
+                        <td class="td_bg "><a href="javascript:;" target-table="live_detail_info">高级信息</a></td>
+                        <td class="td_bg "><a href="javascript:;" target-table="live_video">直播间设置</a></td>
+                        <td width="70%"></td>
+                    </tr>
+                </table>
+                <form id="add_live_form" action="{{ path('AdminBundle_Live_add') }}" name="question" method="post"  enctype="multipart/form-data">
+                    <table id="live_base_info" width="98%" border="0" align=center cellpadding="2"
+                           cellspacing="1" bgcolor="#FFFFFF" class="border">
+                        <tr>
+                            <td align="right" width="30%">课程标题：</td>
+                            <td align="left" width="70%">
+                                <input maxlength="30" {% if enableEditor == 'enableFalse' %}readonly="readonly" {% endif %} type="text" class="input" name="live_title" id="live_title" value="{% if liveData is not empty %}{{ liveData.title }}{% endif %}" size="60">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">课程简介：</td>
+                            <td align="left" width="70%">
+                                <textarea maxlength="200" name="live_brief" id="live_brief" class="live_brief" name="brief">{% if liveData is not empty %}{{ liveData.brief }}{% endif %}</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">课程原价：</td>
+                            <td align="left" width="70%">
+                                <input {% if enableEditor == 'enableFalse' %}readonly="readonly" {% endif %} type="text" class="input" name="original_price" id="original_price" value="{% if liveData is not empty %}{{ liveData.originalPrice }}{% endif %}" size="22">
+                                <font color="gray">元</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">课程现价：</td>
+                            <td align="left" width="70%">
+                                <input {% if enableEditor == 'enableFalse' %}readonly="readonly" {% endif %} type="text" class="input" name="current_price" id="current_price" value="{% if liveData is not empty %}{{ liveData.currentPrice }}{% endif %}" size="22">
+                                <font color="gray">元</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">直播时间：</td>
+                            <td align="left" width="70%">
+                                <input  {% if enableEditor == 'enableFalse' %}disabled="disabled" {% endif %} type="text" id="live_start_time" name="live_start_time" class="ui_timepicker input" value="{% if liveData is not empty %}{{ liveData.scheduleTime|date("Y-m-d H:i:s") }}{% endif %}" size="22">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">课程主讲：</td>
+                            <td align="left" width="70%">
+                                <select {% if enableEditor == 'enableFalse' %}disabled="disabled" {% endif %} id="live_instructor" name="live_instructor" class="select" style="float: left; margin-right: 45px;">
+                                    <option value="">--请选择主讲--</option>
+                                    {% if liveTeacher is not empty %}
+                                        {% for teacher in liveTeacher %}
+                                            <option {% if liveData is not empty and liveData.instructorId == teacher.id %}selected="selected"{% endif %} value="{{ teacher.id }}">{{ teacher.name }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                                <input type="hidden" id="instructor_name" name="instructor_name" value="{% if liveInstructor is not empty %}{{ asset(liveInstructor.name) }}{% else %}匿名{% endif %}">
+                                <input type="hidden" id="instructor_avatar" name="instructor_avatar" value="{% if liveInstructor is not empty %}{{ asset(liveInstructor.avatar) }}{% else %}{{ asset('assets/img/people_heand.jpg') }}{% endif %}">
+                                <img id="live_instructor_avatar" width="100" height="100" src="{% if liveInstructor is not empty %}{{ asset(liveInstructor.avatar) }}{% else %}{{ asset('assets/img/people_heand.jpg') }}{% endif %}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">课程类别：</td>
+                            <td align="left" width="70%">
+                                <select id="parent_course_kind" name="parent_course_kind" class="select">
+                                    <option value="">--请选择类别--</option>
+                                    {% if courseCategory is not empty %}
+                                        {% for category in courseCategory %}
+                                            <option {% if (categoryParent is not empty and categoryParent.categoryId == category.categoryId) or (cCategory is not empty and cCategory.parentCategoryId == category.categoryId) %}selected="selected"{% endif %} value="{{ category.categoryId }}">{{ category.name }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select> <font color="gray">一级类</font><br>
+                                <select id="course_kind" name="course_kind" class="select select_two">
+                                    <option value="">--请选择类别--</option>
+                                    {% if categoryChild is not empty %}
+                                        {% for child in categoryChild %}
+                                            <option {% if categoryParent is empty and cCategory is not empty and cCategory.categoryId == child.categoryId %}selected="selected"{% endif %} value="{{ child.categoryId }}">{{ child.name }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select> <font color="gray">二级类</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">课程级别：</td>
+                            <td align="left" width="70%">
+                                <select id="live_level" name="live_level" class="select">
+                                    <option value="1" {% if liveData is not empty and liveData.courseLevel == 1 %}selected="selected" {% endif %}>初级</option>
+                                    <option value="2" {% if liveData is not empty and liveData.courseLevel == 2 %}selected="selected" {% endif %}>中级</option>
+                                    <option value="3" {% if liveData is not empty and liveData.courseLevel == 3 %}selected="selected" {% endif %}>高级</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">初始化预约人数：</td>
+                            <td align="left" width="70%">
+                                <input {% if enableEditor == 'enableFalse' %}readonly="readonly" {% endif %} type="text" class="input" name="reserve_init" id="reserve_init" value="{% if liveData is not empty %}{{ liveData.reserveInit }}{% endif %}" size="22">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">课程时长：</td>
+                            <td align="left" width="70%">
+                                <input {% if enableEditor == 'enableFalse' %}readonly="readonly" {% endif %} type="text" class="input" name="duration" id="duration" value="{% if liveData is not empty %}{{ liveData.duration }}{% endif %}" size="22">
+                                <font color="gray">分钟</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">课程标签：</td>
+                            <td align="left" width="70%">
+                                <input type="text" class="input" name="tags" id="tags" value="{% if liveData is not empty %}{{ liveData.tags }}{% endif %}" size="22">
+                                <font color="gray">多个标签用逗号分开如:(税务，税法)</font>
+                            </td>
+                        </tr>
+                        {% if liveData is not empty %}
+                            <tr>
+                                <td align="right" width="30%">回放地址：</td>
+                                <td align="left" width="70%">
+                                    <input type="text" class="input" name="record_url" id="record_url" value="{% if liveData is not empty %}{{ liveData.recordUrl }}{% endif %}" size="60">
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </table>
+                    <table id="live_detail_info" width="98%" border="0" align=center cellpadding="2"
+                           cellspacing="1" bgcolor="#FFFFFF" class="border">
+                        <tr>
+                            <td align="right" width="25%">课程描述：</td>
+                            <td align="left" width="75%">
+                                <!-- 加载编辑器的容器 -->
+                                <script id="container" name="content" type="text/plain">
+                                    {% if liveData is not empty and liveData.content is not empty %}
+                                        {{ liveData.content|raw }}
+                                    {% else %}
+                                        <h1>直播课介绍</h1>
+                                        <p></p>
+                                        <h1>课前思考</h1>
+                                        <p></p>
+                                    {% endif %}
+                                </script>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="25%">课程图片：</td>
+                            <td align="left" width="75%">
+                                <div id="up_pic" style="height: 40px;margin-bottom: 8px;">
+                                    <input type="file" name="img_url" id="doc" onchange="javascript:setImagePreview();">
+                                </div>
+                                <img id="preview" width="256" height="186" src="{% if liveData is not empty and liveData.imgUrl is not empty %}{{ asset(liveData.imgUrl) }}{% else %}{{ asset('assets/img/zhibo_desc.jpg') }}{% endif %}" class="img_preview">
+                                <font style="float: right; margin-right: 350px; margin-top: 40px;">
+                                    支持JPG、PNG、GIF<br>
+                                    图片尺寸： 256 × 186
+                                </font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="25%">课程banner：</td>
+                            <td align="left" width="75%">
+                                <div id="up_pic" style="height: 40px;margin-bottom: 8px;">
+                                    <input type="file" name="banner_url" id="doc2" onchange="javascript:setImagePreview2();">
+                                </div>
+                                <img id="preview2" width="698" height="343" src="{% if liveData is not empty and liveData.bannerUrl is not empty %}{{ asset(liveData.bannerUrl) }}{% else %}{{ asset('assets/img/introduce_index.jpg') }}{% endif %}" class="banner_preview">
+                                <font style="float: right; margin-top: 100px;">
+                                    支持JPG、PNG、GIF<br>
+                                    图片尺寸： 698 × 343
+                                </font>
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="live_video" width="98%" border="0" align=center cellpadding="2"
+                           cellspacing="1" bgcolor="#FFFFFF" class="border">
+                        <tr>
+                            <td align="right" width="30%">房间最多人数：</td>
+                            <td align="left" width="70%">
+                                <input type="text" class="input" name="max_attendee" id="max_attendee" value="{% if conference is not empty %}{{ conference.maxAttendee }}{% else %}{{ maxAttendee }}{% endif %}" size="22">
+                                <font color="gray">人</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">视频通讯协议：</td>
+                            <td align="left" width="70%">
+                                <select name="video_protocol" class="select select_two">
+                                    <option {% if conference is not empty and conference.videoProtocol == 0 %}selected="selected" {% endif %} value="0">RTMP_P2P</option>
+                                    <option {% if conference is not empty and conference.videoProtocol == 1 %}selected="selected" {% endif %} value="1">P2P_RTMP</option>
+                                    <option {% if conference is not empty and conference.videoProtocol == 2 %}selected="selected" {% endif %} value="2">ONLY_RTMP</option>
+                                    <option {% if conference is not empty and conference.videoProtocol == 3 %}selected="selected" {% endif %} value="3">ONLY_P2P</option>
+                                </select>
+                                <font style="float: right; margin: 9px 180px 9px 0px; color: grey;">
+                                    RTMP_P2P	双线，语音使用RTMP，视频使用P2P<br>
+                                    P2P_RTMP	双线，语音使用P2P，视频使用RTMP<br>
+                                    ONLY_RTMP	单线，视频/语音使用相同的RTMP（连接）<br>
+                                    ONLY_P2P	单线，视频/语音使用相同的P2P（连接）<br>
+                                </font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="30%">直播管理员：</td>
+                            <td align="left" width="70%">
+                                <input id="add_live_admin_email" {% if enableEditor == 'enableFalse' %}disabled="disabled" {% endif %} type="text" class="input" name="live_moderator" value="" size="22" placeholder="用户注册邮箱">
+                                <div id="add_live_admin_icon" style="float: right; margin: 0px 470px 9px 0px; color: grey;line-height: 30px;">
+                                    <img style="cursor: pointer" src="{{ asset('assets/img/add_con.jpg') }}" width="30" height="30" alt="添加">
+                                </div>
+                                <div id="show_admin_email">
+                                    {% if roomUser is not empty %}
+                                        {% for user in roomUser %}
+                                            <span>
+                                                <code>{{ user.email }}</code>
+                                                <a href="javascript:void(0);" class="remove_live_admin"
+                                                   style="color: red;text-decoration: none;font-weight: bold">X</a><br>
+                                            </span>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="tab_menu">
+                        <tr>
+                            <td width="20%"></td>
+                            <td>
+                                {% if liveData is not empty and liveData.confId is not empty %}
+                                    <span class="submit_bt w_bt_size" id="live_create_btn" style="margin-left: 150px;width: 120px;">
+                                        保存
+                                    </span>
+                                {% else %}
+                                <span class="submit_bt w_bt_size" id="live_submit_btn" style="margin-left: 120px;"> 保存</span>
+                                <span class="submit_bt w_bt_size" id="live_create_btn" style="margin-left: 20px;width: 120px;">
+                                        保存并创建直播
+                                </span>
+                                {% endif %}
+                                <span class="cancel_bt w_bt_size" id="cancel_create_btn"> 取消</span>
+                            </td>
+                            <td width="20%"></td>
+                        </tr>
+                    </table>
+                    <input type="hidden" id="live_status" name="live_status" value="">
+                    <input type="hidden" id="add_live_admin" name="add_live_admin" value="">
+                    <input type="hidden" id="live_id" name="live_id" value="{% if liveData.id is defined %}{{ liveData.id }}{% endif %}">
+                </form>
+            </div>
+        </div>
+        <ul class="main_end">
+            <li class="main_end_left left"></li>
+            <li class="main_end_right right"></li>
+        </ul>
+    </div>
+
+    <!--编辑视频信息 -->
+    {% if liveData is not empty %}
+        <div class="white_content2" style="width: 210px;">
+        <table width="100%">
+            <tr>
+                <td width="40%">ID：</td>
+                <td width="60%">{{ liveData.id }}</td>
+            </tr>
+            <tr>
+                <td>直播ID：</td>
+                <td>{% if conference is not empty %}{{ conference.id }}{% else %}--{% endif %}</td>
+            </tr>
+            <tr>
+                <td>roomToken：</td>
+                <td>{% if conference is not empty %}{{ conference.roomToken }}{% else %}--{% endif %}</td>
+            </tr>
+            <tr>
+                <td>最多人数：</td>
+                <td>{% if conference is not empty %}{{ conference.maxAttendee }}{% else %}--{% endif %}</td>
+            </tr>
+            <tr>
+                <td>视频协议：</td>
+                <td>
+                    {% if conference is not empty %}
+                        {% if conference.videoProtocol == 0 %}RTMP_P2P
+                        {% elseif conference.videoProtocol == 1 %}P2P_RTMP
+                        {% elseif conference.videoProtocol == 2 %}ONLY_RTMP
+                        {% elseif conference.videoProtocol == 3 %}ONLY_P2P
+                        {% else %}--
+                        {% endif %}
+                    {% else %}--
+                    {% endif %}</td>
+            </tr>
+            <tr>
+                <td>直播状态：</td>
+                <td><strong>{% if conference is not empty %}{{ conference.roomStatus|room_status }}{% else %}--{% endif %}</strong></td>
+            </tr>
+            <tr>
+                <td>直播时间：</td>
+                <td>{% if conference is not empty %}{{ conference.scheduleTime | date('Y-m-d H:i') }}{% else %}--{% endif %}</td>
+            </tr>
+            <tr>
+                <td>创建时间：</td>
+                <td>{{ liveData.createTime | date('Y-m-d H:i') }}</td>
+            </tr>
+            <tr>
+                <td>发布时间：</td>
+                <td>{{ liveData.modifyTime | date('Y-m-d H:i') }}</td>
+            </tr>
+            <tr>
+                <td>预约人数：</td>
+                <td>{{ liveData.reserveNum }}</td>
+            </tr>
+            <tr>
+                <td>参与人数：</td>
+                <td>{% if conference is not empty %}{{ conference.numAttendee }}{% else %}--{% endif %}</td>
+            </tr>
+            <tr>
+                <td>当前状态：</td>
+                <td><strong>{% if liveData.status == 4 %}已发布{% else %}未发布{% endif %}</strong></td>
+            </tr>
+        </table>
+    </div>
+    {% endif %}
+</body>
+</html>

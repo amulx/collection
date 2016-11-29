@@ -1,0 +1,26 @@
+{% extends 'PageBundle::layoutIndex.html.twig' %}
+{% block js_css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/payment.css') }}"/>
+    <script type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
+{% endblock %}
+{% block content %}
+    <style type="text/css">
+        .lesson_list{width:770px; margin:0 auto;}
+        .lesson_list h2{margin-bottom:50px; text-align:center;}
+        .lesson_list ul li{min-height:20px; margin-bottom:50px; padding-left:25px;}
+        .lesson_list ul li span{width:138px; height:30px; line-height:28px;}
+        .lesson_list ul li p{text-align:left; margin-top:14px;}
+    </style>
+    <div style="min-height: 500px; width: 1200px; margin: 0 auto;">
+        <div class="payment_process">
+            <ul>
+                <li>确认选课</li>
+                <li>支付</li>
+                <li style="width: 34%;">支付成功</li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+        <div style="font-size: 36px; padding: 80px 0 30px 0; text-align: center;">恭喜您已购买成功！</div>
+
+    </div>
+{% endblock %}

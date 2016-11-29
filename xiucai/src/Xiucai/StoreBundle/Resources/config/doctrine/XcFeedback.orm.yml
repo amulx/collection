@@ -1,0 +1,53 @@
+Xiucai\StoreBundle\Entity\XcFeedback:
+    type: entity
+    table: xc_feedback
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        memberId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: '用户ID（对应*_member的ID），当用户为匿名时为空'
+            column: member_id
+        email:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 邮件地址，当member_id有值时此字段为空
+        title:
+            type: string
+            nullable: true
+            length: 64
+            fixed: false
+            comment: 标题，保留字段
+        content:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: 反馈内容
+        type:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: 反馈类型，保留字段
+        createTime:
+            type: datetime
+            nullable: true
+            comment: 创建时间
+            column: create_time
+        status:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '用户状态（参考*_member_status表）'
+    lifecycleCallbacks: {  }

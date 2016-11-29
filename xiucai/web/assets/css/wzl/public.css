@@ -1,0 +1,21 @@
+.user_name{color:#f60;margin-right:5px}
+/*头部*/
+body{background:#f6f6f6}
+/*主内容 */
+.layout{width:960px;margin:0 auto}
+.layout .left{width:660px;float:left;margin-top:30px}
+.layout .right{width:280px;float:right;border:1px solid #ddd;margin-top:30px; background:#fff}
+
+/*分页*/
+.page{float:left;width:100%; text-align:right;margin:10px 0}
+.page a.pre,.page a.next{width:auto}
+.page a{ display:inline-block; border:1px solid #ddd;background:#fff;height:20px; line-height:20px;padding:0 10px;color:#999}
+.page a:hover,.page a.on{background:#44b5df;color:#fff}
+
+/*秀财推荐*/
+.recommnet {float:left;width:100%;margin-bottom:10px}
+.recommnet .title{border-bottom:1px solid #44b5df}
+.recommnet .title h3{background:url(../images/all.png) no-repeat -184px -88px;width:103px;height:37px;line-height:37px;text-align:center;color:#fff;font-size:14px}
+.recommnet li{float:left;width:150px;margin:10px 8px 0 7px; overflow:hidden; display:inline;}
+.recommnet a{font-size:14px;color:#666}
+.recommnet li{line-height:20px;color:#999;margin-top:20px;}

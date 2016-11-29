@@ -1,0 +1,6 @@
+.next,.pop_bg .con,.choose_bg .next{display:inline-block; width:145px; height:45px; line-height:45px; text-align:center; color:#fff; background:url(../images/nlogin/next_btn.gif) no-repeat;}
+.next{margin:25px 0px 100px 0px;}
+.pop_bg{width:312px; height:400px; position:absolute; top:50%; left:50%; margin-top:-200px; margin-left:-156px; background:url(../images/nlogin/pop_bg.png) no-repeat; display:none;}
+.pop_bg .con{position:absolute; left:80px; bottom:28px;}
+.pop_bg .res{position:absolute; right:40px; bottom:42px;}
+#target{max-width:289px;    /*IE7和Firefox用*/ width: expression(this.width > 289 ? 289: true);   /*IE6用*/max-height:289px;   /*IE7和Firefox用*/ width: expression(this.width > 289 ? 289: true);   /*IE6用*/}

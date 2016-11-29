@@ -1,0 +1,37 @@
+Xiucai\StoreBundle\Entity\XcHitall:
+    type: entity
+    table: xc_hitall
+    id:
+        id:
+            type: bigint
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        contentId:
+            type: bigint
+            nullable: true
+            unsigned: true
+            comment: 所属对象的ID(先根据content_type查找到相应的表，再根据content_id对应表里的ID)
+            column: content_id
+        contentType:
+            type: smallint
+            nullable: true
+            unsigned: true
+            comment: '所属对象类型（对应*_content_type的ID）'
+            column: content_type
+        hit:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 实际点击数
+        hitMask:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: 点击数初始值（总点击数=hit+hit_mask）
+            column: hit_mask
+    lifecycleCallbacks: {  }

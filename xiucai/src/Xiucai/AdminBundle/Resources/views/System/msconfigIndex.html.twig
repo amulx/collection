@@ -1,0 +1,246 @@
+    <!--datepicker start-->
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl/green/gui.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/wzl/styles.css') }}" />
+    <script src="{{ asset('assets/js/wzl/jquery-1.7.2.min.js') }}"></script>
+
+    <!--弹窗-->
+    <!--时间-->
+    <script type="text/javascript" src="{{ asset('assets/My97DatePicker/WdatePicker.js') }}"></script>
+    <style>
+        .p_top{text-align: center;width: 100%;height:70px;border: 1px solid #cbcbcb}
+        .w1{float: left;text-align: left;line-height: 70px;width: 310px;}
+        .ml{margin-left: 20%}
+        .wl input{width: 200px;}
+        .content_input{text-align: center;border:0;background:transparent;width: 260px;}
+    </style>
+    <script type="text/javascript">
+        function searchAll(){
+            $('#page').val(1);
+            var myForm = document.getElementById('searchForm');
+            myForm.action = '{{ path('AdminBundle_System_permission') }}';
+            myForm.submit();
+        }
+
+        function msconfigAdd(){
+            var key = $('#key').val();
+            var val = $('#val').val();
+            key = key.replace(/(^\s*)|(\s*$)/g, "");
+            val = val.replace(/(^\s*)|(\s*$)/g, "");
+            if(key.length <= 0)
+            {
+                alert('参数名不能为空！');
+                return;
+            }
+            if(val.length <= 0)
+            {
+                alert('参数值不能为空！');
+                return;
+            }
+            $.post('{{ path('AdminBundle_System_msconfigAdd') }}',{'key':key, 'val':val},function(data){
+                if(data == 'ok'){
+                    clearAll();
+                    window.location.reload();
+                }else if(data == 'redo'){
+                    alert('已存在该参数名，请重新输入！');
+                    return false;
+                }else{
+                    alert('添加失败！');
+                    return false;
+                }
+            });
+        }
+        function msconfigEdit(id){
+            var pname = $('#pname'+id).html();
+            var pval  = $('#pval'+id).html();
+            $('#key').val(pname);
+            $('#val').val(pval);
+            $('#oid').val(id);
+        }
+
+        function msconfigUpdate(){
+            var key = $('#key').val();
+            var val = $('#val').val();
+            var oid = $('#oid').val();
+            if(oid){
+                key = key.replace(/(^\s*)|(\s*$)/g, "");
+                val = val.replace(/(^\s*)|(\s*$)/g, "");
+                if(key.length <= 0)
+                {
+                    alert('参数名不能为空！');
+                    return;
+                }
+                if(val.length <= 0)
+                {
+                    alert('参数值不能为空！');
+                    return;
+                }
+                $.post('{{ path('AdminBundle_System_msconfigUpdate') }}',{'oid':oid ,'key':key, 'val':val},function(data){
+                    if(data == 'ok'){
+                        clearAll();
+                       $('#pname'+oid).html(key);
+                       $('#pval'+oid).html(val);
+                       // window.location.reload();
+                    }else if(data == 'redo'){
+                        alert('已存在该参数名，请重新输入！');
+                        return false;
+                    }else{
+                        alert('添加失败！');
+                        return false;
+                    }
+                });
+            }else{
+                alert('请选择你要编辑的参数！');
+            }
+
+        }
+        function clearAll(id){
+            $('#key').val('');
+            $('#val').val('');
+            $('#oid').val('');
+        }
+        function checkAll(){
+            var checkid   = document.getElementById("checkAll");
+            var checkname = document.getElementsByName('ck');
+            if (checkid.checked)
+            {
+                for(var i = 0; i < checkname.length; i++)
+                    checkname[i].checked = true;
+            }else{
+                for(var i = 0; i < checkname.length; i++)
+                    checkname[i].checked = false;
+            }
+        }
+
+        function msconfigDele(id){
+            if (confirm("真的要删除吗？")){
+                $.post('{{ path('AdminBundle_System_msconfigDele') }}',{'id':id},function(data){
+                    if( data != 'ok'){
+                        alert('删除失败！');
+                        return false;
+                    }else{
+                        alert('删除成功！');
+                        window.location.reload();
+                    }
+                });
+            }else{
+                return false;
+            }
+        }
+        function removeAll()
+        {
+            var ary='';
+            var Ids=document.getElementsByName('ck');
+            for(var s=0;s<Ids.length;s++)
+            {
+                if(Ids[s].checked)
+                {
+                    ary+=Ids[s].value+',';
+                }
+            }
+            if(ary.length<=0)
+            {
+                alert('请选择至少一条数据')
+                return false;
+            }else{
+                $.post('{{path('AdminBundle_System_msconfigRemove')}}',{'Ids' : encodeURIComponent(ary)},function (data){
+                            if(data == 'no')
+                            {
+                                alert('删除发生错误！');
+                            }else{
+                                alert('删除成功！');
+                                window.location.reload();
+                            }
+                        }
+                );
+            }
+        };
+
+
+
+    </script>
+    <div id="main_body">
+        <ul class="main_top">
+            <li class="main_top_left left">
+                <strong>
+                    系统管理--系统配置--网站参数配置
+                </strong>
+            </li>
+            <li class="main_top_right right">
+            </li>
+        </ul>
+        <div class="main_content_rightbg">
+            <div class="main_content_leftbg">
+                <form id="searchForm" action="" method="get" name="searchForm" onsubmit="return checkForm();">
+                    <input type="hidden" id="page" name="page" value="{{ parameter.page }}">
+                    <input type="hidden" id="oid" name="oid" value="">
+                    <table  width="98%" border="0" align=center cellpadding="2" cellspacing="1" bgcolor="#FFFFFF" class="border">
+                        <tr>
+                            <td align=center>
+                                <div class="p_top">
+                                    <ul>
+                                        <li class="w1 ml">
+                                            <span>参数名：</span>
+                                            <input type="text" name="key" id="key" value="">
+                                        </li>
+                                        <li class="w1">
+                                            <span>参数值：</span>
+                                            <input type="text" name="val" id="val" value="">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <input type="button" onclick="msconfigAdd()" value="添加">
+                                <input type="button" onclick="msconfigUpdate()" value="更新" style="margin-left: 30px;">
+                                <input type="button" onclick="clearAll()" value="清空" style="margin-left: 30px;">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <table width="98%" border="0" align=center cellpadding="2" cellspacing="1" bgcolor="#FFFFFF" class="border table_content">
+                    <thead>
+                    <th align="center" width="5%">
+                        <input type='checkbox' id='checkAll' name='checkAll' onclick="checkAll()">
+                    </th>
+                    <th align="center" width="30%">参数名</th>
+                    <th align="center" width="55%">参数值</th>
+                    <th align="center" width="10%">操作</th>
+                    </thead>
+                    {% if(odata) %}
+                        {% for o in odata %}
+                            <tr>
+                                <td align="center">
+                                    <input type="checkbox" name='ck' value="{{o.id}}" />
+                                </td>
+                                <td align="center">
+                                    <div id="pname{{ o.id }}">{{ o.key}}</div>
+                                </td>
+                                <td align="center">
+                                    <div id="pval{{ o.id }}">{{ o.value }}</div>
+                                </td>
+                                <td align="center">
+                                    <a href="javascript:void(0)" onclick="msconfigEdit({{ o.id }})">编辑</a>|
+                                    <a href="javascript:;" onclick="msconfigDele({{ o.id }})">删除</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    <tr>
+                        <td align="center"><input type="button" class="delete" value="删除所选" onclick="removeAll()"></td>
+                        <td colspan='10'></td>
+                    </tr>
+                    <tr>
+                        <td id="page" colspan="11" style="text-align: center">
+                            {{ pages | raw }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <ul class="main_end">
+            <li class="main_end_left left"></li>
+            <li class="main_end_right right"></li>
+        </ul>
+    </div>

@@ -1,0 +1,18 @@
+<article class="regFinsh">
+    <h1>恭喜您，注册成功！</h1>
+    <div class="line"></div>
+    <div class="info">
+        欢迎您注册阿木电子商城，您的注册名是<span>{{ username }}</span>
+    </div>
+    <form action="{{ path('PageBundle_Page_index') }}" method="post" >
+        {#<input type="hidden" value="{{ memberInfo_array.memberId }}" name="memberId" />#}
+        {#<input type="hidden" value="{{ memberInfo_array.vendorId }}" name="vendorId" />#}
+        <input type="hidden" value="{{username }}" name="username" />
+        {#<input type="hidden" value="{{ memberInfo_array.email }}" name="email" />#}
+        {#<input type="hidden" value="{{ memberInfo_array.avatar }}" name="avatar" />#}
+        {#<input type="hidden" value="{{ memberInfo_array.vendorStatus }}" name="vendorStatus" />#}
+        <input type="submit" value="进入用户主页" class="Activation" />
+    </form>
+    <div class="clearfix"></div>
+    <div class="line" style="margin-top: 30px;"></div>
+</article>

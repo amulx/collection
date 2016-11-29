@@ -1,0 +1,37 @@
+Xiucai\StoreBundle\Entity\XcCityProvince:
+    type: entity
+    table: xc_city_province
+    id:
+        shengCode:
+            type: string
+            nullable: false
+            length: 36
+            fixed: false
+            comment: 省份编号
+            id: true
+            column: sheng_code
+            generator:
+                strategy: IDENTITY
+    fields:
+        shengName:
+            type: string
+            nullable: true
+            length: 60
+            fixed: false
+            comment: 省名
+            column: sheng_name
+        shengPinyin:
+            type: string
+            nullable: true
+            length: 90
+            fixed: false
+            comment: 省名拼写
+            column: sheng_pinyin
+        shortName:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            comment: 省份简称
+            column: short_name
+    lifecycleCallbacks: {  }
