@@ -1,0 +1,34 @@
+1、通过修改hosts文件来配置域名映射到本地
+
+	hosts文件位置：C:\Windows\System32\drivers\etc\hosts
+
+		添加多个域名：
+			127.0.0.1       localhost
+			127.0.0.1       www.333f.com
+
+
+2、D:\wamp\bin\apache\apache2.4.9\conf\httpd.conf的513行去掉注释
+	#Include conf/extra/httpd-vhosts.conf
+
+
+3、D:\wamp\bin\apache\apache2.4.9\conf\extra\httpd-vhosts.conf添加
+
+	<VirtualHost *:80>
+    		ServerAdmin webmaster@dummy-host2.example.com
+    		DocumentRoot "D:\wamp\www\xirui"
+    		ServerName www.xirui2.com
+    		ErrorLog "logs/dummy-host2.example.com-error.log"
+    		CustomLog "logs/dummy-host2.example.com-access.log" common
+	</VirtualHost>
+
+=================================================================================================
+1、打开apache的httpd.conf文件去掉mod_rewrite和#Include conf/extra/httpd-vhosts.conf的注释
+2、D:\wamp\bin\apache\apache2.4.9\conf\extra\httpd-vhosts.conf添加
+
+	<VirtualHost *:80>
+    		ServerAdmin webmaster@dummy-host2.example.com
+    		DocumentRoot "D:\wamp\www\xirui"
+    		ServerName www.xirui2.com
+    		ErrorLog "logs/dummy-host2.example.com-error.log"
+    		CustomLog "logs/dummy-host2.example.com-access.log" common
+	</VirtualHost>
