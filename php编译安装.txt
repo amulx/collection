@@ -1,0 +1,30 @@
+第一步：插件安装
+yum -y install libxml2 libxml2-devel curl-devel libjpeg-turbo-devel libpng-devel
+
+tar -zxvf freetype-2.1.10.tar.gz
+tar -zxvf jpegsrc.v6b.tar.gz  //新建usr/local/man/man1/cjpeg.1
+tar -zxvf libevent-1.4.14b.tar.gz
+tar -zxvf libiconv-1.13.1.tar.gz
+tar -zxvf libmcrypt-2.5.8.tar.gz
+tar -zxvf libpng-1.2.50.tar.gz
+
+
+make ZEND_EXTRA_LIBS='-liconv'
+ln -s /usr/local/lib/libiconv.so.2 /usr/lib64/
+
+
+第二步：编译参数
+./configure --prefix=/alidata/server/php --enable-opcache --with-config-file-path=/alidata/server/php/etc --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --enable-fpm --enable-fastcgi --enable-static --enable-inline-optimization --enable-sockets --enable-wddx --enable-zip --enable-calendar --enable-bcmath --enable-soap --with-zlib --with-iconv --with-gd --with-xmlrpc --enable-mbstring --without-sqlite --with-curl --enable-ftp --with-mcrypt --with-freetype-dir=/home/chenamu/soft/freetype.2.1.10 --with-jpeg-dir=/home/chenamu/soft/jpeg.6 --with-png-dir=/home/chenamu/soft/libpng.1.2.50 --disable-ipv6 --disable-debug --with-openssl --disable-maintainer-zts --disable-safe-mode --enable-fileinfo --with-apxs2=/usr/local/apache2/bin/apxs --with-libxml-dir=/usr/
+
+
+cp php-fpm.conf.default  php-fpm.conf
+
+
+
+第三步：添加扩展
+[Zend Guard Loader]
+zend_extension="/alidata/server/php/lib/php/extensions/no-debug-non-zts-20131226/ZendGuardLoader.so"
+zend_loader.enable=1
+zend_loader.disable_licensing=0
+zend_loader.obfuscation_level_support=3
+zend_loader.license_path=/alidata/www/b2b2c/config/developer.zl
