@@ -1,0 +1,128 @@
+cd mysql
+cd bin
+mysqld --install    =================  mysqld --instal wmysql   安装
+net start mysql    启动
+services.msc       查看服务项
+mysqld --remove     删除mysql
+
+mysql -uroot 登录    mysql -hlocalhost -uroot -p123
+退出 \q     quit       exit;
+select version();查看版本号
+select database();  当前使用的数据库
+select current_user();当前登录用户   select user();
+select curdate();当前日期
+select curtime();当前时间
+select now();
+select current_timestamp(),now();
+
+use mysql;使用mysql数据库
+show databases;显示当前有多少个数据库
+show create database db_name;
+show variables like 'char%';
+set names utf8;
+show charset;
+show engines;  //myisam   engine=innodb default charset=gbk;
+SQLyog   图形工具
+
+建库语句
+
+第三课时：mysql数据库配置文件my.ini文件和数据库操作
+（1）数据库的建立脚本常用三种方法
+create database db;
+create database oa default character set utf8;
+create database if not exists aaa defalut character ser utf8;
+drop database db;
+ -- 查看建立数据库
+show create database mysql;
+create database `db`;反引号是指最佳兼容方式
+
+--单行注释
+/*
+	多行注释
+*/
+--建立数据库
+drop database if exists `abc`  删除数据库
+
+/*
+     my.ini（window配置文件）文件 
+     my.conf(linux mysql配置文件)    配置文件
+*/
+MySQL数据库手动安装 配置My.ini文件   http://www.tuicool.com/articles/qIFv6jr
+数据类型
+create database amu;
+create table t (
+	id int(11) not null auto_increatement,
+	id int(3) unsigned zeerofill auto_increment,
+	age int(3) default null,
+	primary key(id)
+)engine=myisam default charset=utf8;
+insert into stu(name) values ('jack')
+权限表的创建
+create database rabc;
+use rabc;
+CREATE table `cs_privilege`(
+	id int(11) not null AUTO_INCREMENT,
+	pri_name varchar(20) default null,
+	mname varchar(20) default null,
+	cname varchar(20) default null,
+	aname varchar(20) default null,
+	parentid int(9) default null,
+	PRIMARY key(id)
+)engine=INNODB default charset=utf8;
+CREATE table `cs_role`(
+	id int(11) not null AUTO_INCREMENT,
+	rolename varchar(20) default null,
+	pri_id_list varchar(60) default null,
+	PRIMARY key(id)
+)engine=INNODB default charset=utf8;
+create table `cs_admin`(
+	id int(11) not null AUTO_INCREMENT,
+	username varchar(20) default null,
+	password varchar(32) default null,
+	roleid int(11) default null,
+	PRIMARY key (id)
+)engine=INNODB default charset=utf8;
+
+
+数据表操作和外键约束
+SELECT concat(mname,"/",cname,"/",aname) url from udb_privilege;udb_admin;
+
+
+use udb12349
+SELECT concat(mname,"/",cname,"/",aname) url from udb_privilege;udb_admin;
+--查看表引擎
+SHOW engines;
+use db;
+/*建立学生表是，建立的唯一约束，建立主键约束*/
+create table student(
+	id int unsigned AUTO_INCREMENT,
+	name varchar(30) not null unique,
+	age TINYINT UNSIGNED,
+	tid int UNSIGNED,
+	PRIMARY key(id)
+)engine=INNODB default charset=utf8;
+desc student;
+insert into student values(null,'张三',28);
+insert into student values(null,'张三',22);
+drop table student;
+alter table student add constraint uk unique (name);
+alter table `db`.`student` drop index `name`;
+alter table `db`.`student` drop index uk;
+create table teacher(
+	id int UNSIGNED AUTO_INCREMENT PRIMARY key,
+	name varchar(30) not null
+)engine=inndb default charset=utf8;
+--增加外键
+alter table student add constraint fk foreign key (tid) REFERENCES teacher(id);
+alter table student add constraint fk foreign key (tid) REFERENCES teacher(id) on DELETE set null;
+alter table student add constraint fk foreign key (tid) REFERENCES teacher(id) on DELETE cascade;
+alter table student add constraint fk foreign key (tid) REFERENCES teacher(id) on DELETE set null on update cascade;
+--删除外键
+alter table student drop foreign key fk;
+ALTER table student DROP index fk;
+INSERT into teacher values(null,'李老师'),(null,'赵老师');
+insert into student values(null,'学生',18,3);
+--删除
+DELETE from teacher where id=3;
+update student set tid=3 where id in(3,4);
+SELECT * from teacher;
